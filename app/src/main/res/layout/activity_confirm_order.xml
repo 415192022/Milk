@@ -1,0 +1,367 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/bg"
+    android:clipToPadding="false"
+    android:fitsSystemWindows="true"
+    android:orientation="vertical">
+
+    <include layout="@layout/head_view" />
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/lineBottom"
+        android:layout_below="@+id/root_title">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/dip_40"
+                android:layout_marginTop="@dimen/dip_10"
+                android:background="@color/white">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:drawableLeft="@mipmap/img_line_green"
+                    android:drawablePadding="@dimen/dip_5"
+                    android:gravity="center_vertical"
+                    android:paddingLeft="@dimen/dip_10"
+                    android:text="@string/consignee_info"
+                    android:textColor="@color/titleColor" />
+
+                <!--<TextView-->
+                <!--android:id="@+id/txtEditConsignee"-->
+                <!--android:layout_width="wrap_content"-->
+                <!--android:layout_height="match_parent"-->
+                <!--android:layout_alignParentRight="true"-->
+                <!--android:layout_centerVertical="true"-->
+                <!--android:gravity="center_vertical"-->
+                <!--android:paddingLeft="@dimen/dip_15"-->
+                <!--android:paddingRight="@dimen/dip_15"-->
+                <!--android:text="修改"-->
+                <!--android:textColor="@color/titleColor"-->
+                <!--android:textSize="@dimen/text_size_15" />-->
+
+            </RelativeLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/dip_1"
+                android:background="@color/bg" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/dip_36"
+                android:background="@color/white"
+                android:orientation="horizontal"
+                android:paddingTop="@dimen/dip_5">
+
+                <TextView
+                    android:id="@+id/txtConsignee"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:gravity="center_vertical"
+                    android:paddingLeft="@dimen/dip_30"
+                    android:paddingRight="@dimen/dip_15"
+                    android:text="@string/consigneeSymbol"
+                    android:textColor="@color/titleColor"
+                    android:textSize="@dimen/text_size_15" />
+
+                <TextView
+                    android:id="@+id/editConsignee"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:gravity="center_vertical"
+                    android:paddingRight="@dimen/dip_15"
+                    android:text="李华"
+                    android:textColor="@color/titleColor"
+                    android:textSize="@dimen/text_size_15" />
+            </LinearLayout>
+
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/dip_36"
+                android:background="@color/white"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/txtPhone"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:gravity="center_vertical"
+                    android:paddingLeft="@dimen/dip_30"
+                    android:paddingRight="@dimen/dip_15"
+                    android:text="@string/phoneSymbol"
+                    android:textColor="@color/titleColor"
+                    android:textSize="@dimen/text_size_15" />
+
+                <TextView
+                    android:id="@+id/editPhone"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:gravity="center_vertical"
+                    android:inputType="phone"
+                    android:maxLength="11"
+                    android:paddingRight="@dimen/dip_15"
+                    android:text="13072762831"
+                    android:textColor="@color/titleColor"
+                    android:textSize="@dimen/text_size_15" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/white"
+                android:orientation="horizontal"
+                android:paddingBottom="@dimen/dip_5">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:paddingBottom="@dimen/dip_7"
+                    android:paddingLeft="@dimen/dip_30"
+                    android:paddingRight="@dimen/dip_15"
+                    android:paddingTop="@dimen/dip_7"
+                    android:text="@string/receiptAddressSymbol"
+                    android:textColor="@color/titleColor"
+                    android:textSize="@dimen/text_size_15" />
+
+                <TextView
+                    android:id="@+id/txtAddress"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:paddingBottom="@dimen/dip_7"
+                    android:paddingRight="@dimen/dip_15"
+                    android:paddingTop="@dimen/dip_7"
+                    android:text="上海上海市静安区虹桥路100号"
+                    android:textColor="@color/titleColor"
+                    android:textSize="@dimen/text_size_15" />
+
+            </LinearLayout>
+
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/dip_40"
+                android:layout_marginTop="@dimen/dip_10"
+                android:background="@color/white"
+                android:drawableLeft="@mipmap/img_line_green"
+                android:drawablePadding="@dimen/dip_5"
+                android:gravity="center_vertical"
+                android:paddingLeft="@dimen/dip_10"
+                android:text="@string/goodsInfo"
+                android:textColor="@color/titleColor" />
+
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/dip_1"
+                android:background="@color/white">
+
+                <ImageView
+                    android:id="@+id/imgGoodsPic"
+                    android:layout_width="@dimen/dip_90"
+                    android:layout_height="@dimen/dip_90"
+                    android:layout_below="@+id/lineOne"
+                    android:layout_marginLeft="@dimen/dip_10"
+                    android:src="@mipmap/img_test" />
+
+                <TextView
+                    android:id="@+id/txtGoodsName"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/lineOne"
+                    android:layout_marginLeft="@dimen/dip_5"
+                    android:layout_marginRight="@dimen/dip_10"
+                    android:layout_marginTop="@dimen/dip_10"
+                    android:layout_toRightOf="@+id/imgGoodsPic"
+                    android:text="【新品上市】百岁山矿泉水348ml*24瓶整箱 x1"
+                    android:textColor="@color/titleColor"
+                    android:textSize="@dimen/text_size_14" />
+
+                <TextView
+                    android:id="@+id/txtShopPrice"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/txtGoodsName"
+                    android:layout_marginLeft="@dimen/dip_5"
+                    android:layout_marginTop="@dimen/dip_7"
+                    android:layout_toRightOf="@+id/imgGoodsPic"
+                    android:text="￥169.00"
+                    android:textColor="@color/titleColor"
+                    android:textSize="@dimen/text_size_14" />
+
+                <TextView
+                    android:id="@+id/txtMarketPrice"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/txtGoodsName"
+                    android:layout_marginLeft="@dimen/dip_5"
+                    android:layout_marginTop="@dimen/dip_7"
+                    android:layout_toRightOf="@+id/txtShopPrice"
+                    android:text="￥169.00"
+                    android:textColor="@color/lineColor"
+                    android:textSize="@dimen/text_size_12" />
+
+                <TextView
+                    android:id="@+id/txtGoodsAttr"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:layout_below="@+id/txtGoodsName"
+                    android:layout_marginLeft="@dimen/dip_5"
+                    android:layout_marginRight="@dimen/dip_10"
+                    android:layout_marginTop="@dimen/dip_7"
+                    android:text="全脂250ml * 24"
+                    android:textColor="@color/lineColor"
+                    android:textSize="@dimen/text_size_14" />
+
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/dip_50"
+                android:layout_marginTop="@dimen/dip_1"
+                android:background="@color/white"
+                android:paddingLeft="@dimen/dip_30"
+                android:paddingRight="@dimen/dip_10">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:gravity="center_vertical"
+                    android:text="@string/expressFree"
+                    android:textColor="@color/titleColor"
+                    android:textSize="@dimen/text_size_14" />
+
+                <TextView
+                    android:id="@+id/txtExpress"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_alignParentRight="true"
+                    android:gravity="center_vertical"
+                    android:text="¥ 0.00"
+                    android:textColor="@color/titleColor"
+                    android:textSize="@dimen/text_size_14" />
+
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/dip_50"
+                android:layout_marginTop="@dimen/dip_1"
+                android:background="@color/white"
+                android:paddingLeft="@dimen/dip_30"
+                android:paddingRight="@dimen/dip_10">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:gravity="center_vertical"
+                    android:text="@string/priceTotal"
+                    android:textColor="@color/titleColor"
+                    android:textSize="@dimen/text_size_14" />
+
+                <TextView
+                    android:id="@+id/txtPrice"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_alignParentRight="true"
+                    android:gravity="center_vertical"
+                    android:text="¥ 199.00"
+                    android:textColor="@color/titleColor"
+                    android:textSize="@dimen/text_size_14" />
+
+            </RelativeLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/dip_50"
+                android:layout_marginTop="@dimen/dip_1"
+                android:background="@color/white"
+                android:orientation="horizontal"
+                android:paddingLeft="@dimen/dip_30"
+                android:paddingRight="@dimen/dip_10">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:gravity="center_vertical"
+                    android:text="@string/sellerNote"
+                    android:textColor="@color/titleColor"
+                    android:textSize="@dimen/text_size_14" />
+
+                <EditText
+                    android:id="@+id/txtNote"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:background="@null"
+                    android:gravity="center_vertical"
+                    android:hint="@string/mark_note_to_seller"
+                    android:paddingLeft="@dimen/dip_10"
+                    android:textColor="@color/titleColor"
+                    android:textSize="@dimen/text_size_14" />
+
+            </LinearLayout>
+        </LinearLayout>
+    </ScrollView>
+
+    <LinearLayout
+        android:id="@+id/lineBottom"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dip_40"
+        android:layout_alignParentBottom="true"
+        android:background="@color/white"
+        android:orientation="horizontal">
+
+        <RelativeLayout
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="2"
+            android:gravity="center">
+
+            <TextView
+                android:id="@+id/txtTotal"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center_vertical"
+                android:text="合计:"
+                android:textColor="@color/titleColor"
+                android:textSize="@dimen/text_size_15" />
+
+            <TextView
+                android:id="@+id/txtAllPrice"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_toRightOf="@+id/txtTotal"
+                android:gravity="center_vertical"
+                android:paddingLeft="@dimen/dip_5"
+                android:textColor="@color/colorPrimary"
+                android:textSize="@dimen/text_size_15"
+                android:textStyle="bold" />
+
+        </RelativeLayout>
+
+        <TextView
+            android:id="@+id/txtBuyIm"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:background="@color/colorPrimary"
+            android:gravity="center"
+            android:text="@string/buyIm"
+            android:textColor="@color/white"
+            android:textSize="@dimen/text_size_15" />
+
+    </LinearLayout>
+
+</RelativeLayout>

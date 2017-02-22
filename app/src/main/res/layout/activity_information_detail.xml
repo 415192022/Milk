@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white"
+    android:clipToPadding="false"
+    android:fitsSystemWindows="true"
+    android:orientation="vertical">
+
+    <include layout="@layout/head_view" />
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/txtTitle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="@dimen/dip_15"
+                android:text="粉红色的尽快发货是发的啥空间粉红色的"
+                android:textColor="@color/black"
+                android:textSize="@dimen/text_size_21"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/txtTime"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingLeft="@dimen/dip_15"
+                android:text="2017-01-05 14:34"
+                android:textColor="@color/lineColor"
+                android:textSize="@dimen/text_size_13" />
+
+            <TextView
+                android:lineSpacingExtra="@dimen/dip_3"
+                android:id="@+id/txtContent"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="@dimen/dip_15"
+                android:text="法规的健身粉红色丢分his的丰盛的发生的法规的伙食费会计房间是独立开发发生的发货房是发货单上发表的说法房间的首付款讲的是"
+                android:textColor="@color/titleColor"
+                android:textSize="@dimen/text_size_16" />
+
+        </LinearLayout>
+
+    </ScrollView>
+
+</LinearLayout>

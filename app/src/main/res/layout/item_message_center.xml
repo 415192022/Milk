@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="@dimen/dip_80"
+    android:background="@color/white">
+
+    <ImageView
+        android:id="@+id/imgMsgType"
+        android:layout_width="@dimen/dip_45"
+        android:layout_height="@dimen/dip_45"
+        android:layout_centerVertical="true"
+        android:paddingLeft="@dimen/dip_15"
+         />
+
+    <TextView
+        android:id="@+id/txtMsgType"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/dip_5"
+        android:layout_marginTop="@dimen/dip_20"
+        android:layout_toRightOf="@+id/imgMsgType"
+        android:textColor="@color/titleColor"
+        android:textSize="@dimen/text_size_16" />
+
+    <ImageView
+        android:id="@+id/imgRedPoint"
+        android:layout_width="@dimen/dip_10"
+        android:layout_height="@dimen/dip_10"
+        android:layout_marginLeft="@dimen/dip_5"
+        android:layout_marginTop="@dimen/dip_23"
+        android:layout_toRightOf="@+id/txtMsgType"
+         />
+
+    <TextView
+        android:id="@+id/txtTime"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBaseline="@+id/txtMsgType"
+        android:layout_alignParentRight="true"
+        android:layout_marginRight="@dimen/dip_15"
+        android:textColor="@color/lineColor"
+        android:textSize="@dimen/text_size_13" />
+
+    <TextView
+        android:id="@+id/txtMsgBrief"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/txtMsgType"
+        android:layout_marginLeft="@dimen/dip_5"
+        android:layout_marginRight="@dimen/dip_15"
+        android:layout_marginTop="@dimen/dip_7"
+        android:layout_toRightOf="@+id/imgMsgType"
+        android:ellipsize="end"
+        android:singleLine="true"
+        android:textColor="@color/lineColor"
+        android:textSize="@dimen/text_size_13" />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dip_1"
+        android:background="@color/lightGrey"
+        android:layout_alignParentBottom="true"/>
+
+</RelativeLayout>

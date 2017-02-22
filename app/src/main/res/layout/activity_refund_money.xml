@@ -1,0 +1,136 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fitsSystemWindows="true"
+    android:clipToPadding="false"
+    android:orientation="vertical"
+    android:background="@color/bg">
+
+    <include layout="@layout/head_view"/>
+
+    <RelativeLayout
+        android:id="@+id/reTitle"
+        android:layout_below="@+id/root_title"
+        android:padding="@dimen/dip_15"
+        android:layout_margin="@dimen/dip_10"
+        android:background="@drawable/bg_feed_back"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:drawablePadding="@dimen/dip_7"
+            android:drawableLeft="@mipmap/img_refund_point"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="@dimen/text_size_16"
+            android:textColor="@color/titleColor"
+            android:text="@string/buyer_applied"/>
+
+        <TextView
+            android:id="@+id/txtTimeOne"
+            android:gravity="center_vertical"
+            android:layout_alignParentRight="true"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="@dimen/text_size_12"
+            android:textColor="@color/lineColor"
+            android:text="08-20 14:47"/>
+
+        <View
+            android:id="@+id/lineOne"
+            android:layout_marginTop="@dimen/dip_10"
+            android:layout_below="@+id/txtTimeOne"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/dip_1"
+            android:background="@color/lightGrey"/>
+
+        <TextView
+            android:text="发起了退款申请, 货物状态: 未发货  原因:其他\n金额:  ¥199.00元"
+            android:layout_marginTop="@dimen/dip_10"
+            android:layout_below="@+id/lineOne"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textSize="@dimen/text_size_14"
+            android:textColor="@color/titleColor"/>
+
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_below="@+id/reTitle"
+        android:padding="@dimen/dip_15"
+        android:layout_margin="@dimen/dip_10"
+        android:background="@drawable/bg_feed_back"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:drawablePadding="@dimen/dip_7"
+            android:drawableLeft="@mipmap/img_point_green"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="@dimen/text_size_16"
+            android:textColor="@color/titleColor"
+            android:text="@string/wait_seller_deal"/>
+
+        <TextView
+            android:id="@+id/txtTimeTwo"
+            android:gravity="center_vertical"
+            android:layout_alignParentRight="true"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="@dimen/text_size_12"
+            android:textColor="@color/lineColor"
+            android:text="08-20 14:47"/>
+
+        <View
+            android:id="@+id/lineTwo"
+            android:layout_marginTop="@dimen/dip_10"
+            android:layout_below="@+id/txtTimeTwo"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/dip_1"
+            android:background="@color/lightGrey"/>
+
+        <TextView
+            android:id="@+id/txtSellerContent"
+            android:text="卖家同意或者在01天23小时17分内未处理, 系统将退款给您\n请勿相信任何人给您发来的可以退款的链接, 以免钱款被骗"
+            android:layout_marginTop="@dimen/dip_10"
+            android:layout_below="@+id/lineTwo"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textSize="@dimen/text_size_14"
+            android:textColor="@color/titleColor"/>
+
+        <View
+            android:id="@+id/lineThree"
+            android:layout_marginTop="@dimen/dip_10"
+            android:layout_below="@+id/txtSellerContent"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/dip_1"
+            android:background="@color/lightGrey"/>
+
+        <TextView
+            android:layout_marginBottom="@dimen/dip_5"
+            android:id="@+id/txtNumber"
+            android:text="编号: 123456789987654321"
+            android:layout_marginTop="@dimen/dip_15"
+            android:layout_below="@+id/lineThree"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textSize="@dimen/text_size_14"
+            android:textColor="@color/titleColor"/>
+
+    </RelativeLayout>
+
+    <TextView
+        android:id="@+id/txtReturnApply"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dip_40"
+        android:layout_alignParentBottom="true"
+        android:background="@color/white"
+        android:gravity="center"
+        android:text="@string/withdrawal_of_application"
+        android:textColor="@color/colorPrimary"
+        android:textSize="@dimen/text_size_18" />
+
+</RelativeLayout>

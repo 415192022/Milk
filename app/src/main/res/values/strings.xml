@@ -1,0 +1,221 @@
+<resources>
+    <string name="app_name">牛奶之家</string>
+    <string name="home">首页</string>
+    <string name="commodity">商品</string>
+    <string name="cart">购物车</string>
+    <string name="userCenter">我的</string>
+    <string name="loading">加载中...</string>
+
+    <!-- 首页 -->
+    <string name="roomTempMilk">常温牛奶</string>
+    <string name="lowTempMilk">低温牛奶</string>
+    <string name="childMilk">儿童牛奶</string>
+    <string name="oldMilk">老年牛奶</string>
+    <string name="adultMilk">成人牛奶</string>
+    <string name="mineralWater">矿泉水</string>
+    <string name="newProduct">新品</string>
+    <string name="homeActivity">活动</string>
+    <string name="expressNews">快报</string>
+    <string name="buyHome">买回家</string>
+    <string name="milkInformation">牛奶资讯</string>
+    <string name="search">搜索</string>
+    <string name="searchGoodsName">搜索商品名称</string>
+    <string name="hotSearch">热门搜索</string>
+    <string name="tips_for_user">尊敬的用户,您好,由于本平台\n主要给商务合作用户提供服务.如您需要下单,请在个人中心联系客服, 谢谢</string>
+    <string name="commentList">评论列表</string>
+
+
+    <!-- 商品分类 -->
+    <string name="commoditySort">商品分类</string>
+
+    <!-- 商品 -->
+    <string name="add_shopping_cart">加入购物车</string>
+    <string name="collection">收藏</string>
+    <string name="goodsComment">商品评价</string>
+    <string name="more">更多</string>
+    <string name="go_on_drag_see_detail">继续拖动,查看商品详情</string>
+    <string name="goodsDetail">商品详情</string>
+    <string name="goodsAttr">商品规格</string>
+    <string name="recommendGoods">推荐商品</string>
+    <string name="category">类别</string>
+    <string name="producingArea">产地</string>
+    <string name="characteristic">特性</string>
+    <string name="ingredient">配料</string>
+    <string name="net_content">净含量</string>
+    <string name="quality_guarantee_period">保质期</string>
+    <string name="reduceNumber">－</string>
+    <string name="addNumber">＋</string>
+    <string name="add_shopping_cart_success">添加成功,在购物车等亲</string>
+
+    <!-- 购物车 -->
+    <string name="goodsInfo">商品信息</string>
+    <string name="see_again_you_may_buy">再看看, 你可能还想买</string>
+
+    <!-- 个人中心 -->
+    <string name="empty"></string>
+    <string name="login_and_register">登录 / 注册</string>
+    <string name="wait_pay">待付款</string>
+    <string name="wait_receipt">待收货</string>
+    <string name="wait_comment">待评价</string>
+    <string name="publish_comment">发表评价</string>
+
+    <string name="return_goods_and_money">退货/退款</string>
+    <string name="all_order">全部订单</string>
+    <string name="receipt_address">收货地址</string>
+    <string name="feed_back">意见反馈</string>
+    <string name="mine_collection">我的收藏</string>
+    <string name="contactCustomerService">联系客服</string>
+    <string name="customer_phone_number">400-995-3333</string>
+    <string name="currentVersion">当前版本V1.0</string>
+    <string name="platformAudit">平台审核</string>
+
+    <!-- 设置 -->
+    <string name="setting">设置</string>
+    <string name="minePortrait">我的头像</string>
+    <string name="mineNickName">我的昵称</string>
+    <string name="mineCity">我的城市</string>
+    <string name="loginOut">退出登录</string>
+    <string name="whether_login_out">您确定要退出登录吗?</string>
+    <string name="nickName_support">昵称支持中英文, 数字, 下划线</string>
+    <string name="save">保存</string>
+    <string name="please_input_userName">请输入昵称</string>
+    <string name="city_select">城市选择</string>
+
+    <!-- 消息中心 -->
+    <string name="messageCenter">消息中心</string>
+    <string name="systemMsg">系统消息</string>
+    <string name="commentMsg">活动消息</string>
+
+    <!-- 登录注册 -->
+    <string name="login">登录</string>
+    <string name="register">注册</string>
+    <string name="forgetPwd">忘记密码</string>
+    <string name="next">下一步</string>
+    <string name="read_and_agree">我已阅读并同意</string>
+    <string name="user_ruler">\t用户条款</string>
+    <string name="complete_register_and_login">完成注册并登录</string>
+    <string name="please_set_login_pwd">请设置您的登录密码</string>
+    <string name="please_input_account">请输入手机号码/账号</string>
+    <string name="please_input_login_password">请输入登录密码</string>
+    <string name="please_input_phone_number">请输入手机号</string>
+    <string name="phone_number_not_correct">手机号输入不正确</string>
+    <string name="please_input_SMS_verification_code">请输入短信验证码</string>
+    <string name="click_and_get_verifyCode">点击获取</string>
+    <string name="password_require">6-20位,由组合字母、数字或符号</string>
+
+    <!-- 完善地址 -->
+    <string name="locate">定位</string>
+    <string name="currentArea">所在地区</string>
+    <string name="input_address">填写地址</string>
+    <string name="complete">完成</string>
+    <string name="consignee">收货人姓名</string>
+    <string name="phoneNumber">手机号码</string>
+    <string name="detailAddress">详细地址</string>
+    <string name="please_input_consignee">请输入收货人姓名</string>
+    <string name="please_input_detail_address">请输入详细地址</string>
+    <string name="please_locate_current_location">请定位您的当前位置</string>
+
+    <!-- 订单 -->
+    <string name="mine_order">我的订单</string>
+    <string name="allOrder">全部</string>
+    <string name="waitPay">待付款</string>
+    <string name="waitReceipt">待收货</string>
+    <string name="waiComment">待评价</string>
+    <string name="deleteOrder">删除订单</string>
+    <string name="viewLogistics">查看物流</string>
+    <string name="cancelOrder">取消订单</string>
+    <string name="confirmDetail">确认订单</string>
+    <string name="consignee_info">收货人信息</string>
+    <string name="consigneeSymbol">收货人:</string>
+    <string name="phoneSymbol">手机号:</string>
+    <string name="receiptAddressSymbol">收货地址: </string>
+    <string name="expressFree">快递运费: </string>
+    <string name="priceTotal">价格合计: </string>
+    <string name="sellerNote">卖家留言: </string>
+    <string name="mark_note_to_seller">写下对卖家的嘱咐</string>
+    <string name="payInfo">付款信息</string>
+    <string name="orderNumber">订单编号: </string>
+    <string name="aliPayTradeNumber">支付宝交易号: </string>
+    <string name="creationTime">创建时间: </string>
+    <string name="payTime">付款时间: </string>
+    <string name="releaseGoodsTime">发货时间: </string>
+    <string name="buyIm">立即购买</string>
+    <string name="payIm">立即支付</string>
+    <string name="refundDetail">退款详情</string>
+    <string name="refundSuccess">恭喜您, 退款成功!</string>
+    <string name="see_money_to_where">查看钱款去向 > </string>
+    <string name="refundMoney">退款金额</string>
+    <string name="refundReason">退款原因</string>
+    <string name="refundExplain">退款说明</string>
+    <string name="refundNumber">退款编号</string>
+    <string name="refundTime">退款时间</string>
+    <string name="logisticsDetail">物流详情</string>
+    <string name="logisticsInfo">物流信息: </string>
+    <string name="tradeSuccess">交易成功</string>
+    <string name="congratulations_trade_success">恭喜您, 交易成功!</string>
+    <string name="commentIm">立即评价</string>
+    <string name="orderDetail">订单详情</string>
+    <string name="see_more_buy_maybe">再看看, 你可能还想买</string>
+    <string name="confirmReceipt">确认收货</string>
+    <string name="pay_method">支付方式</string>
+    <string name="paySuccess">付款成功</string>
+    <string name="congratulations_pay_success">恭喜您, 付款成功!</string>
+    <string name="seeOrder">查看订单</string>
+    <string name="returnHome">返回首页</string>
+
+    <!-- 退款售后 -->
+    <string name="refund">退款售后</string>
+    <string name="seller_dealing">卖家处理中</string>
+    <string name="total">合计:</string>
+    <string name="money_where_to_go">钱款去向</string>
+    <string name="whether_cancel_refund">您确定要取消吗?</string>
+    <string name="apply_for_refund">申请退款</string>
+    <string name="buyer_applied">买家发起了申请</string>
+    <string name="wait_seller_deal">待卖家处理</string>
+    <string name="commitApply">提交申请</string>
+    <string name="most_two_hundred">最多200字</string>
+    <string name="please_select_refund_reason">请选择退款原因</string>
+    <string name="uploadPic_most_three">上传凭证, 最多三张</string>
+    <string name="withdrawal_of_application">撤销申请</string>
+
+    <!-- 我的收藏 -->
+    <string name="edit">编辑</string>
+    <string name="delete">删除</string>
+    <string name="settlement">结算</string>
+    <string name="whether_delete">您确认要删除吗?</string>
+    <string name="whether_return">您确定要撤销吗?</string>
+
+    <!-- 收货地址 -->
+    <string name="apply_for_update_address">注: 修改地址需要提出申请</string>
+    <string name="apply_for_edit">申请编辑</string>
+    <string name="whether_apply_for_edit_address">您确认要提交地址修改申请吗?</string>
+    <string name="request_send_success">请求发送成功</string>
+
+    <!-- 平台审核 -->
+    <string name="apply_for_update">申请修改</string>
+    <string name="fill_in_the_audit_information">填写审核资料</string>
+    <string name="companyName">公司名称</string>
+    <string name="person_in_charge">负责人</string>
+    <string name="contactWay">联系方式</string>
+    <string name="please_select_current_area">请选择所在地区 ＞</string>
+    <string name="Upload_a_business_license">上传营业执照</string>
+
+    <!-- 意见反馈 -->
+    <string name="confirm">确定</string>
+    <string name="please_input_feed_back">感谢反馈, 请填写您的问题或意见...</string>
+    <string name="input_phone_num_feed_back_to_you">填写您的手机号, 方便我们向你更快反馈哦!</string>
+    <string name="commit_feed_back">提交反馈</string>
+    <string name="please_input_feed_back_content">请填写您的问题或意见</string>
+    <string name="feed_back_success">反馈成功</string>
+    <string name="preview">预览</string>
+    <string name="msg_no_camera">没有系统相机</string>
+    <string name="msg_amount_limit">已经达到最高选择数量</string>
+    <string name="feed_back_success_content">感谢您的宝贵意见, 我们将尽快回复您, 优品将与您共同进步, 用心完善每一个细节.</string>
+
+    <!-- 联系客服 -->
+    <string name="whether_call">您确定要联系客服吗?\n\n400-995-3333</string>
+    <string name="cancel">取消</string>
+
+    <!--网络请求-->
+    <string name="net_not_available">网络不给力, 请检查您的网络是否连接！</string>
+</resources>

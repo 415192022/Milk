@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/goodsAttr"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/bg"
+    android:orientation="vertical"
+    android:visibility="gone">
+
+    <LinearLayout
+        style="@style/goodsDetailLinearLayout"
+        android:layout_marginTop="@dimen/dip_1">
+
+        <TextView
+            style="@style/goodsDetailTitle"
+            android:text="@string/category" />
+
+        <TextView
+            android:id="@+id/txtCategory"
+            style="@style/goodsDetailContent"
+            android:text="全脂牛奶" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        style="@style/goodsDetailLinearLayout"
+        android:layout_marginTop="@dimen/dip_1">
+
+        <TextView
+            style="@style/goodsDetailTitle"
+            android:text="@string/producingArea" />
+
+        <TextView
+            android:id="@+id/txtProducingArea"
+            style="@style/goodsDetailContent"
+            android:text="德国" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        style="@style/goodsDetailLinearLayout"
+        android:layout_marginTop="@dimen/dip_1">
+
+        <TextView
+            style="@style/goodsDetailTitle"
+            android:text="@string/characteristic" />
+
+        <TextView
+            android:id="@+id/txtCharacteristic"
+            style="@style/goodsDetailContent"
+            android:text="全脂" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        style="@style/goodsDetailLinearLayout"
+        android:layout_marginTop="@dimen/dip_1">
+
+        <TextView
+            style="@style/goodsDetailTitle"
+            android:text="@string/ingredient" />
+
+        <TextView
+            android:id="@+id/txtIngredient"
+            style="@style/goodsDetailContent"
+            android:text="全牛乳" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        style="@style/goodsDetailLinearLayout"
+        android:layout_marginTop="@dimen/dip_1">
+
+        <TextView
+            style="@style/goodsDetailTitle"
+            android:text="@string/net_content" />
+
+        <TextView
+            android:id="@+id/txtNetContent"
+            style="@style/goodsDetailContent"
+            android:text="200ml * 24" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        style="@style/goodsDetailLinearLayout"
+        android:layout_marginTop="@dimen/dip_1">
+
+        <TextView
+            style="@style/goodsDetailTitle"
+            android:text="@string/quality_guarantee_period" />
+
+        <TextView
+            android:id="@+id/txtGuaranteePeriod"
+            style="@style/goodsDetailContent"
+            android:text="12个月" />
+
+    </LinearLayout>
+
+</LinearLayout>

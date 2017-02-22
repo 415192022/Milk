@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/bg"
+    android:clipToPadding="false"
+    android:fitsSystemWindows="true"
+    android:orientation="vertical">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dip_48"
+        android:background="@color/colorPrimary">
+
+        <ImageView
+            android:id="@+id/imgBack"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:paddingLeft="@dimen/dip_15"
+            android:paddingRight="@dimen/dip_10"
+            android:src="@mipmap/img_left_back" />
+
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginBottom="@dimen/dip_5"
+            android:layout_marginLeft="@dimen/dip_15"
+            android:layout_marginRight="@dimen/dip_15"
+            android:layout_marginTop="@dimen/dip_5"
+            android:layout_toLeftOf="@+id/txtSearch"
+            android:layout_toRightOf="@+id/imgBack"
+            android:background="@drawable/bg_text_trade_success"
+            android:drawableLeft="@mipmap/img_home_search"
+            android:drawablePadding="@dimen/dip_7"
+            android:hint="@string/searchGoodsName"
+            android:paddingLeft="@dimen/dip_12"
+            android:textColor="@color/lineColor"
+            android:textColorHint="@color/marketPriceColor"
+            android:textSize="@dimen/dip_15" />
+
+        <TextView
+            android:id="@+id/txtSearch"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_alignParentRight="true"
+            android:gravity="center_vertical"
+            android:paddingLeft="@dimen/dip_10"
+            android:paddingRight="@dimen/dip_15"
+            android:text="@string/search"
+            android:textColor="@color/white"
+            android:textSize="@dimen/text_size_18" />
+
+    </RelativeLayout>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dip_40"
+        android:gravity="center_vertical"
+        android:paddingLeft="@dimen/dip_15"
+        android:text="@string/hotSearch"
+        android:textColor="@color/lineColor"
+        android:textSize="@dimen/text_size_13" />
+
+    <GridView
+        android:id="@+id/gridView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/white"
+        android:numColumns="3" />
+
+</LinearLayout>

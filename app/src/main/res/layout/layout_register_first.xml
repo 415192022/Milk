@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/layoutRegisterFirst"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <EditText
+        android:id="@+id/editPhone"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dip_60"
+        android:layout_marginLeft="@dimen/dip_20"
+        android:layout_marginRight="@dimen/dip_20"
+        android:layout_marginTop="@dimen/dip_20"
+        android:background="@null"
+        android:drawableLeft="@mipmap/img_login_user"
+        android:drawablePadding="@dimen/dip_10"
+        android:hint="@string/please_input_phone_number"
+        android:inputType="phone"
+        android:maxLength="11"
+        android:textColorHint="@color/loginEditHintColor"
+        android:textColor="@color/loginEditFontColor"
+        android:textSize="@dimen/text_size_16" />
+
+    <View
+        android:layout_marginLeft="@dimen/dip_15"
+        android:layout_marginRight="@dimen/dip_15"
+        android:id="@+id/lineOne"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dip_half"
+        android:layout_below="@+id/editPhone"
+        android:background="@color/lightGrey" />
+
+    <RelativeLayout
+        android:id="@+id/reSms"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dip_60"
+        android:layout_below="@+id/lineOne"
+        android:layout_marginLeft="@dimen/dip_20"
+        android:layout_marginRight="@dimen/dip_20">
+
+        <EditText
+            android:id="@+id/editSMSVerCode"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginRight="@dimen/dip_7"
+            android:layout_toLeftOf="@+id/txtForgetPwd"
+            android:background="@null"
+            android:drawableLeft="@mipmap/img_login_sms"
+            android:drawablePadding="@dimen/dip_10"
+            android:gravity="center_vertical"
+            android:hint="@string/please_input_SMS_verification_code"
+            android:maxLength="6"
+            android:textColorHint="@color/loginEditHintColor"
+            android:textColor="@color/loginEditFontColor"
+            android:textSize="@dimen/text_size_16" />
+
+        <TextView
+            android:id="@+id/txtGetVerCode"
+            android:layout_width="@dimen/dip_100"
+            android:layout_height="match_parent"
+            android:layout_alignParentRight="true"
+            android:gravity="right|center_vertical"
+            android:text="@string/click_and_get_verifyCode"
+            android:textColor="@color/main_tab_select_font_color"
+            android:textSize="@dimen/text_size_16" />
+
+    </RelativeLayout>
+
+    <View
+        android:layout_marginLeft="@dimen/dip_15"
+        android:layout_marginRight="@dimen/dip_15"
+        android:id="@+id/lineTwo"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dip_half"
+        android:layout_below="@+id/reSms"
+        android:background="@color/lightGrey" />
+
+    <TextView
+        android:id="@+id/btnNext"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dip_50"
+        android:layout_below="@+id/lineTwo"
+        android:layout_marginLeft="@dimen/dip_15"
+        android:layout_marginRight="@dimen/dip_15"
+        android:layout_marginTop="@dimen/dip_30"
+        android:background="@drawable/btn_login"
+        android:gravity="center"
+        android:text="@string/next"
+        android:textColor="@color/white"
+        android:textSize="@dimen/text_size_18" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_marginBottom="@dimen/dip_30"
+        android:gravity="center_horizontal"
+        android:orientation="horizontal">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/read_and_agree"
+            android:textColor="@color/titleColor"
+            android:textSize="@dimen/text_size_12" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/user_ruler"
+            android:textColor="@color/colorPrimary"
+            android:textSize="@dimen/text_size_12" />
+
+    </LinearLayout>
+
+</RelativeLayout>

@@ -1,0 +1,198 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.yundong.milk">
+
+    <!-- 网络权限 -->
+    <uses-permission android:name="android.permission.INTERNET" />
+    <!-- 百度地图权限 -->
+    <uses-permission android:name="android.permission.WRITE_SETTINGS"/>
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION"/>
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE"/>
+    <uses-permission android:name="android.permission.CHANGE_WIFI_STATE"/>
+    <uses-permission android:name="android.permission.READ_PHONE_STATE"/>
+    <!-- 拨打电话 -->
+    <uses-permission android:name="android.permission.CALL_PHONE" />
+    <!-- 分享 -->
+    <uses-permission android:name="android.permission.GET_TASKS" />
+    <uses-permission android:name="android.permission.MANAGE_ACCOUNTS"/>
+    <uses-permission android:name="android.permission.GET_ACCOUNTS"/>
+    <!-- 蓝牙分享所需的权限 -->
+    <uses-permission android:name="android.permission.BLUETOOTH" />
+    <uses-permission android:name="android.permission.BLUETOOTH_ADMIN" />
+
+    <application
+        android:name=".manager.YunDongApplication"
+        android:allowBackup="true"
+        android:icon="@mipmap/img_app_icon"
+        android:label="@string/app_name"
+        android:supportsRtl="true"
+        android:theme="@style/MyTheme">
+
+        <!-- 百度地图的API_KEY -->
+        <meta-data
+            android:name="com.baidu.lbsapi.API_KEY"
+            android:value="AQskvuefqR2bGwiAY0COy8dlWRKz0bUZ" />
+
+        <activity android:name=".main.activity.LoginActivity">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+
+        <activity
+            android:name=".main.activity.MainActivity"
+            android:screenOrientation="portrait" />
+
+        <activity
+            android:name=".main.activity.PerfectAddressActivity"
+            android:screenOrientation="portrait" />
+
+        <activity
+            android:name=".main.activity.ForgetPwdFirstActivity"
+            android:screenOrientation="portrait" />
+
+        <activity
+            android:name=".imagechoose.MultiImageSelectorActivity"
+            android:configChanges="orientation|screenSize"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".imagechoose.crop.CropImageActivity"
+            android:configChanges="orientation|screenSize"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".imagechoose.ShowActivity"
+            android:configChanges="orientation|screenSize"
+            android:screenOrientation="portrait" />
+
+        <activity
+            android:name=".main.activity.ForgetPwdSecondActivity"
+            android:screenOrientation="portrait" />
+
+        <activity android:name=".user.activity.FeedBackActivity"
+            android:screenOrientation="portrait"/>
+
+        <activity android:name=".user.activity.FeedBackComActivity"
+            android:screenOrientation="portrait"/>
+
+        <activity android:name=".user.activity.ReceiptAddressActivity"
+            android:screenOrientation="portrait"/>
+
+        <activity android:name=".user.activity.MineCollectionActivity"
+            android:screenOrientation="portrait"/>
+
+        <activity android:name=".user.activity.MineOrderActivity"
+            android:screenOrientation="portrait"/>
+
+        <activity android:name=".user.activity.RefundActivity"
+            android:screenOrientation="portrait"/>
+
+        <activity android:name=".user.activity.SettingActivity"
+            android:screenOrientation="portrait"/>
+
+        <activity android:name=".user.activity.MineNickNameActivity"
+            android:screenOrientation="portrait"/>
+
+        <activity android:name=".user.activity.SelectCityActivity"
+            android:screenOrientation="portrait"/>
+
+        <activity android:name=".user.activity.MessageCenterActivity"
+            android:screenOrientation="portrait"/>
+
+        <activity android:name=".user.activity.SystemMsgActivity"
+            android:screenOrientation="portrait"/>
+
+        <activity android:name=".user.activity.MoneyToWhereActivity"
+            android:screenOrientation="portrait"/>
+
+        <activity android:name=".user.activity.OrderDetailActivity"
+            android:screenOrientation="portrait"/>
+
+        <activity android:name=".user.activity.RefundDetailActivity"
+            android:screenOrientation="portrait"/>
+
+        <activity android:name=".user.activity.TradeSuccessActivity"
+            android:screenOrientation="portrait"/>
+
+        <activity android:name=".user.activity.ApplyForMoney"
+            android:screenOrientation="portrait"/>
+
+        <activity android:name=".user.activity.RefundAfterSaleActivity"
+            android:screenOrientation="portrait"/>
+
+        <activity android:name=".user.activity.PlatformAuditActivity"
+            android:screenOrientation="portrait"/>
+
+        <activity android:name=".cart.activity.PaymentActivity"
+            android:screenOrientation="portrait"/>
+
+        <activity android:name=".cart.activity.PaySuccessActivity"
+            android:screenOrientation="portrait"/>
+
+        <activity android:name=".cart.activity.ConfirmOrderActivity"
+            android:screenOrientation="portrait"/>
+
+        <activity android:name=".cart.activity.GoodsDetailActivity"
+            android:windowSoftInputMode="adjustResize"
+            android:screenOrientation="portrait"/>
+
+        <activity android:name=".home.activity.InformationActivity"
+            android:screenOrientation="portrait"/>
+
+        <activity android:name=".home.activity.InformationDetailActivity"
+            android:screenOrientation="portrait"/>
+
+        <activity android:name=".home.activity.SearchGoodsActivity"
+            android:screenOrientation="portrait"/>
+
+        <activity android:name=".home.activity.GoodsListActivity"
+            android:screenOrientation="portrait"/>
+
+        <activity android:name=".home.activity.GoodsListTwoSortActivity"
+            android:screenOrientation="portrait"/>
+
+        <activity android:name=".cart.activity.SeeAllCommentActivity"
+            android:screenOrientation="portrait"/>
+
+        <activity android:name=".user.activity.ActivityComment"
+            android:screenOrientation="portrait"/>
+
+        <activity android:name=".user.activity.ActivityCommentList"
+            android:screenOrientation="portrait"/>
+
+        <!-- 分享 -->
+        <activity
+            android:name="com.mob.tools.MobUIShell"
+            android:theme="@android:style/Theme.Translucent.NoTitleBar"
+            android:configChanges="keyboardHidden|orientation|screenSize"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="stateHidden|adjustResize" >
+
+            <intent-filter>
+                <data android:scheme="tencent1105875736" />
+                <action android:name="android.intent.action.VIEW" />
+                <category android:name="android.intent.category.BROWSABLE" />
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+
+            <!-- 调用新浪原生SDK，需要注册的回调activity -->
+            <intent-filter>
+                <action android:name="com.sina.weibo.sdk.action.ACTION_SDK_REQ_ACTIVITY" />
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+        </activity>
+
+        <!--微信分享回调 -->
+        <activity
+            android:name=".wxapi.WXEntryActivity"
+            android:theme="@android:style/Theme.Translucent.NoTitleBar"
+            android:configChanges="keyboardHidden|orientation|screenSize"
+            android:exported="true"
+            android:screenOrientation="portrait" />
+
+    </application>
+
+</manifest>

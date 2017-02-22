@@ -1,0 +1,270 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white"
+    android:clipToPadding="false"
+    android:fitsSystemWindows="true"
+    android:orientation="vertical"
+    android:scrollbars="none">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/white"
+        android:clipToPadding="false"
+        android:fitsSystemWindows="true"
+        android:orientation="vertical">
+
+        <RelativeLayout
+            android:id="@+id/root_title"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/dip_48"
+            android:background="@color/colorPrimary">
+
+            <ImageView
+                android:id="@+id/imageSetting"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="@dimen/dip_10"
+                android:padding="@dimen/dip_5"
+                android:src="@mipmap/img_user_setting" />
+
+            <ImageView
+                android:id="@+id/imageRight"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:layout_marginRight="@dimen/dip_10"
+                android:paddingLeft="@dimen/dip_5"
+                android:paddingRight="@dimen/dip_5"
+                android:src="@mipmap/img_user_tip" />
+
+            <ImageView
+                android:id="@+id/imgMsgRed"
+                style="@style/userCenterImageView"
+                android:layout_alignParentRight="true"
+                android:layout_marginRight="@dimen/dip_7"
+                android:layout_marginTop="@dimen/dip_10"
+                android:visibility="gone" />
+
+        </RelativeLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/dip_140"
+            android:background="@color/colorPrimary"
+            android:gravity="center"
+            android:orientation="vertical">
+
+            <com.yundong.milk.view.CircleImageView
+                android:id="@+id/imgUserHead"
+                android:layout_width="@dimen/dip_80"
+                android:layout_height="@dimen/dip_80"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginBottom="@dimen/dip_10"
+                android:src="@mipmap/img_portrait_default" />
+
+            <TextView
+                android:id="@+id/txtUserInfo"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:paddingBottom="@dimen/dip_10"
+                android:text="Hello, 小白"
+                android:textColor="@color/white"
+                android:textSize="@dimen/text_size_15" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/dip_60"
+            android:layout_marginBottom="@dimen/dip_15"
+            android:layout_marginTop="@dimen/dip_10"
+            android:orientation="horizontal">
+
+            <RelativeLayout style="@style/userCenterRelativeLayout">
+
+                <TextView
+                    android:id="@+id/txtWaitPay"
+                    style="@style/userCenterTextViewOrderState"
+                    android:drawableTop="@mipmap/img_user_wait_pay"
+                    android:text="@string/wait_pay" />
+
+                <ImageView
+                    android:id="@+id/imgWaitPay"
+                    style="@style/userCenterImageView"
+                    android:visibility="gone" />
+
+                <TextView
+                    android:id="@+id/txtWaitPayNum"
+                    style="@style/userCenterTextViewRedPoint"
+                    android:visibility="gone" />
+            </RelativeLayout>
+
+            <RelativeLayout style="@style/userCenterRelativeLayout">
+
+                <TextView
+                    android:id="@+id/txtWaitReceipt"
+                    style="@style/userCenterTextViewOrderState"
+                    android:drawableTop="@mipmap/img_user_wait_receipt"
+                    android:text="@string/wait_receipt" />
+
+                <ImageView
+                    android:id="@+id/imgWaitReceipt"
+                    style="@style/userCenterImageView"
+                    android:visibility="gone" />
+
+                <TextView
+                    android:id="@+id/txtWaitReceiptNum"
+                    style="@style/userCenterTextViewRedPoint"
+
+                    />
+            </RelativeLayout>
+
+            <RelativeLayout style="@style/userCenterRelativeLayout">
+
+                <TextView
+                    android:id="@+id/txtWaitComment"
+                    style="@style/userCenterTextViewOrderState"
+                    android:drawableTop="@mipmap/img_user_wait_comment"
+                    android:text="@string/wait_comment" />
+
+                <ImageView
+                    android:id="@+id/imgWaitComment"
+                    style="@style/userCenterImageView"
+                    android:visibility="gone" />
+
+                <TextView
+                    android:id="@+id/txtWaitCommentNum"
+                    style="@style/userCenterTextViewRedPoint" />
+            </RelativeLayout>
+
+            <RelativeLayout style="@style/userCenterRelativeLayout">
+
+                <TextView
+                    android:id="@+id/txtReturn"
+                    style="@style/userCenterTextViewOrderState"
+                    android:drawableTop="@mipmap/img_user_return_money_goods"
+                    android:text="@string/return_goods_and_money" />
+
+                <ImageView
+                    android:id="@+id/imgWaitRefund"
+                    style="@style/userCenterImageView"
+                    android:visibility="gone" />
+
+                <TextView
+                    android:id="@+id/txtRefundNum"
+                    style="@style/userCenterTextViewRedPoint" />
+            </RelativeLayout>
+
+        </LinearLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/dip_7"
+            android:background="@color/goodsItemSplitColor" />
+
+        <TextView
+            android:id="@+id/txtOrder"
+            style="@style/userTextViewItem"
+            android:drawableLeft="@mipmap/img_all_order"
+            android:text="@string/all_order" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/dip_1"
+            android:background="@color/goodsItemSplitColor" />
+
+        <TextView
+            android:id="@+id/txtMineCollection"
+            style="@style/userTextViewItem"
+            android:drawableLeft="@mipmap/img_mine_collection"
+            android:text="@string/mine_collection" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/dip_1"
+            android:background="@color/goodsItemSplitColor" />
+
+        <TextView
+            android:id="@+id/txtAddress"
+            style="@style/userTextViewItem"
+            android:drawableLeft="@mipmap/img_receipt_address"
+            android:text="@string/receipt_address" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/dip_7"
+            android:background="@color/goodsItemSplitColor" />
+
+        <TextView
+            android:id="@+id/txtPlatform"
+            style="@style/userTextViewItem"
+            android:drawableLeft="@mipmap/img_user_examine"
+            android:text="@string/platformAudit" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/dip_1"
+            android:background="@color/goodsItemSplitColor" />
+
+        <TextView
+            android:id="@+id/txtFeedBack"
+            style="@style/userTextViewItem"
+            android:drawableLeft="@mipmap/img_feed_back"
+            android:text="@string/feed_back" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/dip_1"
+            android:background="@color/goodsItemSplitColor" />
+
+        <RelativeLayout
+            android:id="@+id/reContact"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/dip_50"
+            android:background="@drawable/bg_user_text"
+            android:clickable="true"
+            android:paddingRight="@dimen/dip_15">
+
+            <TextView
+                android:id="@+id/txtContact"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:drawableLeft="@mipmap/img_user_phone"
+                android:drawablePadding="@dimen/dip_5"
+                android:gravity="center_vertical"
+                android:paddingLeft="@dimen/dip_15"
+                android:text="@string/contactCustomerService"
+                android:textColor="@color/titleColor"
+                android:textSize="@dimen/text_size_13" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_alignParentRight="true"
+                android:drawablePadding="@dimen/dip_10"
+                android:drawableRight="@mipmap/img_user_right"
+                android:gravity="center_vertical"
+                android:text="@string/customer_phone_number"
+                android:textColor="@color/lineColor"
+                android:textSize="@dimen/text_size_13" />
+
+        </RelativeLayout>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/dip_100"
+            android:background="@color/goodsItemSplitColor"
+            android:gravity="center"
+            android:text="@string/currentVersion"
+            android:textColor="@color/lineColor"
+            android:textSize="@dimen/text_size_13" />
+
+    </LinearLayout>
+
+</ScrollView>

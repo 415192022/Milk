@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/lightGrey"
+    android:clipToPadding="false"
+    android:fitsSystemWindows="true"
+    android:orientation="vertical">
+
+    <include layout="@layout/head_view" />
+
+    <RadioGroup
+        android:background="@color/white"
+        android:id="@+id/radGroup"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dip_40"
+        android:orientation="horizontal">
+
+        <RadioButton
+            android:id="@+id/radAll"
+            style="@style/auctionTextView"
+            android:text="@string/allOrder" />
+
+        <View style="@style/auctionLine" />
+
+        <RadioButton
+            android:id="@+id/radWaitPay"
+            style="@style/auctionTextView"
+            android:text="@string/waitPay" />
+
+        <View style="@style/auctionLine" />
+
+        <RadioButton
+            android:id="@+id/radWaitReceipt"
+            style="@style/auctionTextView"
+            android:text="@string/waitReceipt" />
+
+        <View style="@style/auctionLine" />
+
+        <RadioButton
+            android:id="@+id/radWaitComment"
+            style="@style/auctionTextView"
+            android:text="@string/waiComment" />
+
+    </RadioGroup>
+
+    <android.support.v4.view.ViewPager
+        android:id="@+id/viewPager"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
+
+</LinearLayout>

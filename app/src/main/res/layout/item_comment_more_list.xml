@@ -1,0 +1,84 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
+
+
+    <RelativeLayout
+        android:id="@+id/reCommentInfo"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dip_50"
+        android:layout_marginTop="@dimen/dip_1"
+        android:background="@color/white"
+        android:paddingLeft="@dimen/dip_15">
+
+        <com.yundong.milk.view.CircleImageView
+            android:id="@+id/imgCriticHead"
+            android:layout_width="@dimen/dip_35"
+            android:layout_height="match_parent"
+            android:layout_centerVertical="true"
+            android:padding="@dimen/dip_10"
+            android:src="@mipmap/img_test" />
+
+        <TextView
+            android:id="@+id/txtCriticName"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_centerVertical="true"
+            android:layout_toRightOf="@+id/imgCriticHead"
+            android:gravity="center_vertical"
+            android:paddingLeft="@dimen/dip_10"
+            android:text="T**机器人"
+            android:textColor="@color/titleColor"
+            android:textSize="@dimen/text_size_15" />
+
+        <TextView
+            android:id="@+id/txtCommentTime"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:gravity="center_vertical"
+            android:paddingLeft="@dimen/dip_10"
+            android:paddingRight="@dimen/dip_15"
+            android:text="2016-11-17"
+            android:textColor="@color/lineColor"
+            android:textSize="@dimen/text_size_11" />
+
+    </RelativeLayout>
+
+    <TextView
+        android:id="@+id/txtCommentContent"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/white"
+        android:paddingBottom="@dimen/dip_5"
+        android:paddingLeft="@dimen/dip_15"
+        android:paddingRight="@dimen/dip_15"
+        android:paddingTop="@dimen/dip_5"
+        android:text="井冈山费德勒看过国际法的来看广官方的广泛地了空间刚刚飞得更快的发了几个缸发动机了公开答复泛地公开发的了苹果"
+        android:textColor="@color/titleColor"
+        android:textSize="@dimen/text_size_13" />
+
+    <TextView
+        android:id="@+id/txtGoodsAttr"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/white"
+        android:paddingBottom="@dimen/dip_7"
+        android:paddingLeft="@dimen/dip_15"
+        android:paddingRight="@dimen/dip_15"
+        android:paddingTop="@dimen/dip_5"
+        android:text="全脂200ml*24"
+        android:textColor="@color/lineColor"
+        android:textSize="@dimen/text_size_13" />
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/rv_photo_list"
+        android:layout_marginRight="20dp"
+        android:layout_width="match_parent"
+        android:layout_height="68dp"
+        android:layout_below="@+id/ll_comment"
+        android:layout_marginLeft="20dp"
+        ></android.support.v7.widget.RecyclerView>
+
+</LinearLayout>

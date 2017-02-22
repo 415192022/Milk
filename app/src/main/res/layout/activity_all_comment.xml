@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white"
+    android:clipToPadding="false"
+    android:fitsSystemWindows="true"
+    android:orientation="vertical">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dip_40"
+        android:background="@color/colorPrimary">
+
+        <ImageView
+            android:id="@+id/imgBack"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:paddingLeft="@dimen/dip_15"
+            android:paddingRight="@dimen/dip_15"
+            android:src="@mipmap/img_left_back" />
+
+        <ImageView
+            android:id="@+id/imgMore"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_alignParentRight="true"
+            android:paddingLeft="@dimen/dip_15"
+            android:paddingRight="@dimen/dip_15"
+             />
+
+    </RelativeLayout>
+
+    <RadioGroup
+        android:id="@+id/radCommentGroup"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dip_40"
+        android:orientation="horizontal">
+
+        <RadioButton
+            android:id="@+id/txtCommentAll"
+            android:text="全部(0)"
+            style="@style/allCommentTextView" />
+        <RadioButton
+            android:id="@+id/txtCommentGood"
+            android:text="好评(0)"
+            style="@style/allCommentTextView" />
+        <RadioButton
+            android:id="@+id/txtCommentNeutral"
+            android:text="中评(0)"
+            style="@style/allCommentTextView" />
+        <RadioButton
+            android:id="@+id/txtCommentBad"
+            android:text="差评(0)"
+            style="@style/allCommentTextView" />
+
+    </RadioGroup>
+
+    <com.yundong.milk.view.recyclerview.XRecyclerView
+        android:id="@+id/recyclerView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
+
+
+</LinearLayout>

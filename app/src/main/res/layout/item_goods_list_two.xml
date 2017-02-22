@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginLeft="@dimen/dip_2"
+    android:layout_marginRight="@dimen/dip_2"
+    android:layout_marginTop="@dimen/dip_2"
+    android:background="@color/white">
+
+    <ImageView
+        android:id="@+id/imgGoodsPic"
+        android:layout_width="@dimen/dip_85"
+        android:layout_height="@dimen/dip_85"
+        android:background="@color/white"
+        android:paddingTop="@dimen/dip_10"
+        android:scaleType="fitXY" />
+
+    <TextView
+        android:id="@+id/txtGoodsContent"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_toRightOf="@+id/imgGoodsPic"
+        android:background="@color/white"
+        android:ellipsize="end"
+        android:lineSpacingExtra="@dimen/dip_2"
+        android:maxLines="2"
+        android:paddingBottom="@dimen/dip_5"
+        android:paddingLeft="@dimen/dip_10"
+        android:paddingRight="@dimen/dip_15"
+        android:paddingTop="@dimen/dip_7"
+        android:textColor="@color/loginEditFontColor"
+        android:textSize="@dimen/text_size_15" />
+
+    <TextView
+        android:id="@+id/txtPrice"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_toRightOf="@+id/imgGoodsPic"
+        android:paddingLeft="@dimen/dip_10"
+        android:textColor="@color/colorPrimary"
+        android:textSize="@dimen/text_size_18" />
+
+    <TextView
+        android:id="@+id/txtSellNum"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentRight="true"
+        android:paddingRight="@dimen/dip_15"
+        android:text="月售322"
+        android:textColor="@color/lineColor"
+        android:textSize="@dimen/text_size_12" />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dip_1"
+        android:background="@color/bg"
+        android:layout_alignParentBottom="true"/>
+
+</RelativeLayout>

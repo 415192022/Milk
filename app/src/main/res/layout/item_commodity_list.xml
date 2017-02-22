@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="@dimen/dip_120"
+    android:layout_marginLeft="@dimen/dip_5"
+    android:paddingLeft="@dimen/dip_10"
+    android:paddingTop="@dimen/dip_10">
+
+    <ImageView
+        android:id="@+id/imgGoodsSortBg"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:scaleType="fitXY"
+        android:src="@mipmap/img_bg_goods_test"/>
+
+    <TextView
+        android:text="成人牛奶"
+        android:id="@+id/txtGoodsSortContent"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:textColor="@color/white"
+        android:textSize="@dimen/text_size_15"
+        android:textStyle="bold" />
+
+</RelativeLayout>

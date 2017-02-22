@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:clipToPadding="false"
+    android:fitsSystemWindows="true"
+    android:orientation="vertical">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dip_200">
+
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:scaleType="fitXY"
+            android:src="@mipmap/img_bg_login" />
+
+        <TextView
+            android:id="@+id/txtUserInfo"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:paddingBottom="@dimen/dip_20"
+            android:paddingLeft="@dimen/dip_65"
+            android:paddingRight="@dimen/dip_20"
+            android:paddingTop="@dimen/dip_10"
+            android:text="@string/login"
+            android:textColor="@color/white"
+            android:textSize="@dimen/text_size_18" />
+
+        <TextView
+            android:id="@+id/txtRegister"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentRight="true"
+            android:paddingBottom="@dimen/dip_20"
+            android:paddingLeft="@dimen/dip_20"
+            android:paddingRight="@dimen/dip_65"
+            android:paddingTop="@dimen/dip_10"
+            android:text="@string/register"
+            android:textColor="@color/white"
+            android:textSize="@dimen/text_size_18" />
+
+        <TextView
+            android:id="@+id/txtTriangleLogin"
+            android:layout_width="@dimen/dip_25"
+            android:layout_height="@dimen/dip_25"
+            android:layout_alignParentBottom="true"
+            android:layout_marginLeft="@dimen/dip_70"
+            android:background="@drawable/shape_triangle_white"
+            android:visibility="gone"
+             />
+
+        <TextView
+            android:id="@+id/txtTriangleRegister"
+            android:layout_width="@dimen/dip_25"
+            android:layout_height="@dimen/dip_25"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentRight="true"
+            android:layout_marginRight="@dimen/dip_70"
+            android:background="@drawable/shape_triangle_white"
+            android:visibility="gone" />
+
+    </RelativeLayout>
+
+    <include layout="@layout/layout_login"/>
+
+    <include layout="@layout/layout_register_first"/>
+
+    <include layout="@layout/layout_register_second"/>
+
+</LinearLayout>

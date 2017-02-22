@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/bg"
+    android:clipToPadding="false"
+    android:fitsSystemWindows="true"
+    android:orientation="vertical">
+
+    <include layout="@layout/head_view" />
+
+    <com.yundong.milk.view.HorizontalListView
+        android:id="@+id/firstSortListView"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dip_40"
+        android:background="@color/white" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginTop="@dimen/dip_10"
+        android:orientation="horizontal">
+
+        <ListView
+            android:id="@+id/secondSortListView"
+            android:layout_width="@dimen/dip_100"
+            android:layout_height="wrap_content"
+            android:background="@color/white"
+            android:divider="@color/bg"
+            android:dividerHeight="@dimen/dip_1"
+            android:listSelector="@color/white"
+            android:scrollbars="none" />
+
+        <com.yundong.milk.view.recyclerview.XRecyclerView
+            android:id="@+id/recyclerViewGoodsList"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/dip_10"
+            android:background="@color/white" />
+
+    </LinearLayout>
+
+</LinearLayout>

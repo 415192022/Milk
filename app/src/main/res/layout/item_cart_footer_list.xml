@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/lightGrey"
+    android:orientation="vertical"
+    android:padding="@dimen/dip_10">
+
+    <ImageView
+        android:background="@color/white"
+        android:layout_toRightOf="@+id/checkDelete"
+        android:id="@+id/imgCollectionPic"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dip_150"
+        android:scaleType="fitXY" />
+
+    <TextView
+        android:id="@+id/txtCollectionContent"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/imgCollectionPic"
+        android:background="@color/white"
+        android:ellipsize="end"
+        android:maxLines="2"
+        android:paddingBottom="@dimen/dip_5"
+        android:paddingLeft="@dimen/dip_15"
+        android:paddingRight="@dimen/dip_15"
+        android:paddingTop="@dimen/dip_5"
+        android:textColor="@color/titleColor"
+        android:textSize="@dimen/text_size_13" />
+
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/txtCollectionContent"
+        android:background="@color/white"
+        android:paddingLeft="@dimen/dip_15"
+        android:paddingRight="@dimen/dip_15">
+
+        <TextView
+            android:id="@+id/txtPrice"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/colorPrimary"
+            android:textSize="@dimen/text_size_15" />
+
+        <TextView
+            android:id="@+id/txtCollectionNum"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:textColor="@color/lineColor"
+            android:textSize="@dimen/text_size_13" />
+
+    </RelativeLayout>
+
+</RelativeLayout>

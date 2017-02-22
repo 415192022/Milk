@@ -1,0 +1,265 @@
+<resources>
+
+    <!-- Base application theme. -->
+    <style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
+        <!-- Customize your theme here. -->
+        <item name="colorPrimary">@color/colorPrimary</item>
+        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+        <item name="colorAccent">@color/colorAccent</item>
+    </style>
+
+    <!-- 个人中心 -->
+    <style name="userCenterRelativeLayout">
+        <item name="android:layout_width">0dp</item>
+        <item name="android:layout_height">match_parent</item>
+        <item name="android:layout_weight">1</item>
+    </style>
+
+    <style name="userCenterImageView">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_centerHorizontal">true</item>
+        <item name="android:paddingLeft">@dimen/dip_25</item>
+        <item name="android:src">@mipmap/img_red_point</item>
+    </style>
+
+    <style name="userCenterTextViewRedPoint">
+        <item name="android:layout_width">@dimen/dip_10</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_alignParentRight">true</item>
+        <item name="android:layout_marginRight">@dimen/dip_28</item>
+        <item name="android:gravity">center</item>
+        <item name="android:textColor">@color/white</item>
+        <item name="android:textSize">@dimen/text_size_8</item>
+    </style>
+
+    <style name="userCenterTextViewOrderState">
+        <item name="android:gravity">center</item>
+        <item name="android:paddingTop">@dimen/dip_5</item>
+        <item name="android:drawablePadding">@dimen/dip_2</item>
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">match_parent</item>
+        <item name="android:textSize">@dimen/text_size_13</item>
+        <item name="android:textColor">@color/titleColor</item>
+        <item name="android:background">@drawable/bg_user_text</item>
+        <item name="android:clickable">true</item>
+    </style>
+
+    <style name="userTextViewItem">
+        <item name="android:clickable">true</item>
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">@dimen/dip_50</item>
+        <item name="android:textColor">@color/titleColor</item>
+        <item name="android:textSize">@dimen/text_size_13</item>
+        <item name="android:gravity">center_vertical</item>
+        <item name="android:drawablePadding">@dimen/dip_5</item>
+        <item name="android:paddingLeft">@dimen/dip_15</item>
+        <item name="android:paddingRight">@dimen/dip_15</item>
+        <item name="android:drawableRight">@mipmap/img_user_right</item>
+        <item name="android:background">@drawable/bg_user_text</item>
+    </style>
+
+    <!-- 完善收货地址信息 -->
+    <style name="perfectAddressEditText">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">@dimen/dip_50</item>
+        <item name="android:background">@color/white</item>
+        <item name="android:gravity">center_vertical</item>
+        <item name="android:paddingLeft">@dimen/dip_15</item>
+        <item name="android:paddingRight">@dimen/dip_15</item>
+        <item name="android:textColor">@color/lineColor</item>
+        <item name="android:textSize">@dimen/text_size_15</item>
+    </style>
+
+    <!-- 订单 -->
+    <style name="auctionTextView">
+        <item name="android:button">@null</item>
+        <item name="android:layout_width">0dp</item>
+        <item name="android:layout_height">match_parent</item>
+        <item name="android:layout_weight">1</item>
+        <item name="android:textColor">@color/mine_auction_color</item>
+        <item name="android:textSize">@dimen/text_size_15</item>
+        <item name="android:gravity">center</item>
+    </style>
+
+    <style name="auctionLine">
+        <item name="android:layout_marginTop">@dimen/dip_10</item>
+        <item name="android:layout_width">@dimen/dip_1</item>
+        <item name="android:layout_height">@dimen/dip_20</item>
+        <item name="android:background">@color/bgGoodsBNumber</item>
+    </style>
+
+    <!-- dialog -->
+    <style name="alert_dialog" parent="android:Theme.Dialog">
+        <item name="android:windowIsFloating">true</item>
+        <item name="android:windowIsTranslucent">false</item>
+        <item name="android:windowNoTitle">true</item>
+        <item name="android:windowFullscreen">false</item>
+        <item name="android:windowBackground">@color/float_transparent</item>
+        <item name="android:windowAnimationStyle">@null</item>
+        <item name="android:backgroundDimEnabled">true</item>
+        <item name="android:backgroundDimAmount">0.4</item>
+    </style>
+
+    <style name="dialog_blue_button" parent="android:Widget.Button">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">31dp</item>
+        <item name="android:background">@drawable/blue_btn_bg</item>
+        <item name="android:textSize">14sp</item>
+        <item name="android:paddingLeft">21dp</item>
+        <item name="android:paddingRight">21dp</item>
+        <item name="android:textColor">@color/white</item>
+    </style>
+
+    <style name="pop_anim_style">
+        <item name="android:windowEnterAnimation">@anim/pop_show</item>
+        <item name="android:windowExitAnimation">@anim/pop_hide</item>
+    </style>
+
+    <!-- 首页Style -->
+    <style name="sortTextViewStyle">
+        <item name="android:paddingTop">@dimen/dip_10</item>
+        <item name="android:textColor">@color/titleColor</item>
+        <item name="android:layout_width">0dp</item>
+        <item name="android:layout_height">match_parent</item>
+        <item name="android:layout_weight">1</item>
+        <item name="android:gravity">center</item>
+        <item name="android:textSize">@dimen/text_size_15</item>
+    </style>
+
+    <!-- TabLayout -->
+    <style name="MyCustomTextAppearance" parent="TextAppearance.Design.Tab">
+        <item name="textAllCaps">false</item>
+    </style>
+
+    <style name="MyCustomTabLayout" parent="Widget.Design.TabLayout">
+        <item name="tabTextAppearance">@style/MyCustomTextAppearance</item>
+    </style>
+
+    <!-- 商品详情 -->
+
+    <style name="goodsSortTitleTextView">
+        <item name="android:layout_width">0dp</item>
+        <item name="android:layout_height">match_parent</item>
+        <item name="android:layout_weight">1</item>
+        <item name="android:gravity">center</item>
+        <item name="android:textSize">@dimen/text_size_15</item>
+        <item name="android:textColor">@color/loginEditFontColor</item>
+    </style>
+
+    <style name="goodsSortVerticalLine">
+        <item name="android:layout_width">@dimen/dip_1</item>
+        <item name="android:layout_height">match_parent</item>
+        <item name="android:layout_marginTop">@dimen/dip_7</item>
+        <item name="android:layout_marginBottom">@dimen/dip_7</item>
+        <item name="android:background">@color/lightGrey</item>
+    </style>
+
+    <style name="goodsSortHorizontalLine">
+        <item name="android:layout_width">0dp</item>
+        <item name="android:layout_height">match_parent</item>
+        <item name="android:background">@color/colorPrimary</item>
+        <item name="android:layout_marginLeft">@dimen/dip_15</item>
+        <item name="android:layout_marginRight">@dimen/dip_15</item>
+        <item name="android:layout_weight">1</item>
+    </style>
+
+    <style name="goodsDetailLinearLayout">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">@dimen/dip_50</item>
+        <item name="android:background">@color/white</item>
+        <item name="android:orientation">horizontal</item>
+        <item name="android:paddingLeft">@dimen/dip_20</item>
+        <item name="android:paddingRight">@dimen/dip_10</item>
+    </style>
+
+    <style name="goodsDetailTitle">
+        <item name="android:layout_width">@dimen/dip_90</item>
+        <item name="android:layout_height">match_parent</item>
+        <item name="android:gravity">center_vertical</item>
+        <item name="android:textColor">@color/lineColor</item>
+        <item name="android:textSize">@dimen/text_size_14</item>
+    </style>
+
+    <style name="goodsDetailContent">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">match_parent</item>
+        <item name="android:gravity">center_vertical</item>
+        <item name="android:textColor">@color/titleColor</item>
+        <item name="android:textSize">@dimen/text_size_14</item>
+    </style>
+
+    <!-- 商品详情界面的查看全部评论 -->
+    <style name="allCommentTextView">
+        <item name="android:layout_width">0dp</item>
+        <item name="android:layout_height">match_parent</item>
+        <item name="android:layout_weight">1</item>
+        <item name="android:background">@drawable/btn_goods_comment</item>
+        <item name="android:button">@null</item>
+        <item name="android:gravity">center</item>
+        <item name="android:textColor">@color/comment_sort_font_color</item>
+        <item name="android:textSize">@dimen/text_size_13</item>
+        <item name="android:layout_marginLeft">@dimen/dip_10</item>
+        <item name="android:layout_marginRight">@dimen/dip_10</item>
+        <item name="android:layout_marginTop">@dimen/dip_7</item>
+        <item name="android:layout_marginBottom">@dimen/dip_7</item>
+    </style>
+
+    <!-- activity的滑动返回 -->
+    <style name="MyTheme" parent="AppTheme">
+        <item name="android:windowIsTranslucent">true</item>
+        <!-- Customize your theme here. -->
+    </style>
+
+    <style name="SwipeBackLayout">
+        <item name="edge_size">50dip</item>
+        <item name="shadow_left">@mipmap/shadow_left</item>
+        <item name="shadow_right">@mipmap/shadow_right</item>
+        <item name="shadow_bottom">@mipmap/shadow_bottom</item>
+    </style>
+
+    <!-- 商品详情的popWindow -->
+    <style name="take_photo_anim" parent="android:Animation">
+        <item name="android:windowEnterAnimation">@anim/pop_enter_anim</item>
+        <item name="android:windowExitAnimation">@anim/pop_exit_anim</item>
+    </style>
+
+    <!-- 平台审核 -->
+    <style name="rePlatFormAuditStyle">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">@dimen/dip_50</item>
+        <item name="android:paddingLeft">@dimen/dip_15</item>
+        <item name="android:paddingRight">@dimen/dip_15</item>
+        <item name="android:background">@color/white</item>
+    </style>
+
+    <style name="txtPlatformTextViewTitle">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">match_parent</item>
+        <item name="android:textColor">@color/lineColor</item>
+        <item name="android:gravity">center</item>
+        <item name="android:textSize">@dimen/text_size_16</item>
+    </style>
+
+    <style name="txtPlatformTextViewContent">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">match_parent</item>
+        <item name="android:textColor">@color/loginEditFontColor</item>
+        <item name="android:gravity">center_vertical|right</item>
+        <item name="android:textSize">@dimen/text_size_16</item>
+        <item name="android:layout_alignParentRight">true</item>
+        <item name="android:background">@null</item>
+        <item name="android:layout_marginLeft">@dimen/dip_10</item>
+    </style>
+
+    <!---->
+    <style name="commentRatingBarStyle" parent="@android:style/Widget.RatingBar">
+
+        <item name="android:progressDrawable">@drawable/comment_ratingbar_drawable</item>
+
+
+
+    </style>
+
+
+</resources>

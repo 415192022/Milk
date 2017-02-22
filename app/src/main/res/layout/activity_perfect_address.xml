@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/lightGrey"
+    android:clipToPadding="false"
+    android:fitsSystemWindows="true"
+    android:orientation="vertical">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dip_48"
+        android:background="@color/colorPrimary">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:gravity="center_vertical"
+            android:paddingLeft="@dimen/dip_15"
+            android:text="@string/input_address"
+            android:textColor="@color/white"
+            android:textSize="@dimen/text_size_18" />
+
+        <TextView
+            android:id="@+id/txtComplete"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_alignParentRight="true"
+            android:gravity="center_vertical"
+            android:paddingLeft="@dimen/dip_15"
+            android:paddingRight="@dimen/dip_15"
+            android:text="@string/complete"
+            android:textColor="@color/white"
+            android:textSize="@dimen/text_size_18" />
+
+    </RelativeLayout>
+
+    <EditText
+        android:id="@+id/editConsignee"
+        style="@style/perfectAddressEditText"
+        android:layout_marginTop="@dimen/dip_10"
+        android:hint="@string/consignee" />
+
+    <EditText
+        android:id="@+id/editPhone"
+        style="@style/perfectAddressEditText"
+        android:layout_marginTop="@dimen/dip_1"
+        android:hint="@string/phoneNumber"
+        android:inputType="phone"
+        android:maxLength="11" />
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dip_50"
+        android:layout_marginTop="@dimen/dip_1"
+        android:background="@color/white">
+
+        <TextView
+            android:id="@+id/txtTitle"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:gravity="center_vertical"
+            android:paddingLeft="@dimen/dip_15"
+            android:paddingRight="@dimen/dip_15"
+            android:text="@string/currentArea"
+            android:textColor="@color/lineColor"
+            android:textSize="@dimen/text_size_15" />
+
+        <EditText
+            android:id="@+id/txtCurrentLocation"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_toLeftOf="@+id/txtLocate"
+            android:layout_toRightOf="@+id/txtTitle"
+            android:background="@null"
+            android:gravity="center_vertical"
+            android:hint="上海上海市"
+            android:paddingRight="@dimen/dip_15"
+            android:textColor="@color/lineColor"
+            android:textSize="@dimen/text_size_15" />
+
+        <TextView
+            android:id="@+id/txtLocate"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_alignParentRight="true"
+            android:drawableLeft="@mipmap/img_locate"
+            android:drawablePadding="@dimen/dip_7"
+            android:gravity="center_vertical"
+            android:paddingLeft="@dimen/dip_5"
+            android:paddingRight="@dimen/dip_10"
+            android:text="@string/locate"
+            android:textColor="@color/titleColor"
+            android:textSize="@dimen/text_size_15" />
+
+    </RelativeLayout>
+
+    <EditText
+        android:id="@+id/editDetailAddress"
+        style="@style/perfectAddressEditText"
+        android:layout_marginTop="@dimen/dip_1"
+        android:hint="@string/detailAddress" />
+
+</LinearLayout>

@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/layoutRegisterSecond"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dip_40"
+        android:gravity="center_vertical"
+        android:paddingLeft="@dimen/dip_20"
+        android:text="@string/please_set_login_pwd"
+        android:textColor="@color/titleColor"
+        android:textSize="@dimen/text_size_13" />
+
+    <EditText
+        android:id="@+id/editPwd"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dip_60"
+        android:layout_marginLeft="@dimen/dip_20"
+        android:layout_marginRight="@dimen/dip_20"
+        android:background="@null"
+        android:drawableLeft="@mipmap/img_login_pwd"
+        android:drawablePadding="@dimen/dip_10"
+        android:hint="@string/password_require"
+        android:inputType="textPassword"
+        android:maxLength="20"
+        android:textColorHint="@color/loginEditHintColor"
+        android:textColor="@color/loginEditFontColor"
+        android:textSize="@dimen/text_size_15" />
+
+    <View
+        android:layout_marginLeft="@dimen/dip_15"
+        android:layout_marginRight="@dimen/dip_15"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dip_half"
+        android:background="@color/lightGrey" />
+
+    <TextView
+        android:id="@+id/btnComplete"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dip_50"
+        android:layout_below="@+id/lineTwo"
+        android:layout_marginLeft="@dimen/dip_15"
+        android:layout_marginRight="@dimen/dip_15"
+        android:layout_marginTop="@dimen/dip_30"
+        android:background="@drawable/btn_login"
+        android:gravity="center"
+        android:text="@string/complete_register_and_login"
+        android:textColor="@color/white"
+        android:textSize="@dimen/text_size_18" />
+
+</LinearLayout>

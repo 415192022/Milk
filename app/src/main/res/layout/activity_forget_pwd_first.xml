@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white"
+    android:clipToPadding="false"
+    android:fitsSystemWindows="true"
+    android:orientation="vertical">
+
+    <include layout="@layout/head_view" />
+
+    <EditText
+        android:id="@+id/editAccount"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dip_60"
+        android:layout_marginLeft="@dimen/dip_20"
+        android:layout_marginRight="@dimen/dip_20"
+        android:layout_marginTop="@dimen/dip_20"
+        android:background="@null"
+        android:drawableLeft="@mipmap/img_login_user"
+        android:drawablePadding="@dimen/dip_10"
+        android:hint="@string/please_input_account"
+        android:inputType="phone"
+        android:maxLength="11"
+        android:textColor="@color/loginEditFontColor"
+        android:textColorHint="@color/loginEditHintColor"
+        android:textSize="@dimen/text_size_16" />
+
+    <View
+        android:layout_marginLeft="@dimen/dip_15"
+        android:layout_marginRight="@dimen/dip_15"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dip_half"
+        android:background="@color/lightGrey" />
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dip_60"
+        android:layout_marginLeft="@dimen/dip_20"
+        android:layout_marginRight="@dimen/dip_20">
+
+        <EditText
+            android:id="@+id/editPassword"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginRight="@dimen/dip_7"
+            android:layout_toLeftOf="@+id/txtForgetPwd"
+            android:background="@null"
+            android:drawableLeft="@mipmap/img_login_sms"
+            android:drawablePadding="@dimen/dip_10"
+            android:gravity="center_vertical"
+            android:hint="@string/please_input_SMS_verification_code"
+            android:maxLength="6"
+            android:textColor="@color/loginEditFontColor"
+            android:textColorHint="@color/loginEditHintColor"
+            android:textSize="@dimen/text_size_16"/>
+
+        <TextView
+            android:id="@+id/txtGetVerCode"
+            android:layout_width="@dimen/dip_100"
+            android:layout_height="match_parent"
+            android:layout_alignParentRight="true"
+            android:gravity="center"
+            android:text="@string/click_and_get_verifyCode"
+            android:textColor="@color/main_tab_select_font_color"
+            android:textSize="@dimen/text_size_16" />
+
+    </RelativeLayout>
+
+    <View
+        android:layout_marginRight="@dimen/dip_15"
+        android:layout_marginLeft="@dimen/dip_15"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dip_half"
+        android:background="@color/lightGrey" />
+
+    <TextView
+        android:id="@+id/btnNext"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dip_50"
+        android:layout_below="@+id/lineTwo"
+        android:layout_marginLeft="@dimen/dip_15"
+        android:layout_marginRight="@dimen/dip_15"
+        android:layout_marginTop="@dimen/dip_30"
+        android:background="@drawable/btn_login"
+        android:gravity="center"
+        android:text="@string/next"
+        android:textColor="@color/white"
+        android:textSize="@dimen/text_size_18" />
+
+</LinearLayout>

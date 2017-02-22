@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white"
+    android:orientation="vertical">
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:background="@color/white"
+        android:drawableLeft="@mipmap/img_refund_success"
+        android:drawablePadding="@dimen/dip_7"
+        android:gravity="center_horizontal"
+        android:padding="@dimen/dip_30"
+        android:text="@string/congratulations_trade_success"
+        android:textColor="@color/titleColor"
+        android:textSize="@dimen/text_size_14" />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dip_10"
+        android:background="@color/bg" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:paddingBottom="@dimen/dip_15"
+        android:paddingTop="@dimen/dip_15"
+        android:paddingLeft="@dimen/dip_30"
+        android:paddingRight="@dimen/dip_30">
+
+        <TextView
+            android:id="@+id/txtCommentIm"
+            android:layout_width="0dp"
+            android:layout_height="@dimen/dip_35"
+            android:layout_marginBottom="@dimen/dip_15"
+            android:layout_marginLeft="@dimen/dip_30"
+            android:layout_marginRight="@dimen/dip_30"
+            android:layout_marginTop="@dimen/dip_15"
+            android:layout_weight="1"
+            android:background="@drawable/bg_text_trade_success"
+            android:gravity="center"
+            android:text="@string/commentIm"
+            android:textColor="@color/titleColor"
+            android:textSize="@dimen/text_size_14" />
+
+        <TextView
+            android:id="@+id/txtOrderDetail"
+            android:layout_width="0dp"
+            android:layout_height="@dimen/dip_35"
+            android:layout_marginBottom="@dimen/dip_15"
+            android:layout_marginLeft="@dimen/dip_30"
+            android:layout_marginRight="@dimen/dip_30"
+            android:layout_marginTop="@dimen/dip_15"
+            android:layout_weight="1"
+            android:background="@drawable/bg_text_trade_success"
+            android:gravity="center"
+            android:text="@string/orderDetail"
+            android:textColor="@color/titleColor"
+            android:textSize="@dimen/text_size_14" />
+
+    </LinearLayout>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dip_60"
+        android:background="@color/bg"
+        android:gravity="center"
+        android:text="@string/see_more_buy_maybe"
+        android:textColor="@color/lineColor"
+        android:textSize="@dimen/text_size_14" />
+
+</LinearLayout>

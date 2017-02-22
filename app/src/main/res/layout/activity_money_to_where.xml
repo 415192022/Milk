@@ -1,0 +1,132 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/lightGrey"
+    android:fitsSystemWindows="true"
+    android:clipToPadding="false"
+    android:orientation="vertical">
+
+    <RelativeLayout
+        android:background="@color/white"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dip_48">
+
+        <ImageView
+            android:id="@+id/imgBack"
+            android:paddingRight="@dimen/dip_15"
+            android:paddingLeft="@dimen/dip_15"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:src="@mipmap/img_left_back_grren"/>
+
+        <TextView
+            android:layout_centerInParent="true"
+            android:text="@string/money_where_to_go"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/titleColor"
+            android:textSize="@dimen/text_size_18"/>
+
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dip_120"
+        android:background="@color/colorPrimary">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="@dimen/text_size_12"
+            android:textColor="@color/white"
+            android:text="支付宝"
+            android:padding="@dimen/dip_15"/>
+
+        <TextView
+            android:id="@+id/txtMoney"
+            android:layout_centerInParent="true"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="@dimen/text_size_30"
+            android:textColor="@color/white"
+            android:text="190.00"
+            android:padding="@dimen/dip_15"/>
+
+        <TextView
+            android:layout_toRightOf="@+id/txtMoney"
+            android:layout_alignBaseline="@+id/txtMoney"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="@dimen/text_size_12"
+            android:textColor="@color/white"
+            android:text="(元)"
+            />
+
+    </RelativeLayout>
+
+    <LinearLayout
+        android:layout_marginTop="@dimen/dip_10"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dip_130"
+        android:background="@color/white"
+        android:orientation="horizontal"
+        android:padding="@dimen/dip_10">
+
+        <TextView
+            android:drawablePadding="@dimen/dip_7"
+            android:drawableTop="@mipmap/img_money_step_complete"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="wrap_content"
+            android:textSize="@dimen/text_size_12"
+            android:textColor="@color/moneySelected"
+            android:text="买家退款 2017-1-3 15:27:21"/>
+
+        <View
+            android:layout_marginTop="@dimen/dip_12"
+            android:layout_width="0dp"
+            android:layout_height="@dimen/dip_1"
+            android:background="@color/moneySelected"
+            android:layout_weight="3"/>
+
+        <TextView
+            android:drawablePadding="@dimen/dip_7"
+            android:drawableTop="@mipmap/img_money_step_going"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="wrap_content"
+            android:textSize="@dimen/text_size_12"
+            android:textColor="@color/moneySelected"
+            android:text="卖家受理 2017-1-3 15:27:21"/>
+
+        <View
+            android:layout_marginTop="@dimen/dip_12"
+            android:layout_width="0dp"
+            android:layout_height="@dimen/dip_1"
+            android:background="@color/lightGrey"
+            android:layout_weight="3"/>
+
+        <TextView
+            android:drawablePadding="@dimen/dip_7"
+            android:drawableTop="@mipmap/img_money_step_normal"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="wrap_content"
+            android:textSize="@dimen/text_size_12"
+            android:textColor="@color/lineColor"
+            android:text="退款成功 预计 2017-1-3 15:27:21"/>
+
+    </LinearLayout>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingLeft="@dimen/dip_10"
+        android:paddingBottom="@dimen/dip_10"
+        android:background="@color/white"
+        android:textSize="@dimen/text_size_13"
+        android:textColor="@color/lineColor"
+        android:text="若超过预计时间仍未查询到, 请咨询第三方!"/>
+
+</LinearLayout>

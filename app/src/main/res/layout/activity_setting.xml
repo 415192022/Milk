@@ -1,0 +1,156 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/bg"
+    android:clipToPadding="false"
+    android:fitsSystemWindows="true"
+    android:orientation="vertical">
+
+    <include layout="@layout/head_view" />
+
+    <View
+        android:id="@+id/lineTitle"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dip_10"
+        android:layout_below="@+id/root_title"
+        android:background="@color/lightGrey" />
+
+    <RelativeLayout
+        android:id="@+id/reHead"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dip_100"
+        android:layout_below="@+id/lineTitle"
+        android:background="@color/white"
+        android:paddingLeft="@dimen/dip_10"
+        android:paddingRight="@dimen/dip_10">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:gravity="center_vertical"
+            android:text="@string/minePortrait"
+            android:textColor="@color/titleColor"
+            android:textSize="@dimen/text_size_16" />
+
+        <RelativeLayout
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_below="@+id/root_title"
+            android:layout_toLeftOf="@+id/imgRight"
+            android:background="@color/white"
+            android:gravity="center_vertical"
+            android:paddingLeft="@dimen/dip_30"
+            android:paddingRight="@dimen/dip_30">
+
+            <com.yundong.milk.view.CircleImageView
+                android:id="@+id/imgUserHead"
+                android:layout_width="@dimen/dip_60"
+                android:layout_height="@dimen/dip_60"
+                android:src="@mipmap/img_portrait_default" />
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/dip_45"
+                android:layout_marginTop="@dimen/dip_40"
+                android:src="@mipmap/img_user_camera" />
+
+        </RelativeLayout>
+
+        <ImageView
+            android:id="@+id/imgRight"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:src="@mipmap/img_user_right" />
+
+    </RelativeLayout>
+
+    <View
+        android:id="@+id/lineOne"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dip_1"
+        android:layout_below="@+id/reHead"
+        android:background="@color/lightGrey" />
+
+    <RelativeLayout
+        android:id="@+id/reNickName"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dip_50"
+        android:layout_below="@+id/lineOne"
+        android:background="@color/white"
+        android:paddingLeft="@dimen/dip_10"
+        android:paddingRight="@dimen/dip_10">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:gravity="center_vertical"
+            android:text="@string/mineNickName"
+            android:textColor="@color/titleColor"
+            android:textSize="@dimen/text_size_16" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_alignParentRight="true"
+            android:drawablePadding="@dimen/dip_10"
+            android:drawableRight="@mipmap/img_user_right"
+            android:gravity="center_vertical"
+            android:text="牛奶爱好者"
+            android:textColor="@color/lineColor"
+            android:textSize="@dimen/text_size_16" />
+
+    </RelativeLayout>
+
+    <!--<View-->
+        <!--android:id="@+id/lineTwo"-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="@dimen/dip_1"-->
+        <!--android:layout_below="@+id/reNickName"-->
+        <!--android:background="@color/lightGrey" />-->
+
+    <!--<RelativeLayout-->
+        <!--android:id="@+id/reCity"-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="@dimen/dip_50"-->
+        <!--android:layout_below="@+id/lineTwo"-->
+        <!--android:background="@color/white"-->
+        <!--android:paddingLeft="@dimen/dip_10"-->
+        <!--android:paddingRight="@dimen/dip_10">-->
+
+        <!--<TextView-->
+            <!--android:layout_width="wrap_content"-->
+            <!--android:layout_height="match_parent"-->
+            <!--android:gravity="center_vertical"-->
+            <!--android:text="@string/mineCity"-->
+            <!--android:textColor="@color/titleColor"-->
+            <!--android:textSize="@dimen/text_size_16" />-->
+
+        <!--<TextView-->
+            <!--android:layout_width="wrap_content"-->
+            <!--android:layout_height="match_parent"-->
+            <!--android:layout_alignParentRight="true"-->
+            <!--android:drawablePadding="@dimen/dip_10"-->
+            <!--android:drawableRight="@mipmap/img_user_right"-->
+            <!--android:gravity="center_vertical"-->
+            <!--android:text="上海"-->
+            <!--android:textColor="@color/lineColor"-->
+            <!--android:textSize="@dimen/text_size_16" />-->
+
+    <!--</RelativeLayout>-->
+
+    <TextView
+        android:id="@+id/txtLoginOut"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dip_50"
+        android:layout_alignParentBottom="true"
+        android:background="@color/white"
+        android:gravity="center"
+        android:text="@string/apply_for_update"
+        android:textColor="@color/colorPrimary"
+        android:textSize="@dimen/text_size_18" />
+
+</RelativeLayout>

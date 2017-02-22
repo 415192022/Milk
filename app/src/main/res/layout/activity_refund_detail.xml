@@ -1,0 +1,206 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/lightGrey"
+    android:clipToPadding="false"
+    android:fitsSystemWindows="true"
+    android:orientation="vertical">
+
+    <include layout="@layout/head_view" />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/white"
+        android:drawableLeft="@mipmap/img_refund_success"
+        android:drawablePadding="@dimen/dip_7"
+        android:gravity="center_vertical"
+        android:padding="@dimen/dip_10"
+        android:text="@string/refundSuccess"
+        android:textColor="@color/titleColor"
+        android:textSize="@dimen/text_size_14" />
+
+    <TextView
+        android:id="@+id/txtRefundMoney"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/white"
+        android:padding="@dimen/dip_10"
+        android:text="退款金额:  ¥199.00"
+        android:textColor="@color/lineColor"
+        android:textSize="@dimen/text_size_14" />
+
+    <TextView
+        android:id="@+id/txtRefundTime"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/white"
+        android:padding="@dimen/dip_10"
+        android:text="退款时间:  20167-1-4 10:08"
+        android:textColor="@color/lineColor"
+        android:textSize="@dimen/text_size_14" />
+
+    <TextView
+        android:id="@+id/txtSeeMoneyTo"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/dip_1"
+        android:background="@color/white"
+        android:gravity="center"
+        android:padding="@dimen/dip_10"
+        android:text="@string/see_money_to_where"
+        android:textColor="@color/colorPrimary"
+        android:textSize="@dimen/text_size_14" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/dip_10"
+        android:background="@color/white"
+        android:orientation="horizontal"
+        android:padding="@dimen/dip_10">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@color/white"
+            android:gravity="center_vertical"
+            android:text="@string/refundMoney"
+            android:textColor="@color/lineColor"
+            android:textSize="@dimen/text_size_14" />
+
+        <TextView
+            android:id="@+id/txtRefundMoneys"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/dip_10"
+            android:background="@color/white"
+            android:gravity="center_vertical"
+            android:text="¥199.00"
+            android:textColor="@color/titleColor"
+            android:textSize="@dimen/text_size_14" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/dip_1"
+        android:background="@color/white"
+        android:orientation="horizontal"
+        android:padding="@dimen/dip_10">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@color/white"
+            android:gravity="center_vertical"
+            android:text="@string/refundReason"
+            android:textColor="@color/lineColor"
+            android:textSize="@dimen/text_size_14" />
+
+        <TextView
+            android:id="@+id/txtRefundReason"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/dip_10"
+            android:background="@color/white"
+            android:gravity="center_vertical"
+            android:text="拍错了/订单信息错误"
+            android:textColor="@color/titleColor"
+            android:textSize="@dimen/text_size_14" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/dip_1"
+        android:background="@color/white"
+        android:orientation="horizontal"
+        android:padding="@dimen/dip_10">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@color/white"
+            android:gravity="center_vertical"
+            android:text="@string/refundExplain"
+            android:textColor="@color/lineColor"
+            android:textSize="@dimen/text_size_14" />
+
+        <TextView
+            android:id="@+id/txtRefundExplain"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/dip_10"
+            android:background="@color/white"
+            android:gravity="center_vertical"
+            android:text="收货地址错了,我要退款"
+            android:textColor="@color/titleColor"
+            android:textSize="@dimen/text_size_14" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/dip_1"
+        android:background="@color/white"
+        android:orientation="horizontal"
+        android:padding="@dimen/dip_10">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@color/white"
+            android:gravity="center_vertical"
+            android:text="@string/refundNumber"
+            android:textColor="@color/lineColor"
+            android:textSize="@dimen/text_size_14" />
+
+        <TextView
+            android:id="@+id/txtRefundOrder"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/dip_10"
+            android:background="@color/white"
+            android:gravity="center_vertical"
+            android:text="987654321123456789"
+            android:textColor="@color/titleColor"
+            android:textSize="@dimen/text_size_14" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/dip_1"
+        android:background="@color/white"
+        android:orientation="horizontal"
+        android:padding="@dimen/dip_10">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@color/white"
+            android:gravity="center_vertical"
+            android:text="@string/refundTime"
+            android:textColor="@color/lineColor"
+            android:textSize="@dimen/text_size_14" />
+
+        <TextView
+            android:id="@+id/txtRefundTimes"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/dip_10"
+            android:background="@color/white"
+            android:gravity="center_vertical"
+            android:text="2017-1-4 10:24:12"
+            android:textColor="@color/titleColor"
+            android:textSize="@dimen/text_size_14" />
+
+    </LinearLayout>
+
+</LinearLayout>

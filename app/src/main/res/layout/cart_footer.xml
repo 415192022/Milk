@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white"
+    android:orientation="vertical">
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dip_80"
+        android:background="@color/bg"
+        android:gravity="center"
+        android:text="@string/see_again_you_may_buy"
+        android:textColor="@color/lineColor" />
+
+    <com.yundong.milk.view.recyclerview.XRecyclerView
+        android:id="@+id/recyclerViewFooter"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"/>
+
+</LinearLayout>

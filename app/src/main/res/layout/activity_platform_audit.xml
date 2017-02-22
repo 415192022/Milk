@@ -1,0 +1,121 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/bg"
+    android:clipToPadding="false"
+    android:fitsSystemWindows="true">
+
+    <include layout="@layout/head_view" />
+
+    <RelativeLayout
+        android:id="@+id/reCompanyName"
+        style="@style/rePlatFormAuditStyle"
+        android:layout_below="@+id/root_title"
+        android:layout_marginTop="@dimen/dip_10">
+
+        <TextView
+            android:id="@+id/txtName"
+            style="@style/txtPlatformTextViewTitle"
+            android:text="@string/companyName" />
+
+        <EditText
+            android:id="@+id/editCompanyName"
+            style="@style/txtPlatformTextViewContent"
+            android:layout_toRightOf="@+id/txtName"
+            android:text="上海华生有限公司" />
+
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/reArea"
+        style="@style/rePlatFormAuditStyle"
+        android:layout_below="@+id/reCompanyName"
+        android:layout_marginTop="@dimen/dip_1">
+
+        <TextView
+            android:id="@+id/txtArea"
+            style="@style/txtPlatformTextViewTitle"
+            android:text="@string/currentArea" />
+
+        <TextView
+            android:id="@+id/txtCompanyArea"
+            style="@style/txtPlatformTextViewContent"
+            android:layout_toRightOf="@+id/txtArea"
+            android:hint="@string/please_select_current_area" />
+
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/reChargeMan"
+        style="@style/rePlatFormAuditStyle"
+        android:layout_below="@+id/reArea"
+        android:layout_marginTop="@dimen/dip_1">
+
+        <TextView
+            android:id="@+id/txtChargeMan"
+            style="@style/txtPlatformTextViewTitle"
+            android:text="@string/person_in_charge" />
+
+        <EditText
+            android:id="@+id/editChargeMan"
+            style="@style/txtPlatformTextViewContent"
+            android:layout_toRightOf="@+id/txtChargeMan"
+            android:text="张三丰" />
+
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/reContactWay"
+        style="@style/rePlatFormAuditStyle"
+        android:layout_below="@+id/reChargeMan"
+        android:layout_marginTop="@dimen/dip_1">
+
+        <TextView
+            android:id="@+id/txtPhone"
+            style="@style/txtPlatformTextViewTitle"
+            android:text="@string/contactWay" />
+
+        <EditText
+            android:id="@+id/editPhone"
+            style="@style/txtPlatformTextViewContent"
+            android:layout_toRightOf="@+id/txtPhone"
+            android:inputType="phone"
+            android:maxLength="11"
+            android:text="178900001234" />
+
+    </RelativeLayout>
+
+    <ImageView
+        android:id="@+id/imgLicense"
+        android:layout_width="@dimen/dip_90"
+        android:layout_height="@dimen/dip_90"
+        android:layout_below="@+id/reContactWay"
+        android:layout_marginLeft="@dimen/dip_15"
+        android:layout_marginTop="@dimen/dip_15"
+        android:src="@mipmap/img_add_pic" />
+
+    <TextView
+        android:id="@+id/txtUploadLicense"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/reContactWay"
+        android:layout_marginLeft="@dimen/dip_15"
+        android:layout_marginTop="@dimen/dip_60"
+        android:layout_toRightOf="@+id/imgLicense"
+        android:text="@string/Upload_a_business_license"
+        android:textColor="@color/lineColor"
+        android:textSize="@dimen/text_size_12" />
+
+    <TextView
+        android:id="@+id/txtComplete"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dip_50"
+        android:layout_alignParentBottom="true"
+        android:background="@color/white"
+        android:gravity="center"
+        android:text="@string/complete"
+        android:textColor="@color/colorPrimary"
+        android:textSize="@dimen/text_size_18" />
+
+</RelativeLayout>

@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--验证码文字点击效果-->
+<selector xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item android:color="@color/main_tab_not_select_font_color" android:state_selected="false"/>
+
+    <item android:color="@color/colorPrimary" android:state_selected="true"/>
+
+</selector>

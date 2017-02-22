@@ -1,0 +1,129 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#F2F2F2"
+    android:clipToPadding="false"
+    android:fitsSystemWindows="true">
+
+    <include layout="@layout/head_view" />
+
+    <RelativeLayout
+        android:id="@+id/reAliPay"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dip_60"
+        android:layout_below="@+id/root_title"
+        android:background="@color/white"
+        android:paddingLeft="@dimen/dip_15"
+        android:paddingRight="@dimen/dip_15">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:drawableLeft="@mipmap/img_ali_pay"
+            android:drawablePadding="@dimen/dip_10"
+            android:gravity="center_vertical"
+            android:text="支付宝支付"
+            android:textColor="@color/titleColor"
+            android:textSize="@dimen/text_size_15" />
+
+        <CheckBox
+            android:id="@+id/checkAliPay"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_alignParentRight="true"
+            android:button="@null"
+            android:drawableLeft="@drawable/check_goods"
+            android:paddingLeft="@dimen/dip_10"
+            android:paddingRight="@dimen/dip_10" />
+
+    </RelativeLayout>
+
+    <View
+        android:id="@+id/line"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dip_1"
+        android:layout_below="@+id/reAliPay"
+        android:background="@color/bg" />
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dip_60"
+        android:layout_below="@+id/line"
+        android:background="@color/white"
+        android:paddingLeft="@dimen/dip_15"
+        android:paddingRight="@dimen/dip_15">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:drawableLeft="@mipmap/img_wx_pay"
+            android:drawablePadding="@dimen/dip_10"
+            android:gravity="center_vertical"
+            android:text="微信支付"
+            android:textColor="@color/titleColor"
+            android:textSize="@dimen/text_size_15" />
+
+        <CheckBox
+            android:id="@+id/checkWeChat"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_alignParentRight="true"
+            android:button="@null"
+            android:drawableLeft="@drawable/check_goods"
+            android:paddingLeft="@dimen/dip_10"
+            android:paddingRight="@dimen/dip_10" />
+
+    </RelativeLayout>
+
+    <LinearLayout
+        android:id="@+id/lineBottom"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dip_40"
+        android:layout_alignParentBottom="true"
+        android:background="@color/white"
+        android:orientation="horizontal">
+
+        <RelativeLayout
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="2"
+            android:gravity="center">
+
+            <TextView
+                android:id="@+id/txtTotal"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center_vertical"
+                android:text="合计:"
+                android:textColor="@color/titleColor"
+                android:textSize="@dimen/text_size_15" />
+
+            <TextView
+                android:textStyle="bold"
+                android:id="@+id/txtAllPrice"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_toRightOf="@+id/txtTotal"
+                android:gravity="center_vertical"
+                android:paddingLeft="@dimen/dip_5"
+                android:text=" ¥ 0.00"
+                android:textColor="@color/colorPrimary"
+                android:textSize="@dimen/text_size_15" />
+
+        </RelativeLayout>
+
+        <TextView
+            android:id="@+id/txtBuyIm"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:background="@color/colorPrimary"
+            android:gravity="center"
+            android:text="@string/payIm"
+            android:textColor="@color/white"
+            android:textSize="@dimen/text_size_15" />
+
+    </LinearLayout>
+
+</RelativeLayout>

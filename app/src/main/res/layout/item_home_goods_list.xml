@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/white"
+    android:orientation="vertical">
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dip_8"
+        android:background="@color/bg" />
+
+    <ImageView
+        android:id="@+id/imgPic"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dip_130"
+        android:paddingTop="@dimen/dip_10"
+        android:src="@mipmap/img_test" />
+
+    <TextView
+        android:id="@+id/txtGoodsAttr"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:ellipsize="end"
+        android:maxLines="2"
+        android:padding="@dimen/dip_10"
+        android:textColor="@color/titleColor"
+        android:textSize="@dimen/text_size_16" />
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dip_50"
+        android:paddingBottom="@dimen/dip_10"
+        android:paddingLeft="@dimen/dip_10"
+        android:paddingRight="@dimen/dip_10">
+
+        <TextView
+            android:id="@+id/txtShopPrice"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:text="¥99.00元"
+            android:textColor="@color/colorPrimary"
+            android:textSize="@dimen/text_size_20" />
+
+        <TextView
+            android:id="@+id/txtMarketPrice"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_marginLeft="@dimen/dip_7"
+            android:layout_toRightOf="@+id/txtShopPrice"
+            android:gravity="center"
+            android:text="¥199.00元"
+            android:textColor="@color/marketPriceColor"
+            android:textSize="@dimen/text_size_12" />
+
+        <Button
+            android:id="@+id/btnBuyHome"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_alignParentRight="true"
+            android:background="@drawable/btn_login"
+            android:gravity="center"
+            android:paddingLeft="@dimen/dip_7"
+            android:paddingRight="@dimen/dip_7"
+            android:text="@string/buyHome"
+            android:textColor="@color/white"
+            android:textSize="@dimen/text_size_14" />
+
+    </RelativeLayout>
+
+</LinearLayout>

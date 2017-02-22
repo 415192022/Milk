@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:clipToPadding="false"
+    android:fitsSystemWindows="true">
+
+    <include layout="@layout/head_view"/>
+
+    <TextView
+        android:background="#E0E0E0"
+        android:paddingLeft="@dimen/dip_15"
+        android:gravity="center_vertical"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dip_30"
+        android:textColor="@color/titleColor"
+        android:text="热门城市"/>
+
+    <GridView
+        android:id="@+id/gridHotCity"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:numColumns="3"/>
+
+    <!--<LinearLayout-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="@dimen/dip_40">-->
+
+        <!--<TextView-->
+            <!--android:id="@+id/province"-->
+            <!--android:layout_width="0dp"-->
+            <!--android:layout_height="match_parent"-->
+            <!--android:layout_margin="@dimen/dip_5"-->
+            <!--android:layout_marginLeft="5dp"-->
+            <!--android:layout_weight="1"-->
+            <!--android:background="#EFEFEF"-->
+            <!--android:gravity="center"-->
+            <!--android:padding="@dimen/dip_5"-->
+            <!--android:text="省"-->
+            <!--android:textColor="#333333" />-->
+
+        <!--<TextView-->
+            <!--android:id="@+id/city"-->
+            <!--android:layout_width="0dp"-->
+            <!--android:layout_height="match_parent"-->
+            <!--android:layout_margin="@dimen/dip_5"-->
+            <!--android:layout_weight="1"-->
+            <!--android:background="#EFEFEF"-->
+            <!--android:gravity="center"-->
+            <!--android:padding="@dimen/dip_5"-->
+            <!--android:text="市"-->
+            <!--android:textColor="#333333" />-->
+
+        <!--<TextView-->
+            <!--android:id="@+id/zone"-->
+            <!--android:layout_width="0dp"-->
+            <!--android:layout_height="match_parent"-->
+            <!--android:layout_margin="@dimen/dip_5"-->
+            <!--android:layout_weight="1"-->
+            <!--android:background="#EFEFEF"-->
+            <!--android:gravity="center"-->
+            <!--android:padding="@dimen/dip_5"-->
+            <!--android:text="区"-->
+            <!--android:textColor="#333333" />-->
+
+    <!--</LinearLayout>-->
+
+    <FrameLayout
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent">
+
+        <ListView
+            android:id="@+id/address_list"
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:layout_gravity="center"
+            android:scrollbars="none"
+            android:divider="@null" />
+
+        <LinearLayout
+            android:id="@+id/title_layout"
+            android:layout_width="fill_parent"
+            android:layout_height="30dp"
+            android:layout_gravity="right|top"
+            android:background="#ff303030"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/title_layout_catalog"
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent"
+                android:background="#E0E0E0"
+                android:paddingBottom="5dip"
+                android:paddingLeft="5dip"
+                android:paddingTop="5dip"
+                android:textColor="#454545" />
+        </LinearLayout>
+
+        <com.yundong.milk.view.SideBarView
+            android:id="@+id/sideBarView"
+            android:layout_width="30dp"
+            android:layout_height="match_parent"
+            android:layout_gravity="right|center"
+            android:layout_marginBottom="@dimen/dip_40"
+            android:layout_marginTop="@dimen/dip_40" />
+    </FrameLayout>
+
+</LinearLayout>

@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/layoutLogin"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <EditText
+        android:id="@+id/editAccount"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dip_60"
+        android:layout_marginLeft="@dimen/dip_20"
+        android:layout_marginRight="@dimen/dip_20"
+        android:layout_marginTop="@dimen/dip_20"
+        android:background="@null"
+        android:drawableLeft="@mipmap/img_login_user"
+        android:drawablePadding="@dimen/dip_10"
+        android:hint="@string/please_input_account"
+        android:maxLines="1"
+        android:textColor="@color/loginEditFontColor"
+        android:textColorHint="@color/loginEditHintColor"
+        android:textSize="@dimen/text_size_16" />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dip_half"
+        android:layout_marginLeft="@dimen/dip_15"
+        android:layout_marginRight="@dimen/dip_15"
+        android:background="@color/lightGrey" />
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dip_60"
+        android:layout_marginLeft="@dimen/dip_20"
+        android:layout_marginRight="@dimen/dip_20">
+
+        <EditText
+            android:id="@+id/editPassword"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginRight="@dimen/dip_7"
+            android:layout_toLeftOf="@+id/txtForgetPwd"
+            android:background="@null"
+            android:drawableLeft="@mipmap/img_login_pwd"
+            android:drawablePadding="@dimen/dip_10"
+            android:gravity="center_vertical"
+            android:hint="@string/please_input_login_password"
+            android:inputType="textPassword"
+            android:textColor="@color/loginEditFontColor"
+            android:textColorHint="@color/loginEditHintColor"
+            android:textSize="@dimen/text_size_16" />
+
+        <TextView
+            android:id="@+id/txtForgetPwd"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_alignParentRight="true"
+            android:gravity="center_vertical"
+            android:text="@string/forgetPwd"
+            android:textColor="@color/main_tab_select_font_color"
+            android:textSize="@dimen/text_size_16" />
+
+    </RelativeLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dip_half"
+        android:layout_marginLeft="@dimen/dip_15"
+        android:layout_marginRight="@dimen/dip_15"
+        android:background="@color/lightGrey" />
+
+    <TextView
+        android:id="@+id/btnLogin"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dip_50"
+        android:layout_below="@+id/lineTwo"
+        android:layout_marginLeft="@dimen/dip_15"
+        android:layout_marginRight="@dimen/dip_15"
+        android:layout_marginTop="@dimen/dip_30"
+        android:background="@drawable/btn_login"
+        android:gravity="center"
+        android:text="@string/login"
+        android:textColor="@color/white"
+        android:textSize="@dimen/text_size_18" />
+
+</LinearLayout>

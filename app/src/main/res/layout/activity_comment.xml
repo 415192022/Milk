@@ -1,0 +1,122 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:background="#FFF"
+    android:id="@+id/reBg"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:clipToPadding="false"
+    android:fitsSystemWindows="true">
+
+
+
+
+    <include layout="@layout/head_view" />
+
+
+    <LinearLayout
+        android:id="@+id/ll_comment"
+        android:layout_width="match_parent"
+        android:layout_height="87dp"
+        android:layout_below="@+id/root_title"
+        android:layout_marginLeft="20dp"
+        android:layout_marginTop="20dp"
+        android:orientation="horizontal">
+
+        <ImageView
+            android:layout_width="112dp"
+            android:layout_height="87dp"
+            android:background="#EEE" />
+
+        <EditText
+
+            android:layout_marginLeft="20dp"
+            android:background="@null"
+            android:layout_width="245dp"
+            android:layout_height="wrap_content"
+            android:hint="亲！写出你的15字评价吧"
+            android:textColorHint="#C1C1C1"
+            android:textSize="15sp"
+            />
+    </LinearLayout>
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/rv_photo_list"
+        android:layout_marginRight="20dp"
+        android:layout_width="match_parent"
+        android:layout_height="68dp"
+        android:layout_below="@+id/ll_comment"
+        android:layout_marginLeft="20dp"
+        android:layout_marginTop="21dp"
+        ></android.support.v7.widget.RecyclerView>
+    <ImageView
+        android:visibility="gone"
+        android:id="@+id/iv_add_comment_image"
+        android:layout_width="68dp"
+        android:layout_height="68dp"
+        android:layout_below="@+id/ll_comment"
+        android:layout_marginLeft="20dp"
+        android:layout_marginTop="21dp"
+        android:background="@mipmap/add_comment_image" />
+
+    <LinearLayout
+        android:layout_below="@id/rv_photo_list"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_marginLeft="15dp"
+        android:layout_marginRight="15dp"
+        android:layout_marginTop="15dp"
+        android:background="#EEEEEE" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="21dp"
+        android:layout_marginLeft="20dp"
+        android:layout_marginTop="285dp"
+        android:orientation="horizontal">
+
+        <TextView
+            android:gravity="center"
+            android:textSize="18sp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="商品评分" />
+
+        <!--<RatingBar
+            android:layout_marginLeft="19dp"
+            style="@style/commentRatingBarStyle"
+            android:id="@+id/ratingbar"
+            android:layout_width="wrap_content"
+            android:maxWidth="378dp"
+            android:minWidth="378dp"
+            android:layout_height="30dp"
+            android:stepSize="1.0"
+            android:numStars="5"
+            android:rating="3"
+            />-->
+        <com.yundong.milk.view.XRatingBar
+            android:id="@+id/xrb_comment"
+            android:layout_marginLeft="19dp"
+            android:gravity="center"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:starCount="5"
+            app:starEmpty="@mipmap/xingxing01_hollow"
+            app:starFill="@mipmap/xingxing_solid"
+            app:starImageSize="26dp"
+            app:starPadding="1dp"
+            app:starStep="3"
+            app:stepSize="Full"
+            ></com.yundong.milk.view.XRatingBar>
+    </LinearLayout>
+    <Button
+        android:id="@+id/btn_publish"
+        android:gravity="center"
+        android:layout_alignParentBottom="true"
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:background="@color/colorPrimary"
+        android:text="发布"
+        android:textColor="@color/white"
+        android:textSize="@dimen/text_size_18"
+        />
+</RelativeLayout>
