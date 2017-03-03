@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:CircleIndicator="http://schemas.android.com/apk/res-auto"
     android:id="@+id/reBg"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -43,7 +44,7 @@
 
     </RelativeLayout>
 
-    <com.yundong.milk.view.ScrollViewContainer
+    <com.yundong.milk.widget.ScrollViewContainer
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_below="@+id/reTitle">
@@ -82,6 +83,17 @@
                             android:layout_height="wrap_content"
                             android:orientation="horizontal" />
                         <!-- 画选中的点 -->
+                        <com.yundong.milk.widget.CircleIndicator
+                            android:id="@+id/cid_banner"
+                            android:layout_width="match_parent"
+                            android:layout_height="10dp"
+                            android:layout_centerVertical="true"
+                            CircleIndicator:ci_background="@color/gray_btn_bg_color"
+                            CircleIndicator:ci_selected_background="0xffe6454a"
+                            CircleIndicator:ci_mode="outside"
+                            CircleIndicator:ci_gravity="center"
+                            CircleIndicator:ci_radius="10dp"
+                            CircleIndicator:ci_margin="5dp" />
                         <View
                             android:id="@+id/guide_point_selected"
                             android:layout_width="10dp"
@@ -102,7 +114,6 @@
                         android:layout_below="@+id/txtGoodsName"
                         android:gravity="center_vertical"
                         android:paddingLeft="@dimen/dip_15"
-                        android:text="¥ 199.00"
                         android:textColor="@color/colorPrimary"
                         android:textSize="@dimen/text_size_18" />
 
@@ -129,7 +140,6 @@
                         android:paddingLeft="@dimen/dip_15"
                         android:paddingRight="@dimen/dip_15"
                         android:paddingTop="@dimen/dip_7"
-                        android:text="累计销量: 322件"
                         android:textColor="@color/titleColor"
                         android:textSize="@dimen/text_size_13" />
 
@@ -144,7 +154,6 @@
                     android:lineSpacingExtra="@dimen/dip_3"
                     android:paddingLeft="@dimen/dip_15"
                     android:paddingRight="@dimen/dip_15"
-                    android:text="【新品上市】百岁山矿泉水348ml*24瓶 整箱 百岁山水中贵族, 好水等你来购~"
                     android:textColor="@color/black"
                     android:textSize="@dimen/text_size_16"
                     android:textStyle="bold" />
@@ -255,7 +264,6 @@
                         android:layout_marginLeft="@dimen/dip_3"
                         android:layout_toRightOf="@+id/txtComment"
                         android:gravity="center_vertical"
-                        android:text="13"
                         android:textColor="@color/black"
                         android:textSize="@dimen/text_size_14" />
 
@@ -282,7 +290,7 @@
                     android:background="@color/white"
                     android:paddingLeft="@dimen/dip_15">
 
-                    <com.yundong.milk.view.CircleImageView
+                    <com.yundong.milk.widget.CircleImageView
                         android:id="@+id/imgCriticHead"
                         android:layout_width="@dimen/dip_35"
                         android:layout_height="match_parent"
@@ -476,7 +484,7 @@
 
         </ScrollView>
 
-    </com.yundong.milk.view.ScrollViewContainer>
+    </com.yundong.milk.widget.ScrollViewContainer>
 
     <LinearLayout
         android:id="@+id/lineBottom"

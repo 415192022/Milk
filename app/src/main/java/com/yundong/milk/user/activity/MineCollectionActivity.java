@@ -11,9 +11,9 @@ import com.yundong.milk.base.BaseActivity;
 import com.yundong.milk.cart.activity.GoodsDetailActivity;
 import com.yundong.milk.user.adapter.MineCollectionListAdapter;
 import com.yundong.milk.util.ToastUtil;
-import com.yundong.milk.view.dialog.SweetAlertDialog;
-import com.yundong.milk.view.recyclerview.ItemSidesHelper;
-import com.yundong.milk.view.recyclerview.XRecyclerView;
+import com.yundong.milk.widget.dialog.SweetAlertDialog;
+import com.yundong.milk.widget.recyclerview.ItemSidesHelper;
+import com.yundong.milk.widget.recyclerview.XRecyclerView;
 
 import java.util.HashMap;
 

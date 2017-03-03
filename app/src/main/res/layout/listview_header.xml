@@ -19,7 +19,7 @@
             android:src="@mipmap/refresh_arrow"
             android:layout_centerInParent="true"/>
 
-        <com.yundong.milk.view.recyclerview.SimpleViewSwitcher
+        <com.yundong.milk.widget.recyclerview.SimpleViewSwitcher
             android:id="@+id/header_progressbar"
             android:layout_width="30dp"
             android:layout_height="30dp"

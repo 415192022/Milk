@@ -97,7 +97,7 @@
                 android:textColor="#454545" />
         </LinearLayout>
 
-        <com.yundong.milk.view.SideBarView
+        <com.yundong.milk.widget.SideBarView
             android:id="@+id/sideBarView"
             android:layout_width="30dp"
             android:layout_height="match_parent"

@@ -15,7 +15,7 @@ import com.yundong.milk.user.activity.PlatformAuditActivity;
 import com.yundong.milk.user.activity.ReceiptAddressActivity;
 import com.yundong.milk.user.activity.RefundActivity;
 import com.yundong.milk.user.activity.SettingActivity;
-import com.yundong.milk.view.dialog.SweetAlertDialog;
+import com.yundong.milk.widget.dialog.SweetAlertDialog;
 
 /**
  * Created by lj on 2016/12/12.

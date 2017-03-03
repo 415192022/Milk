@@ -11,7 +11,7 @@ import com.yundong.milk.base.BaseActivity;
 import com.yundong.milk.imagechoose.ChooseImage;
 import com.yundong.milk.imagechoose.MultiImageSelectorActivity;
 import com.yundong.milk.imagechoose.crop.HDApp;
-import com.yundong.milk.view.dialog.SweetAlertDialog;
+import com.yundong.milk.widget.dialog.SweetAlertDialog;
 
 import java.util.ArrayList;
 

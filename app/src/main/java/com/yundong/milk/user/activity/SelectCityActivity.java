@@ -29,7 +29,7 @@ import com.yundong.milk.util.CharacterParser;
 import com.yundong.milk.util.JsonUtil;
 import com.yundong.milk.util.PinyinComparator;
 import com.yundong.milk.util.ToastUtil;
-import com.yundong.milk.view.SideBarView;
+import com.yundong.milk.widget.SideBarView;
 
 import java.util.ArrayList;
 import java.util.HashMap;

@@ -9,7 +9,7 @@
         android:layout_height="@dimen/dip_50"
         android:paddingLeft="@dimen/dip_15">
 
-        <com.yundong.milk.view.CircleImageView
+        <com.yundong.milk.widget.CircleImageView
             android:id="@+id/imgCriticHead"
             android:layout_width="@dimen/dip_40"
             android:layout_height="match_parent"

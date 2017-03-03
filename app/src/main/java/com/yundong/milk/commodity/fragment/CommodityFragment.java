@@ -6,7 +6,7 @@ import android.view.View;
 import com.yundong.milk.R;
 import com.yundong.milk.base.BaseFragment;
 import com.yundong.milk.commodity.adapter.CommodityListAdapter;
-import com.yundong.milk.view.recyclerview.XRecyclerView;
+import com.yundong.milk.widget.recyclerview.XRecyclerView;
 
 /**
  * Created by lj on 2016/12/12.

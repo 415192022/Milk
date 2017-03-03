@@ -43,7 +43,7 @@
             android:paddingLeft="@dimen/dip_30"
             android:paddingRight="@dimen/dip_30">
 
-            <com.yundong.milk.view.CircleImageView
+            <com.yundong.milk.widget.CircleImageView
                 android:id="@+id/imgUserHead"
                 android:layout_width="@dimen/dip_60"
                 android:layout_height="@dimen/dip_60"

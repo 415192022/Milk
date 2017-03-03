@@ -7,6 +7,9 @@ import android.widget.BaseAdapter;
 import android.widget.TextView;
 
 import com.yundong.milk.R;
+import com.yundong.milk.model.HotSearchBean;
+
+import java.util.List;
 
 /**
  * Created by lj on 2017/1/5.
@@ -16,13 +19,14 @@ public class HotSearchAdapter extends BaseAdapter{
 
     private Context mContext;
 
-    public HotSearchAdapter(Context context){
+    public HotSearchAdapter(Context context,List<HotSearchBean> hotSearchBeens){
+        this.hotSearchBeens=hotSearchBeens;
         this.mContext = context;
     }
-
+    private List<HotSearchBean> hotSearchBeens;
     @Override
     public int getCount() {
-        return 9;
+        return hotSearchBeens.size();
     }
 
     @Override
@@ -46,7 +50,9 @@ public class HotSearchAdapter extends BaseAdapter{
         }else {
             viewHolder = (ViewHolder) view.getTag();
         }
-        viewHolder.txtTitle.setText("老年牛奶");
+        if(hotSearchBeens!=null&&hotSearchBeens.size()>0){
+            viewHolder.txtTitle.setText(hotSearchBeens.get(position).getName());
+        }
         return view;
     }
 

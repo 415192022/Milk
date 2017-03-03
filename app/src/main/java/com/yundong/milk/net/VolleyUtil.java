@@ -10,6 +10,7 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
 import com.google.gson.Gson;
+import com.yundong.milk.api.URLConst;
 import com.yundong.milk.config.ApiConfig;
 
 import org.json.JSONException;
@@ -41,7 +42,7 @@ public class VolleyUtil {
     public static void SendVolleyPostBean(String url, HashMap<?, ?> hashMap, final volleyInterface volleyInterface) {
 
         JSONObject jsonObject = new JSONObject(hashMap);
-        JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.POST, ApiConfig.HTTP_API + url, jsonObject, new Response.Listener<JSONObject>() {
+        JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.POST, URLConst.URL_MILK_BASE + url, jsonObject, new Response.Listener<JSONObject>() {
             @Override
             public void onResponse(JSONObject jsonObject) {
 

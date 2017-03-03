@@ -54,7 +54,7 @@
                android:textSize="@dimen/text_size_14"
                android:textColor="@color/titleColor"/>
 
-           <com.yundong.milk.view.NodeProgressView
+           <com.yundong.milk.widget.NodeProgressView
                android:id="@+id/nodeProgressView"
                android:layout_width="match_parent"
                android:layout_height="wrap_content"

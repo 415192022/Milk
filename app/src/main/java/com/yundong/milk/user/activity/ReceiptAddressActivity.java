@@ -7,7 +7,7 @@ import android.widget.TextView;
 import com.yundong.milk.R;
 import com.yundong.milk.base.BaseActivity;
 import com.yundong.milk.util.ToastUtil;
-import com.yundong.milk.view.dialog.SweetAlertDialog;
+import com.yundong.milk.widget.dialog.SweetAlertDialog;
 
 /**
  * Created by lj on 2016/12/28.

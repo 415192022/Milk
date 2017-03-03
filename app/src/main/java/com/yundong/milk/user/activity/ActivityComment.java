@@ -9,7 +9,6 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
 import android.support.v7.widget.GridLayoutManager;
-import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.Button;
@@ -20,11 +19,7 @@ import com.yundong.milk.base.BaseActivity;
 import com.yundong.milk.user.adapter.AdapterCommentPhoto;
 import com.yundong.milk.util.Base64Utils;
 import com.yundong.milk.util.ToastUtil;
-import com.yundong.milk.util.XPoupWindow;
-import com.yundong.milk.view.XRatingBar;
-
-import java.util.ArrayList;
-import java.util.List;
+import com.yundong.milk.widget.XRatingBar;
 
 /**
  * Created by lx on 2017/2/15.

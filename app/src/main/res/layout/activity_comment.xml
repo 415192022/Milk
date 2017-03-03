@@ -93,7 +93,7 @@
             android:numStars="5"
             android:rating="3"
             />-->
-        <com.yundong.milk.view.XRatingBar
+        <com.yundong.milk.widget.XRatingBar
             android:id="@+id/xrb_comment"
             android:layout_marginLeft="19dp"
             android:gravity="center"
@@ -106,7 +106,7 @@
             app:starPadding="1dp"
             app:starStep="3"
             app:stepSize="Full"
-            ></com.yundong.milk.view.XRatingBar>
+            ></com.yundong.milk.widget.XRatingBar>
     </LinearLayout>
     <Button
         android:id="@+id/btn_publish"

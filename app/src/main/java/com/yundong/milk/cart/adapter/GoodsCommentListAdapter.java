@@ -12,7 +12,7 @@ import android.widget.TextView;
 import com.bumptech.glide.Glide;
 import com.yundong.milk.R;
 import com.yundong.milk.cart.model.CommentListModel;
-import com.yundong.milk.view.CircleImageView;
+import com.yundong.milk.widget.CircleImageView;
 
 import java.util.ArrayList;
 

@@ -6,7 +6,7 @@
     android:background="@color/bg"
     android:visibility="gone">
 
-    <com.yundong.milk.view.recyclerview.XRecyclerView
+    <com.yundong.milk.widget.recyclerview.XRecyclerView
         android:id="@+id/recyclerView"
         android:layout_width="match_parent"
         android:layout_height="match_parent" />

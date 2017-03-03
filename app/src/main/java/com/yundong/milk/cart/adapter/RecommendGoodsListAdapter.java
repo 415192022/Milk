@@ -12,24 +12,24 @@ import android.widget.TextView;
 import com.bumptech.glide.Glide;
 import com.yundong.milk.R;
 import com.yundong.milk.cart.activity.GoodsDetailActivity;
-import com.yundong.milk.user.model.GoodsListModel;
+import com.yundong.milk.model.GoodsClassCommentBean;
 
 import java.util.ArrayList;
 
 /**
  * Created by lj on 2016/11/17.
- *  我的收藏
+ * 我的收藏
  */
-public class RecommendGoodsListAdapter extends RecyclerView.Adapter<RecommendGoodsListAdapter.GoodsHolder> implements View.OnClickListener{
+public class RecommendGoodsListAdapter extends RecyclerView.Adapter<RecommendGoodsListAdapter.GoodsHolder> implements View.OnClickListener {
 
-    private ArrayList<GoodsListModel> mList;
+    private ArrayList<GoodsClassCommentBean.GoodsClassCommentDataO.GoodsClassCommentDataA> mList = new ArrayList<>();
     private Activity mContext;
 
     public RecommendGoodsListAdapter(Activity context) {
         this.mContext = context;
     }
 
-    public void addData(ArrayList<GoodsListModel> list) {
+    public void addData(ArrayList<GoodsClassCommentBean.GoodsClassCommentDataO.GoodsClassCommentDataA> list) {
         mList.addAll(list);
         notifyDataSetChanged();
     }
@@ -42,22 +42,24 @@ public class RecommendGoodsListAdapter extends RecyclerView.Adapter<RecommendGoo
 
     @Override
     public void onBindViewHolder(final GoodsHolder holder, final int position) {
-        Glide.with(mContext).load(R.mipmap.img_test).into(holder.imgCollectionPic);
-        holder.txtCollectionContent.setText("房管局色粉hi粉红色的解放后几号付款的叫声");
-        holder.txtPrice.setText("¥199.00");
-        holder.txtCollectionNum.setText("月售2831");
-        holder.itemView.setOnClickListener(this);
-        holder.itemView.setTag(position);
+        if (mList != null && mList.size() > 0) {
+            Glide.with(mContext).load(mList.get(position).getGoods_main_image()).into(holder.imgCollectionPic);
+            holder.txtCollectionContent.setText(mList.get(position).getGoods_name());
+            holder.txtPrice.setText("¥" + mList.get(position).getGoods_price());
+            holder.txtCollectionNum.setText("月售" + mList.get(position).getGoods_salenum());
+            holder.itemView.setOnClickListener(this);
+            holder.itemView.setTag(position);
+        }
     }
 
     @Override
     public int getItemCount() {
-        return 20;
+        return mList.size();
     }
 
     @Override
     public void onClick(View view) {
-        switch (view.getId()){
+        switch (view.getId()) {
             default:
                 mContext.startActivity(new Intent(mContext, GoodsDetailActivity.class));
                 break;

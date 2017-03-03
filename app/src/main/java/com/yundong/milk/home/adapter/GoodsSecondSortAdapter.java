@@ -9,16 +9,18 @@ import android.widget.BaseAdapter;
 import android.widget.TextView;
 
 import com.yundong.milk.R;
+import com.yundong.milk.model.TypeBrandBean;
+import com.yundong.milk.util.ToastUtil;
 
 import java.util.ArrayList;
 
 public class GoodsSecondSortAdapter extends BaseAdapter{
-	private ArrayList<String> mListTitles;
+	private ArrayList<TypeBrandBean> mListTitles;
 	private Context mContext;
 	private LayoutInflater mInflater;
 	private int selectIndex = -1;
 
-	public GoodsSecondSortAdapter(Context context, ArrayList<String> titles){
+	public GoodsSecondSortAdapter(Context context, ArrayList<TypeBrandBean> titles){
 		this.mContext = context;
 		this.mListTitles = titles;
 		mInflater=(LayoutInflater)mContext.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
@@ -53,7 +55,7 @@ public class GoodsSecondSortAdapter extends BaseAdapter{
 		}else{
 			holder.txtSortName.setTextColor(ContextCompat.getColor(mContext, R.color.loginEditFontColor));
 		}
-		holder.txtSortName.setText(mListTitles.get(position));
+		holder.txtSortName.setText(mListTitles.get(position).getBrand_name());
 		return convertView;
 	}
 

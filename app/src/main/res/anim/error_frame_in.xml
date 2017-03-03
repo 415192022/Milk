@@ -9,7 +9,7 @@
         android:toAlpha="1"
         android:duration="400"/>
 
-    <sweet:com.yundong.milk.view.dialog.Rotate3dAnimation
+    <sweet:com.yundong.milk.widget.dialog.Rotate3dAnimation
         sweet:rollType="x"
         sweet:fromDeg="100"
         sweet:toDeg="0"

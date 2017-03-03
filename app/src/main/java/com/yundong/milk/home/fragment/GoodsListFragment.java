@@ -10,7 +10,7 @@ import android.view.ViewGroup;
 
 import com.yundong.milk.R;
 import com.yundong.milk.home.adapter.GoodsListAdapter;
-import com.yundong.milk.view.recyclerview.XRecyclerView;
+import com.yundong.milk.widget.recyclerview.XRecyclerView;
 
 import java.util.ArrayList;
 

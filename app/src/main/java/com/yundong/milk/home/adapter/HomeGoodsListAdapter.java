@@ -13,7 +13,10 @@ import android.widget.TextView;
 import com.bumptech.glide.Glide;
 import com.yundong.milk.R;
 import com.yundong.milk.cart.activity.GoodsDetailActivity;
+import com.yundong.milk.model.GoodsCommentBean;
 import com.yundong.milk.user.model.GoodsListModel;
+import com.yundong.milk.util.RxBusUtil;
+import com.yundong.milk.util.ToastUtil;
 
 import java.util.ArrayList;
 
@@ -21,32 +24,27 @@ import java.util.ArrayList;
  * Created by lj on 2016/11/17.
  *  我的收藏
  */
-public class HomeGoodsListAdapter extends BaseAdapter implements View.OnClickListener{
+public class HomeGoodsListAdapter extends BaseAdapter{
 
-    private ArrayList<GoodsListModel> mList;
+    private ArrayList<GoodsCommentBean.GoodsCommentDataO.GoodsCommentDataA> mList=new ArrayList<>();
     private Context mContext;
 
     public HomeGoodsListAdapter(Context context) {
         this.mContext = context;
     }
 
-    public void addData(ArrayList<GoodsListModel> list) {
+    public void addAllData(ArrayList<GoodsCommentBean.GoodsCommentDataO.GoodsCommentDataA> list) {
         mList.addAll(list);
+        notifyDataSetChanged();
+    }
+    public void addData(GoodsCommentBean.GoodsCommentDataO.GoodsCommentDataA goodsCommentDataA) {
+        mList.add(goodsCommentDataA);
         notifyDataSetChanged();
     }
 
     @Override
-    public void onClick(View view) {
-        switch (view.getId()){
-            default:
-                mContext.startActivity(new Intent(mContext, GoodsDetailActivity.class));
-                break;
-        }
-    }
-
-    @Override
     public int getCount() {
-        return 20;
+        return mList.size();
     }
 
     @Override
@@ -60,7 +58,7 @@ public class HomeGoodsListAdapter extends BaseAdapter implements View.OnClickLis
     }
 
     @Override
-    public View getView(int position, View view, ViewGroup viewGroup) {
+    public View getView(final int position, View view, ViewGroup viewGroup) {
         ViewHolder viewHolder = null;
         if (viewHolder == null){
             viewHolder = new ViewHolder();
@@ -70,18 +68,26 @@ public class HomeGoodsListAdapter extends BaseAdapter implements View.OnClickLis
             viewHolder.txtShopPrice = (TextView) view.findViewById(R.id.txtShopPrice);
             viewHolder.txtMarketPrice = (TextView) view.findViewById(R.id.txtMarketPrice);
             viewHolder.btnBuyHome = (Button) view.findViewById(R.id.btnBuyHome);
-            view.setOnClickListener(this);
             view.setTag(position);
         }else {
             viewHolder = (ViewHolder) view.getTag();
         }
-        Glide.with(mContext).load(R.mipmap.img_test).into(viewHolder.imgPic);
-        viewHolder.txtGoodsAttr.setText("【新品上市】百岁山矿泉水348ml*24瓶 整箱百岁山水中贵族, 好水等你来购~");
-        viewHolder.txtShopPrice.setText("￥99.00");
-        viewHolder.txtMarketPrice.setText("￥199.00");
-        viewHolder.txtMarketPrice.getPaint().setFlags(Paint. STRIKE_THRU_TEXT_FLAG|Paint.ANTI_ALIAS_FLAG);  // 设置中划线并加清晰
-        viewHolder.btnBuyHome.setOnClickListener(this);
-        viewHolder.btnBuyHome.setTag(position);
+        if(mList.size()>0){
+            Glide.with(mContext).load(mList.get(position).getGoods_main_image()).into(viewHolder.imgPic);
+            viewHolder.txtGoodsAttr.setText(mList.get(position).getGoods_name());
+            viewHolder.txtShopPrice.setText("￥"+mList.get(position).getGoods_price());
+            viewHolder.txtMarketPrice.setText("￥"+mList.get(position).getGoods_marketprice());
+            viewHolder.txtMarketPrice.getPaint().setFlags(Paint. STRIKE_THRU_TEXT_FLAG|Paint.ANTI_ALIAS_FLAG);  // 设置中划线并加清晰
+            viewHolder.btnBuyHome.setTag(position);
+        }
+        view.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent=new Intent(mContext, GoodsDetailActivity.class);
+                intent.putExtra("GOODS_ID",mList.get(position).getGoods_id());
+                mContext.startActivity(intent);
+            }
+        });
         return view;
     }
 

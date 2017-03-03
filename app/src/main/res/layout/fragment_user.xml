@@ -59,7 +59,7 @@
             android:gravity="center"
             android:orientation="vertical">
 
-            <com.yundong.milk.view.CircleImageView
+            <com.yundong.milk.widget.CircleImageView
                 android:id="@+id/imgUserHead"
                 android:layout_width="@dimen/dip_80"
                 android:layout_height="@dimen/dip_80"

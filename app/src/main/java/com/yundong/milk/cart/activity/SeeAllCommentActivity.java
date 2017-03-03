@@ -13,7 +13,7 @@ import com.yundong.milk.cart.model.CommentListModel;
 import com.yundong.milk.net.VolleyUtil;
 import com.yundong.milk.util.JsonUtil;
 import com.yundong.milk.util.ToastUtil;
-import com.yundong.milk.view.recyclerview.XRecyclerView;
+import com.yundong.milk.widget.recyclerview.XRecyclerView;
 
 import org.json.JSONException;
 import org.json.JSONObject;

@@ -10,7 +10,7 @@ import com.yundong.milk.base.BaseActivity;
 import com.yundong.milk.cart.adapter.PaySuccessAdapter;
 import com.yundong.milk.user.activity.ApplyForMoney;
 import com.yundong.milk.user.activity.RefundAfterSaleActivity;
-import com.yundong.milk.view.recyclerview.XRecyclerView;
+import com.yundong.milk.widget.recyclerview.XRecyclerView;
 
 /**
  * Created by lj on 2017/1/4.

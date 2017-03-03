@@ -16,7 +16,7 @@ import com.yundong.milk.user.activity.ApplyForMoney;
 import com.yundong.milk.user.activity.MoneyToWhereActivity;
 import com.yundong.milk.user.activity.RefundDetailActivity;
 import com.yundong.milk.user.model.GoodsListModel;
-import com.yundong.milk.view.dialog.SweetAlertDialog;
+import com.yundong.milk.widget.dialog.SweetAlertDialog;
 
 import java.util.ArrayList;
 

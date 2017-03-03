@@ -9,16 +9,17 @@ import android.widget.BaseAdapter;
 import android.widget.TextView;
 
 import com.yundong.milk.R;
+import com.yundong.milk.model.RecommentTypeBean;
 
 import java.util.ArrayList;
 
 public class GoodsFirstSortAdapter extends BaseAdapter{
-	private ArrayList<String> mListTitles;
+	private ArrayList<RecommentTypeBean> mListTitles;
 	private Context mContext;
 	private LayoutInflater mInflater;
 	private int selectIndex = -1;
 
-	public GoodsFirstSortAdapter(Context context, ArrayList<String> titles){
+	public GoodsFirstSortAdapter(Context context, ArrayList<RecommentTypeBean> titles){
 		this.mContext = context;
 		this.mListTitles = titles;
 		mInflater=(LayoutInflater)mContext.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
@@ -53,7 +54,7 @@ public class GoodsFirstSortAdapter extends BaseAdapter{
 		}else{
 			holder.txtSortName.setTextColor(ContextCompat.getColor(mContext, R.color.loginEditFontColor));
 		}
-		holder.txtSortName.setText(mListTitles.get(position));
+		holder.txtSortName.setText(mListTitles.get(position).getGc_name());
 		return convertView;
 	}
 

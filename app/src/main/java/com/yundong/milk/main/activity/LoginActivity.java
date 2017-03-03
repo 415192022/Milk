@@ -10,10 +10,23 @@ import android.widget.TextView;
 
 import com.yundong.milk.R;
 import com.yundong.milk.api.MainApi;
+import com.yundong.milk.api.URLConst;
 import com.yundong.milk.base.BaseActivity;
+import com.yundong.milk.manager.YunDongApplication;
+import com.yundong.milk.model.BaseReceiveBean;
+import com.yundong.milk.model.CheckVerificationCodeBean;
+import com.yundong.milk.model.LoginBean;
+import com.yundong.milk.model.RegistBean;
 import com.yundong.milk.net.VolleyUtil;
+import com.yundong.milk.present.LoginPresenter;
+import com.yundong.milk.util.Const;
 import com.yundong.milk.util.MD5;
+import com.yundong.milk.util.PreferencesUtils;
 import com.yundong.milk.util.ToastUtil;
+import com.yundong.milk.view.ICheckVerificationView;
+import com.yundong.milk.view.IGetVerificationView;
+import com.yundong.milk.view.ILoginView;
+import com.yundong.milk.view.IRegisterView;
 
 import java.util.HashMap;
 
@@ -21,9 +34,11 @@ import java.util.HashMap;
  * Created by lj on 2016/12/23.
  * 登录,注册
  */
-public class LoginActivity extends BaseActivity {
+public class LoginActivity extends BaseActivity implements ILoginView, IGetVerificationView, ICheckVerificationView, IRegisterView {
 
     private TextView mTxtGetVerCode;
+    private LoginPresenter loginPresenter;
+    private String password;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,6 +53,8 @@ public class LoginActivity extends BaseActivity {
         mTxtGetVerCode = (TextView) findViewById(R.id.txtGetVerCode);
         mTxtGetVerCode.setOnClickListener(this);
         findViewById(R.id.txtTriangleLogin).setVisibility(View.VISIBLE);
+        loginPresenter = LoginPresenter.getInstance().with(this, this, this, this);
+        loginPresenter.login(PreferencesUtils.getString(this, Const.LOGIN_NAME), PreferencesUtils.getString(this, Const.LOGIN_PWD));
     }
 
     @Override
@@ -52,16 +69,17 @@ public class LoginActivity extends BaseActivity {
                 findViewById(R.id.layoutRegisterSecond).setVisibility(View.VISIBLE);
                 break;
             case R.id.btnLogin://登录按钮
-                login("", "");
-//                String account = ((EditText) findViewById(R.id.editAccount)).getText().toString().trim();
-//                String password = ((EditText) findViewById(R.id.editPassword)).getText().toString().trim();
-//                if (TextUtils.isEmpty(account)) {
-//                    ToastUtil.showShortToast(R.string.please_input_account);
-//                } else if (TextUtils.isEmpty(password)) {
-//                    ToastUtil.showShortToast(R.string.please_input_login_password);
-//                } else {
-//                    login(account, password);
-//                }
+                String account = ((EditText) findViewById(R.id.editAccount)).getText().toString().trim();
+                password = ((EditText) findViewById(R.id.editPassword)).getText().toString().trim();
+                if (TextUtils.isEmpty(account)) {
+                    ToastUtil.showShortToast(R.string.please_input_account);
+                } else if (TextUtils.isEmpty(password)) {
+                    ToastUtil.showShortToast(R.string.please_input_login_password);
+                } else {
+                    loginPresenter.login(account, password);
+                }
+
+
                 break;
             case R.id.txtRegister: //切换背景图的登录和注册
                 findViewById(R.id.txtTriangleLogin).setVisibility(View.GONE);
@@ -78,6 +96,7 @@ public class LoginActivity extends BaseActivity {
                     ToastUtil.showShortToast(R.string.phone_number_not_correct);
                 } else {
                     timer.start();
+                    loginPresenter.getVerification(phoneNum);
                 }
                 break;
             case R.id.btnNext: //注册界面一的下一步
@@ -90,9 +109,12 @@ public class LoginActivity extends BaseActivity {
                 } else if (TextUtils.isEmpty(sMSVerCode)) {
                     ToastUtil.showShortToast(R.string.please_input_SMS_verification_code);
                 } else {
-                    findViewById(R.id.layoutLogin).setVisibility(View.GONE);
-                    findViewById(R.id.layoutRegisterFirst).setVisibility(View.GONE);
-                    findViewById(R.id.layoutRegisterSecond).setVisibility(View.VISIBLE);
+                    //验证验证码正确性
+                    CheckVerificationCodeBean checkVerificationCodeBean = new CheckVerificationCodeBean();
+                    checkVerificationCodeBean.setMobile(phone);
+                    checkVerificationCodeBean.setMsg(sMSVerCode);
+                    loginPresenter.checkVerification(checkVerificationCodeBean);
+
                 }
                 break;
             case R.id.btnComplete: //注册界面二的完成按钮
@@ -102,8 +124,9 @@ public class LoginActivity extends BaseActivity {
                 } else if (pwd.length() < 6) {
                     ToastUtil.showShortToast(R.string.password_require);
                 } else {
-                    startActivity(new Intent(this, PerfectAddressActivity.class));
-                    finish();
+                    loginPresenter.register(((EditText) findViewById(R.id.editPhone)).getText().toString().trim(), pwd);
+
+
                 }
                 break;
             case R.id.txtForgetPwd: //登录界面的忘记密码
@@ -117,6 +140,8 @@ public class LoginActivity extends BaseActivity {
         public void onTick(long millisUntilFinished) {
             mTxtGetVerCode.setText("剩(" + (millisUntilFinished / 1000) + "s)");
             mTxtGetVerCode.setEnabled(false);
+            //请求验证码接口
+
         }
 
         @Override
@@ -134,22 +159,79 @@ public class LoginActivity extends BaseActivity {
         }
     }
 
-    private void login(String phone, String password){
-        startActivity(new Intent(LoginActivity.this, MainActivity.class));
-//        HashMap<String, String> map = new HashMap<>();
-//        map.put("mobile", phone);
-//        map.put("password", MD5.encodeByMD5(password));
-//        VolleyUtil.SendVolleyPostBean(MainApi.LOGIN, map, new VolleyUtil.volleyInterface() {
-//            @Override
-//            public void ResponseResult(Object jsonObject) {
-//                startActivity(new Intent(LoginActivity.this, MainActivity.class));
-////                overridePendingTransition(R.anim.my_scale_action, R.anim.my_alpha_action);
-//            }
-//
-//            @Override
-//            public void ResponseError(Object volleyError) {
-//                ToastUtil.showShortToast(volleyError.toString());
-//            }
-//        });
+
+    @Override
+    public void login(LoginBean loginBean) {
+
+        if (loginBean.getCode().equals("2000")) {
+            ToastUtil.showShortToast(loginBean.getData().getUserinfo().getUname() + "登录成功");
+            PreferencesUtils.putString(this, Const.LOGIN_NAME, loginBean.getData().getUserinfo().getUname());
+            PreferencesUtils.putString(this, Const.LOGIN_PWD, password);
+            PreferencesUtils.putString(this, Const.LOGIN_TOKEN, loginBean.getData().getToken());
+            PreferencesUtils.putString(this, Const.LOGIN_AVATAR, loginBean.getData().getUserinfo().getAvatar());
+            PreferencesUtils.putString(this, Const.LOGIN_PHONE, loginBean.getData().getUserinfo().getPhone());
+            PreferencesUtils.putString(this, Const.LOGIN_ID, loginBean.getData().getUserinfo().getId());
+            YunDongApplication.setLoginBean(loginBean);
+            finish();
+            startActivity(new Intent(LoginActivity.this, MainActivity.class));
+            overridePendingTransition(R.anim.pop_enter_anim, R.anim.basepopup_fade_out);
+        } else if (loginBean.getCode().equals("3004")) {
+            ToastUtil.showShortToast("密码错误");
+        }
+    }
+
+    @Override
+    public void loginOnError(String e) {
+        ToastUtil.showShortToast("登录错误，请检查账号或密码是否正确或网络是否连接正常");
+    }
+
+    @Override
+    public void getVerificationCode(BaseReceiveBean baseReceiveBean) {
+        ToastUtil.showShortToast("" + baseReceiveBean);
+    }
+
+    @Override
+    public void getVerificationCodeOnError(String e) {
+        ToastUtil.showShortToast("获取验证码失败");
+    }
+
+    @Override
+    public void checkVerificationCode(BaseReceiveBean baseReceiveBean) {
+        ToastUtil.showShortToast(baseReceiveBean + "");
+        if (baseReceiveBean.getCode().equals("3003")) {
+            ToastUtil.showShortToast("该手机号码已经注册，请尝试登录或找回密码。");
+        } else if (baseReceiveBean.getCode().equals("3000")) {
+            ToastUtil.showShortToast("验证码输入错误，请重新输入。");
+            findViewById(R.id.layoutLogin).setVisibility(View.GONE);
+            findViewById(R.id.layoutRegisterFirst).setVisibility(View.GONE);
+            findViewById(R.id.layoutRegisterSecond).setVisibility(View.VISIBLE);
+        } else {
+            findViewById(R.id.layoutLogin).setVisibility(View.GONE);
+            findViewById(R.id.layoutRegisterFirst).setVisibility(View.GONE);
+            findViewById(R.id.layoutRegisterSecond).setVisibility(View.VISIBLE);
+        }
+    }
+
+    @Override
+    public void checkVerificationCodeOnError(String e) {
+        ToastUtil.showShortToast("验证码错误,请重新输入。");
+    }
+
+    @Override
+    public void register(RegistBean loginBean) {
+        ToastUtil.showShortToast(loginBean + "");
+        if (loginBean.getCode().equals("2000")) {
+            ToastUtil.showShortToast("注册成功。");
+            startActivity(new Intent(this, PerfectAddressActivity.class));
+            finish();
+        } else {
+            ToastUtil.showShortToast("注册失败。");
+        }
+
+    }
+
+    @Override
+    public void registerOnError(String e) {
+        ToastUtil.showShortToast("注册失败。");
     }
 }

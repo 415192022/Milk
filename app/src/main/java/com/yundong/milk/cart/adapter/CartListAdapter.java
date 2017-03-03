@@ -13,26 +13,39 @@ import com.bumptech.glide.Glide;
 import com.yundong.milk.R;
 import com.yundong.milk.cart.activity.ConfirmOrderActivity;
 import com.yundong.milk.cart.activity.GoodsDetailActivity;
+import com.yundong.milk.model.CarListBean;
+import com.yundong.milk.present.CarFragmentPresenter;
 import com.yundong.milk.user.model.GoodsListModel;
-import com.yundong.milk.view.dialog.SweetAlertDialog;
+import com.yundong.milk.util.ToastUtil;
+import com.yundong.milk.widget.dialog.SweetAlertDialog;
 
 import java.util.ArrayList;
 
 /**
  * Created by lj on 2016/11/17.
- *  我的收藏
+ * 我的收藏
  */
-public class CartListAdapter extends RecyclerView.Adapter<CartListAdapter.GoodsHolder> implements View.OnClickListener{
+public class CartListAdapter extends RecyclerView.Adapter<CartListAdapter.GoodsHolder> implements View.OnClickListener {
 
-    private ArrayList<GoodsListModel> mList;
+    private ArrayList<CarListBean.CarListDataA> mList = new ArrayList<>();
     private Activity mContext;
+    private CarFragmentPresenter carFragmentPresenter;
 
-    public CartListAdapter(Activity context) {
+    public ArrayList<CarListBean.CarListDataA> getmList() {
+        return mList;
+    }
+
+    public CartListAdapter(Activity context, CarFragmentPresenter carFragmentPresenter) {
+        this.carFragmentPresenter = carFragmentPresenter;
         this.mContext = context;
     }
 
-    public void addData(ArrayList<GoodsListModel> list) {
+    public void addData(ArrayList<CarListBean.CarListDataA> list) {
         mList.addAll(list);
+        notifyDataSetChanged();
+    }
+    public void deleteDataByIndex(int position){
+        mList.remove(position);
         notifyDataSetChanged();
     }
 
@@ -44,41 +57,50 @@ public class CartListAdapter extends RecyclerView.Adapter<CartListAdapter.GoodsH
 
     @Override
     public void onBindViewHolder(final GoodsHolder holder, final int position) {
-        Glide.with(mContext).load(R.mipmap.img_test).into(holder.imgGoodsPic);
-        holder.txtGoodsName.setText("【新品上市】百岁山矿泉水348ml*24瓶整箱 x1");
-        holder.txtShopPrice.setText("￥169.00");
-        holder.txtMarketPrice.setText("￥169.00");
-        holder.txtGoodsAttr.setText("全脂250ml * 24");
-        holder.txtDelete.setOnClickListener(this);
-        holder.txtSettlement.setOnClickListener(this);
-        holder.itemView.setOnClickListener(this);
-        holder.txtDelete.setTag(position);
-        holder.txtSettlement.setTag(position);
-        holder.itemView.setTag(position);
+        if (null != mList && mList.size() > 0) {
+            Glide.with(mContext).load(mList.get(position).getGoods_main_image()).into(holder.imgGoodsPic);
+            holder.txtGoodsName.setText(mList.get(position).getGoods_name());
+            holder.txtShopPrice.setText("￥" + mList.get(position).getGoods_price());
+            holder.txtMarketPrice.setText("￥" + mList.get(position).getGoods_marketprice());
+            holder.txtGoodsAttr.setText("全脂250ml * 24");
+            holder.txtDelete.setOnClickListener(this);
+            holder.txtSettlement.setOnClickListener(this);
+            holder.itemView.setOnClickListener(this);
+            holder.txtDelete.setTag(position);
+            holder.txtSettlement.setTag(position);
+            holder.itemView.setTag(position);
+
+
+            holder.txtDelete.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    final SweetAlertDialog dialog = new SweetAlertDialog(mContext);
+                    dialog.showCancelButton(true);
+                    dialog.setTitleText(mContext.getString(R.string.whether_delete));
+                    dialog.setCancelText(mContext.getString(R.string.cancel));
+                    dialog.setConfirmText(mContext.getString(R.string.confirm));
+                    dialog.show();
+                    dialog.setConfirmClickListener(new SweetAlertDialog.OnSweetClickListener() {
+                        @Override
+                        public void onClick(SweetAlertDialog sweetAlertDialog) {
+                            dialog.dismiss();
+                            ToastUtil.showShortToast("确定");
+                            carFragmentPresenter.deleteCar(mList.get(position).getId(),position);
+                        }
+                    });
+                }
+            });
+        }
     }
 
     @Override
     public int getItemCount() {
-        return 20;
+        return mList.size();
     }
 
     @Override
     public void onClick(View view) {
-        switch (view.getId()){
-            case R.id.txtDelete:
-                final SweetAlertDialog dialog = new SweetAlertDialog(mContext);
-                dialog.showCancelButton(true);
-                dialog.setTitleText(mContext.getString(R.string.whether_delete));
-                dialog.setCancelText(mContext.getString(R.string.cancel));
-                dialog.setConfirmText(mContext.getString(R.string.confirm));
-                dialog.show();
-                dialog.setConfirmClickListener(new SweetAlertDialog.OnSweetClickListener() {
-                    @Override
-                    public void onClick(SweetAlertDialog sweetAlertDialog) {
-                        dialog.dismiss();
-                    }
-                });
-                break;
+        switch (view.getId()) {
             case R.id.txtSettlement:
                 mContext.startActivity(new Intent(mContext, ConfirmOrderActivity.class));
                 break;

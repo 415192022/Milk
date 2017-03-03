@@ -9,7 +9,7 @@
 
     <include layout="@layout/head_view" />
 
-    <com.yundong.milk.view.HorizontalListView
+    <com.yundong.milk.widget.HorizontalListView
         android:id="@+id/firstSortListView"
         android:layout_width="match_parent"
         android:layout_height="@dimen/dip_40"
@@ -31,7 +31,7 @@
             android:listSelector="@color/white"
             android:scrollbars="none" />
 
-        <com.yundong.milk.view.recyclerview.XRecyclerView
+        <com.yundong.milk.widget.recyclerview.XRecyclerView
             android:id="@+id/recyclerViewGoodsList"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"

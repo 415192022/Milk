@@ -15,10 +15,15 @@
         android:text="@string/cart"
         android:textColor="@color/white"
         android:textSize="@dimen/text_size_18" />
-
-    <com.yundong.milk.view.recyclerview.XRecyclerView
-        android:id="@+id/recyclerView"
+    <android.support.v4.widget.SwipeRefreshLayout
+        android:id="@+id/srl_car_list"
         android:layout_width="match_parent"
-        android:layout_height="match_parent" />
+        android:layout_height="match_parent">
+        <com.yundong.milk.widget.recyclerview.XRecyclerView
+            android:id="@+id/recyclerView"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
+    </android.support.v4.widget.SwipeRefreshLayout>
+
 
 </LinearLayout>

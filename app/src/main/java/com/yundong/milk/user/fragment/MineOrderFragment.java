@@ -9,7 +9,7 @@ import android.view.ViewGroup;
 
 import com.yundong.milk.R;
 import com.yundong.milk.user.adapter.OrderListAdapter;
-import com.yundong.milk.view.recyclerview.XRecyclerView;
+import com.yundong.milk.widget.recyclerview.XRecyclerView;
 
 /**
  * Created by lj on 2016/11/14.
