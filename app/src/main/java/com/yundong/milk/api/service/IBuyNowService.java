@@ -1,5 +1,6 @@
 package com.yundong.milk.api.service;
 
+import com.yundong.milk.model.BuyNowBean;
 import com.yundong.milk.model.GoodsClassCommentBean;
 
 import retrofit2.http.Field;
@@ -13,7 +14,7 @@ import rx.Observable;
 
 public interface IBuyNowService {
     @FormUrlEncoded
-    @POST("goods/buy_now")
-    Observable<GoodsClassCommentBean> buyNow(@Field("user_id") String user_id, @Field("goods_id") String goods_id, @Field("number") String number, @Field("message") String message
+    @POST("order/buy_now")
+    Observable<BuyNowBean> buyNow(@Field("user_id") String user_id, @Field("goods_id") String goods_id, @Field("number") String number, @Field("message") String message
     );
 }
