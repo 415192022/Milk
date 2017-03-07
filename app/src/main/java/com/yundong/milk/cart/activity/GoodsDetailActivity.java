@@ -29,6 +29,7 @@ import com.yundong.milk.cart.adapter.GoodsDetailAttrAdapter;
 import com.yundong.milk.cart.adapter.RecommendGoodsListAdapter;
 import com.yundong.milk.manager.YunDongApplication;
 import com.yundong.milk.model.BaseReceiveBean;
+import com.yundong.milk.model.GoodsAndCountBean;
 import com.yundong.milk.model.GoodsClassCommentBean;
 import com.yundong.milk.model.GoodsDetailsBean;
 import com.yundong.milk.present.GoodsDetailActivityPresenter;
@@ -36,6 +37,9 @@ import com.yundong.milk.user.activity.ActivityCommentList;
 import com.yundong.milk.util.RxBusUtil;
 import com.yundong.milk.util.ShareUtil;
 import com.yundong.milk.util.ToastUtil;
+import com.yundong.milk.util.rxbus.RxBus;
+import com.yundong.milk.util.rxbus.Subscribe;
+import com.yundong.milk.util.rxbus.ThreadMode;
 import com.yundong.milk.view.IAddCarView;
 import com.yundong.milk.view.IGoodsClassCommentView;
 import com.yundong.milk.view.IGoodsCollectonView;
@@ -97,7 +101,6 @@ public class GoodsDetailActivity extends BaseActivity
 
     public void receiveIntentData() {
         currentGoodsId = getIntent().getStringExtra("GOODS_ID");
-        ToastUtil.showShortToast("接收到了ID" + currentGoodsId);
     }
 
     @Override
@@ -170,7 +173,10 @@ public class GoodsDetailActivity extends BaseActivity
         super.onClick(view);
         switch (view.getId()) {
             case R.id.txtCommentMore:
+
+                RxBus.getDefault().post(goodsDetailsBean);
                 startActivity(new Intent(this, ActivityCommentList.class));
+
                 break;
             case R.id.imageLeft:
                 finish();
@@ -225,11 +231,19 @@ public class GoodsDetailActivity extends BaseActivity
             case R.id.txtComplete:
                 if (mType == 0) { //加入购物车
                     mPopupWindow.dismiss();
-                    ToastUtil.showShortToast(R.string.add_shopping_cart_success);
                     goodsDetailActivityPresenter.addCar(YunDongApplication.getLoginBean().getData().getUserinfo().getId(), currentGoodsId, String.valueOf(mGoodsNum));
                 } else if (mType == 1) { //立即购买
                     mPopupWindow.dismiss();
-                    startActivity(new Intent(this, ConfirmOrderActivity.class));
+
+                    //ConfirmOrderActivity -> receiveGoodsInfo
+                    String count = mEditGoodsNum.getText() + "";
+                    GoodsAndCountBean goodsAndCountBean = new GoodsAndCountBean();
+                    goodsAndCountBean.setGoodsDetailsBean(goodsDetailsBean);
+                    goodsAndCountBean.setCount(count);
+                    goodsAndCountBean.setTotlePrice(String.valueOf(mGoodsNum * Float.parseFloat(goodsDetailsBean.getData().getGoods_price())));
+                    RxBus.getDefault().post(goodsAndCountBean);
+                    Intent intent = new Intent(GoodsDetailActivity.this, ConfirmOrderActivity.class);
+                    startActivity(intent);
                 }
                 break;
             case R.id.imgCancelPop:
@@ -243,6 +257,7 @@ public class GoodsDetailActivity extends BaseActivity
                 break;
         }
     }
+
 
     private float price = 553.33f;
     private TextView txtGoodsAttrPrice;
@@ -350,7 +365,6 @@ public class GoodsDetailActivity extends BaseActivity
 
                     @Override
                     public void onNext(String s) {
-                        ToastUtil.showShortToast(s);
                         View view = LayoutInflater.from(GoodsDetailActivity.this).inflate(R.layout.layout_image_banner, null, false);
                         ImageView imageView = (ImageView) view.findViewById(R.id.iv_banner);
                         Glide.with(GoodsDetailActivity.this).load(s).into(imageView);
@@ -458,7 +472,7 @@ public class GoodsDetailActivity extends BaseActivity
     //相似商品推荐
     @Override
     public void getGoodsClassComment(GoodsClassCommentBean goodsClassCommentBean) {
-        final ArrayList<GoodsClassCommentBean.GoodsClassCommentDataO.GoodsClassCommentDataA> mList=new ArrayList<>();
+        final ArrayList<GoodsClassCommentBean.GoodsClassCommentDataO.GoodsClassCommentDataA> mList = new ArrayList<>();
         Observable.from(goodsClassCommentBean.getData().getData())
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())

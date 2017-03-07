@@ -7,13 +7,64 @@
     android:fitsSystemWindows="true"
     android:orientation="vertical">
 
-    <include layout="@layout/head_view" />
+    <include layout="@layout/head_view"
+        android:id="@+id/include" />
+
+    <LinearLayout
+        android:id="@+id/lineBottom"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dip_40"
+        android:layout_alignParentBottom="true"
+        android:background="@color/white"
+        android:orientation="horizontal">
+
+        <RelativeLayout
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="2"
+            android:gravity="center">
+
+            <TextView
+                android:id="@+id/txtTotal"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center_vertical"
+                android:text="合计:"
+                android:textColor="@color/titleColor"
+                android:textSize="@dimen/text_size_15" />
+
+            <TextView
+                android:id="@+id/txtAllPrice"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_toRightOf="@+id/txtTotal"
+                android:gravity="center_vertical"
+                android:paddingLeft="@dimen/dip_5"
+                android:textColor="@color/colorPrimary"
+                android:textSize="@dimen/text_size_15"
+                android:textStyle="bold" />
+
+        </RelativeLayout>
+
+        <TextView
+            android:id="@+id/txtBuyIm"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:background="@color/colorPrimary"
+            android:gravity="center"
+            android:text="@string/buyIm"
+            android:textColor="@color/white"
+            android:textSize="@dimen/text_size_15" />
+
+    </LinearLayout>
 
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_above="@+id/lineBottom"
-        android:layout_below="@+id/root_title">
+        android:layout_below="@+id/include"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -75,7 +126,7 @@
                     android:textSize="@dimen/text_size_15" />
 
                 <TextView
-                    android:id="@+id/editConsignee"
+                    android:id="@+id/tv_receiver"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:gravity="center_vertical"
@@ -104,7 +155,7 @@
                     android:textSize="@dimen/text_size_15" />
 
                 <TextView
-                    android:id="@+id/editPhone"
+                    android:id="@+id/tv_phone"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:gravity="center_vertical"
@@ -135,7 +186,7 @@
                     android:textSize="@dimen/text_size_15" />
 
                 <TextView
-                    android:id="@+id/txtAddress"
+                    android:id="@+id/tv_address"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:paddingBottom="@dimen/dip_7"
@@ -272,7 +323,7 @@
                     android:textSize="@dimen/text_size_14" />
 
                 <TextView
-                    android:id="@+id/txtPrice"
+                    android:id="@+id/tv_totle_price"
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
                     android:layout_alignParentRight="true"
@@ -301,7 +352,7 @@
                     android:textSize="@dimen/text_size_14" />
 
                 <EditText
-                    android:id="@+id/txtNote"
+                    android:id="@+id/et_msg"
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
                     android:background="@null"
@@ -314,54 +365,5 @@
             </LinearLayout>
         </LinearLayout>
     </ScrollView>
-
-    <LinearLayout
-        android:id="@+id/lineBottom"
-        android:layout_width="match_parent"
-        android:layout_height="@dimen/dip_40"
-        android:layout_alignParentBottom="true"
-        android:background="@color/white"
-        android:orientation="horizontal">
-
-        <RelativeLayout
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="2"
-            android:gravity="center">
-
-            <TextView
-                android:id="@+id/txtTotal"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:gravity="center_vertical"
-                android:text="合计:"
-                android:textColor="@color/titleColor"
-                android:textSize="@dimen/text_size_15" />
-
-            <TextView
-                android:id="@+id/txtAllPrice"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_toRightOf="@+id/txtTotal"
-                android:gravity="center_vertical"
-                android:paddingLeft="@dimen/dip_5"
-                android:textColor="@color/colorPrimary"
-                android:textSize="@dimen/text_size_15"
-                android:textStyle="bold" />
-
-        </RelativeLayout>
-
-        <TextView
-            android:id="@+id/txtBuyIm"
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:background="@color/colorPrimary"
-            android:gravity="center"
-            android:text="@string/buyIm"
-            android:textColor="@color/white"
-            android:textSize="@dimen/text_size_15" />
-
-    </LinearLayout>
 
 </RelativeLayout>

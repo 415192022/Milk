@@ -1,18 +1,25 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<com.yundong.milk.widget.SwipeRefreshLoadMore xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/srl_refund"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:background="@color/bg"
-    android:clipToPadding="false"
-    android:fitsSystemWindows="true"
-    android:orientation="vertical">
+    android:layout_height="match_parent">
 
-    <include layout="@layout/head_view" />
-
-    <com.yundong.milk.widget.recyclerview.XRecyclerView
-        android:id="@+id/recyclerView"
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_marginTop="@dimen/dip_1" />
+        android:background="@color/bg"
+        android:clipToPadding="false"
+        android:fitsSystemWindows="true"
+        android:orientation="vertical">
 
-</LinearLayout>
+        <include layout="@layout/head_view" />
+
+
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/rv_mycollection"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginTop="@dimen/dip_1" />
+
+    </LinearLayout>
+</com.yundong.milk.widget.SwipeRefreshLoadMore>

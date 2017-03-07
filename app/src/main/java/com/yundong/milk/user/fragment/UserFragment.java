@@ -3,9 +3,14 @@ package com.yundong.milk.user.fragment;
 import android.content.Intent;
 import android.net.Uri;
 import android.view.View;
+import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
 import com.yundong.milk.R;
 import com.yundong.milk.base.BaseFragment;
+import com.yundong.milk.manager.YunDongApplication;
+import com.yundong.milk.model.LoginBean;
+import com.yundong.milk.present.LoginPresenter;
 import com.yundong.milk.user.activity.FeedBackActivity;
 import com.yundong.milk.user.activity.MessageCenterActivity;
 import com.yundong.milk.user.activity.MineCollectionActivity;
@@ -15,20 +20,40 @@ import com.yundong.milk.user.activity.PlatformAuditActivity;
 import com.yundong.milk.user.activity.ReceiptAddressActivity;
 import com.yundong.milk.user.activity.RefundActivity;
 import com.yundong.milk.user.activity.SettingActivity;
+import com.yundong.milk.util.Const;
+import com.yundong.milk.util.PreferencesUtils;
+import com.yundong.milk.util.ToastUtil;
+import com.yundong.milk.view.ILoginView;
+import com.yundong.milk.widget.CircleImageView;
 import com.yundong.milk.widget.dialog.SweetAlertDialog;
 
 /**
  * Created by lj on 2016/12/12.
  * 个人中心
  */
-public class UserFragment extends BaseFragment implements View.OnClickListener{
+public class UserFragment extends BaseFragment implements View.OnClickListener, ILoginView {
+    private CircleImageView imgUserHead;
+    private TextView txtUserInfo;
+
     @Override
     public int getRootView() {
         return R.layout.fragment_user;
     }
 
     @Override
+    public void onResume() {
+        super.onResume();
+        LoginPresenter
+                .getInstance()
+                .with(this)
+                .login(YunDongApplication.getLoginBean().getData().getUserinfo().getPhone(), PreferencesUtils.getString(getActivity(), Const.LOGIN_PWD));
+    }
+
+    @Override
     public void initView(View view) {
+        imgUserHead = (CircleImageView) view.findViewById(R.id.imgUserHead);
+        txtUserInfo = (TextView) view.findViewById(R.id.txtUserInfo);
+
         view.findViewById(R.id.txtUserInfo).setOnClickListener(this);
         view.findViewById(R.id.imageSetting).setOnClickListener(this);
         view.findViewById(R.id.imageRight).setOnClickListener(this);
@@ -48,7 +73,7 @@ public class UserFragment extends BaseFragment implements View.OnClickListener{
 
     @Override
     public void onClick(View view) {
-        switch (view.getId()){
+        switch (view.getId()) {
             case R.id.txtUserInfo:
                 startActivity(new Intent(getActivity(), OrderDetailActivity.class));
                 break;
@@ -102,5 +127,16 @@ public class UserFragment extends BaseFragment implements View.OnClickListener{
                 });
                 break;
         }
+    }
+
+    @Override
+    public void login(LoginBean baseReceiveBean) {
+        Glide.with(getActivity()).load(baseReceiveBean.getData().getUserinfo().getAvatar()).into(imgUserHead);
+        txtUserInfo.setText(baseReceiveBean.getData().getUserinfo().getUname());
+    }
+
+    @Override
+    public void loginOnError(String e) {
+        ToastUtil.showShortToast("获取用户信息失败");
     }
 }

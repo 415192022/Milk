@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Handler;
 import android.os.Message;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.view.View;
 import android.widget.TextView;
 
@@ -24,6 +25,7 @@ import com.yundong.milk.view.ILettersView;
 import com.yundong.milk.view.IRecommentTypeView;
 import com.yundong.milk.widget.NoScrollListView;
 import com.yundong.milk.widget.PullToRefreshView;
+import com.yundong.milk.widget.SwipeRefreshLoadMore;
 
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -42,13 +44,13 @@ import rx.schedulers.Schedulers;
 public class HomeFragment extends BaseFragment
         implements
         View.OnClickListener
-        , PullToRefreshView.OnHeaderRefreshListener
-        , PullToRefreshView.OnFooterRefreshListener
+        , SwipeRefreshLoadMore.OnRefreshListener
+        , SwipeRefreshLoadMore.OnLoadListener
         , IRecommentTypeView
         , ILettersView
         , IGoodsCommentView {
 
-    private PullToRefreshView mPullToRefreshView;
+    private SwipeRefreshLoadMore mPullToRefreshView;
     private HomeGoodsListAdapter mAdapter;
     private NoScrollListView mListView;
 
@@ -117,11 +119,13 @@ public class HomeFragment extends BaseFragment
         recommentTypeViews.add(txtNewProduct);
         recommentTypeViews.add(txtActivity);
         view.findViewById(R.id.lineInformation).setOnClickListener(this);
-        mPullToRefreshView = (PullToRefreshView) view.findViewById(R.id.main_pull_refresh_view);
+        mPullToRefreshView = (SwipeRefreshLoadMore) view.findViewById(R.id.main_pull_refresh_view);
+        mPullToRefreshView.setOnRefreshListener(this);
+        mPullToRefreshView.setOnLoadListener(this);
+        mPullToRefreshView.setRefreshing(true);
+
         mListView = (NoScrollListView) view.findViewById(R.id.listView);
-        mPullToRefreshView.setOnHeaderRefreshListener(this);
-        mPullToRefreshView.setOnFooterRefreshListener(this);
-        mPullToRefreshView.setLastUpdated(new Date().toLocaleString());
+
 
 
         homeFragmentPresenter = HomeFragmentPresenter.getInstance().with(this, this, this);
@@ -172,17 +176,6 @@ public class HomeFragment extends BaseFragment
         }
     }
 
-    @Override
-    public void onFooterRefresh(PullToRefreshView view) {
-    }
-
-    @Override
-    public void onHeaderRefresh(PullToRefreshView view) {
-//        homeFragmentPresenter.getRecommentType();
-//        homeFragmentPresenter.getLetters("1", "desc");
-//        homeFragmentPresenter.getGoodsComment("1");
-        commpletRefresh();
-    }
 
     private List<String> recommentTypes = new ArrayList<>();
 
@@ -227,7 +220,7 @@ public class HomeFragment extends BaseFragment
                 .subscribe(new Subscriber<LettersBean.LettersDataO.LettersDataA>() {
                     @Override
                     public void onCompleted() {
-                        mPullToRefreshView.onHeaderRefreshComplete();
+                        mPullToRefreshView.setRefreshing(false);
                     }
 
                     @Override
@@ -240,7 +233,6 @@ public class HomeFragment extends BaseFragment
                         tv_article.setText(lettersDataA.getArticle_title());
                     }
                 });
-        commpletRefresh();
     }
 
     @Override
@@ -259,7 +251,7 @@ public class HomeFragment extends BaseFragment
                 .subscribe(new Subscriber<GoodsCommentBean.GoodsCommentDataO.GoodsCommentDataA>() {
                     @Override
                     public void onCompleted() {
-                        mPullToRefreshView.onHeaderRefreshComplete();
+                        mPullToRefreshView.setRefreshing(false);
                     }
 
                     @Override
@@ -275,7 +267,6 @@ public class HomeFragment extends BaseFragment
                         mListView.setAdapter(mAdapter);
                     }
                 });
-        commpletRefresh();
     }
 
 
@@ -284,11 +275,23 @@ public class HomeFragment extends BaseFragment
         commpletRefresh();
     }
 
+    @Override
+    public void onRefresh() {
+//        homeFragmentPresenter.getRecommentType();
+        homeFragmentPresenter.getLetters("1", "desc");
+        homeFragmentPresenter.getGoodsComment("1");
+    }
+
+    @Override
+    public void onLoad() {
+        ToastUtil.showShortToast("======");
+    }
+
     public class MyHandler extends Handler {
         @Override
         public void handleMessage(Message msg) {
             super.handleMessage(msg);
-            mPullToRefreshView.onHeaderRefreshComplete();
+            mPullToRefreshView.setRefreshing(false);
         }
     }
     MyHandler myHandler = new MyHandler();

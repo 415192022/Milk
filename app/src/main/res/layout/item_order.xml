@@ -172,7 +172,6 @@
         android:textColor="@color/white"
         android:textSize="@dimen/text_size_14" />
 
-
     <TextView
         android:id="@+id/btnCommonCenter"
         android:layout_width="wrap_content"
@@ -183,6 +182,24 @@
         android:layout_marginRight="@dimen/dip_10"
         android:layout_marginTop="@dimen/dip_10"
         android:layout_toLeftOf="@+id/btnCommonRight"
+        android:background="@drawable/btn_order_center_common"
+        android:gravity="center"
+        android:paddingBottom="@dimen/dip_5"
+        android:paddingLeft="@dimen/dip_15"
+        android:paddingRight="@dimen/dip_15"
+        android:paddingTop="@dimen/dip_5"
+        android:textColor="@color/titleColor"
+        android:textSize="@dimen/text_size_14" />
+    <TextView
+        android:id="@+id/tv_comment"
+        android:layout_width="wrap_content"
+        android:layout_height="@dimen/dip_30"
+        android:layout_alignBaseline="@+id/txtTime"
+        android:layout_below="@+id/lineThree"
+        android:layout_marginBottom="@dimen/dip_7"
+        android:layout_marginRight="@dimen/dip_10"
+        android:layout_marginTop="@dimen/dip_10"
+        android:layout_toLeftOf="@+id/btnCommonCenter"
         android:background="@drawable/btn_order_center_common"
         android:gravity="center"
         android:paddingBottom="@dimen/dip_5"

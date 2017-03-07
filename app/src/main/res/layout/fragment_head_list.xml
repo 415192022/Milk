@@ -53,7 +53,7 @@
     <!--android:layout_height="match_parent"-->
     <!--android:layout_marginTop="@dimen/dip_1" />-->
 
-    <com.yundong.milk.widget.PullToRefreshView
+    <com.yundong.milk.widget.SwipeRefreshLoadMore
         android:id="@+id/main_pull_refresh_view"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
@@ -190,6 +190,6 @@
 
         </ScrollView>
 
-    </com.yundong.milk.widget.PullToRefreshView>
+    </com.yundong.milk.widget.SwipeRefreshLoadMore>
 
 </LinearLayout>

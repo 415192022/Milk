@@ -1,59 +1,65 @@
 package com.yundong.milk.user.activity;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.widget.GridLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.TextView;
 
 import com.yundong.milk.R;
 import com.yundong.milk.base.BaseActivity;
-import com.yundong.milk.cart.activity.GoodsDetailActivity;
+import com.yundong.milk.manager.YunDongApplication;
+import com.yundong.milk.model.MyCollectionBean;
+import com.yundong.milk.present.MineCollectionActivityPresenter;
 import com.yundong.milk.user.adapter.MineCollectionListAdapter;
 import com.yundong.milk.util.ToastUtil;
+import com.yundong.milk.view.IMyCollectionView;
+import com.yundong.milk.widget.SwipeRefreshLoadMore;
 import com.yundong.milk.widget.dialog.SweetAlertDialog;
-import com.yundong.milk.widget.recyclerview.ItemSidesHelper;
-import com.yundong.milk.widget.recyclerview.XRecyclerView;
 
 import java.util.HashMap;
+
+import rx.Observable;
+import rx.Subscriber;
+import rx.android.schedulers.AndroidSchedulers;
+import rx.schedulers.Schedulers;
 
 /**
  * Created by lj on 2016/12/28.
  * 我的收藏
  */
-public class MineCollectionActivity extends BaseActivity implements XRecyclerView.LoadingListener {
+public class MineCollectionActivity extends BaseActivity
+        implements IMyCollectionView ,SwipeRefreshLoadMore.OnLoadListener,SwipeRefreshLoadMore.OnRefreshListener{
 
     private TextView mTxtEdit;
-    private XRecyclerView mRecyclerView;
+    private RecyclerView rv_mycollection;
+    private SwipeRefreshLoadMore srl_refund;
     private MineCollectionListAdapter mAdapter;
     private HashMap<Integer, Boolean> mItemStatus = new HashMap<>();
     private int mClickStatus = 0;//0未点击  1点击
     private boolean mIsClick = false;
+    private MineCollectionActivityPresenter mineCollectionActivityPresenter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.common_list);
         initTitle(R.string.mine_collection, true, getString(R.string.edit), this);
-        mTxtEdit = (TextView) findViewById(R.id.txtRight);
-        mRecyclerView = (XRecyclerView) findViewById(R.id.recyclerView);
-        mRecyclerView.initParams();
-        mRecyclerView.setLoadingListener(this);
-        mRecyclerView.setLayoutManager(new GridLayoutManager(this, 2));
-        mAdapter = new MineCollectionListAdapter(this, mTxtEdit);
-        mRecyclerView.setAdapter(mAdapter);
 
-        mRecyclerView.setOnItemClickListener(new ItemSidesHelper.OnItemClickListener() {
-            @Override
-            public void onItemClick(View view, int position) {
-                if (mClickStatus == 0) {
-                    startActivity(new Intent(MineCollectionActivity.this, GoodsDetailActivity.class));
-                }
-//                if (mAdapter.getMap().get(position - 1) == true) {
-//                    ToastUtil.showShortToast(mAdapter.getCheckListSize() + " ** ");
-//                }
-            }
-        });
+
+        srl_refund= (SwipeRefreshLoadMore) findViewById(R.id.srl_refund);
+        srl_refund.setOnRefreshListener(this);
+        srl_refund.setRefreshing(true);
+
+
+        mTxtEdit = (TextView) findViewById(R.id.txtRight);
+        rv_mycollection = (RecyclerView) findViewById(R.id.rv_mycollection);
+        rv_mycollection.setLayoutManager(new GridLayoutManager(this, 2));
+        mAdapter = new MineCollectionListAdapter(this, mTxtEdit);
+        rv_mycollection.setAdapter(mAdapter);
+
+        mineCollectionActivityPresenter = MineCollectionActivityPresenter.getInstance().with(this);
+        mineCollectionActivityPresenter.myCollection(YunDongApplication.getLoginBean().getData().getUserinfo().getId());
     }
 
     @Override
@@ -120,13 +126,44 @@ public class MineCollectionActivity extends BaseActivity implements XRecyclerVie
         }
     }
 
+
     @Override
-    public void onRefresh() {
+    public void myCollection(MyCollectionBean myCollectionBean) {
+        Observable.from(myCollectionBean.getData().getData())
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new Subscriber<MyCollectionBean.MyCollectionBeanData.MyCollectionBeanDataArray>() {
+                    @Override
+                    public void onCompleted() {
+                        srl_refund.setRefreshing(false);
+                    }
+
+                    @Override
+                    public void onError(Throwable e) {
+
+                    }
+
+                    @Override
+                    public void onNext(MyCollectionBean.MyCollectionBeanData.MyCollectionBeanDataArray myCollectionBeanDataArray) {
+                        mAdapter.getMyCollectionBeanDataArrays().add(myCollectionBeanDataArray);
+                        mAdapter.notifyDataSetChanged();
+                    }
+                });
+    }
+
+    @Override
+    public void myCollectionOnError(String e) {
 
     }
 
     @Override
-    public void onLoadMore() {
+    public void onRefresh() {
+        mAdapter.getMyCollectionBeanDataArrays().clear();
+        mineCollectionActivityPresenter.myCollection(YunDongApplication.getLoginBean().getData().getUserinfo().getId());
+    }
 
+    @Override
+    public void onLoad() {
+        ToastUtil.showShortToast("加载更多");
     }
 }

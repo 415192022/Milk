@@ -2,7 +2,9 @@ package com.yundong.milk.user.activity;
 
 import android.content.Intent;
 import android.graphics.Bitmap;
+import android.os.Build;
 import android.os.Bundle;
+import android.support.annotation.RequiresApi;
 import android.text.TextUtils;
 import android.view.View;
 import android.widget.EditText;
@@ -14,7 +16,11 @@ import com.yundong.milk.cache.CacheActivity;
 import com.yundong.milk.imagechoose.ChooseImage;
 import com.yundong.milk.imagechoose.MultiImageSelectorActivity;
 import com.yundong.milk.imagechoose.crop.HDApp;
+import com.yundong.milk.manager.YunDongApplication;
+import com.yundong.milk.model.BaseReceiveBean;
+import com.yundong.milk.present.FeedBackActivityPresenter;
 import com.yundong.milk.util.ToastUtil;
+import com.yundong.milk.view.IFeedBackView;
 
 import java.util.ArrayList;
 
@@ -22,7 +28,7 @@ import java.util.ArrayList;
  * Created by lj on 2016/11/20.
  * 意见反馈
  */
-public class FeedBackActivity extends BaseActivity implements View.OnClickListener{
+public class FeedBackActivity extends BaseActivity implements View.OnClickListener, IFeedBackView {
 
     private ImageView mImgAddPic;
     private ArrayList<String> mSelectPath;
@@ -30,6 +36,8 @@ public class FeedBackActivity extends BaseActivity implements View.OnClickListen
     private String picturePath_All;
     private String picturePath_rootDirectory;
     private static final int REQUEST_IMAGE = 2;
+
+    private FeedBackActivityPresenter feedBackActivityPresenter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,27 +47,27 @@ public class FeedBackActivity extends BaseActivity implements View.OnClickListen
         findViewById(R.id.btnCommitFeedBack).setOnClickListener(this);
         mImgAddPic = (ImageView) findViewById(R.id.imgAddPic);
         mImgAddPic.setOnClickListener(this);
-        if (!CacheActivity.activityList.contains(FeedBackActivity.this)){
+        if (!CacheActivity.activityList.contains(FeedBackActivity.this)) {
             CacheActivity.addActivity(FeedBackActivity.this);
         }
+        feedBackActivityPresenter = FeedBackActivityPresenter.getInstance().with(this);
     }
 
 
     @Override
     public void onClick(View view) {
-        switch (view.getId()){
+        switch (view.getId()) {
             case R.id.btnCommitFeedBack:
                 String content = ((EditText) findViewById(R.id.editContent)).getText().toString().trim();
                 String phoneNum = ((EditText) findViewById(R.id.editPhoneNum)).getText().toString().trim();
-                if (TextUtils.isEmpty(content)){
+                if (TextUtils.isEmpty(content)) {
                     ToastUtil.showShortToast(getString(R.string.please_input_feed_back_content));
-                }else if (TextUtils.isEmpty(phoneNum)){
+                } else if (TextUtils.isEmpty(phoneNum)) {
                     ToastUtil.showShortToast(getString(R.string.please_input_phone_number));
-                }else if (phoneNum.length() != 11){
+                } else if (phoneNum.length() != 11) {
                     ToastUtil.showShortToast(getString(R.string.phone_number_not_correct));
-                }else {
-                    startActivity(new Intent(this, FeedBackComActivity.class));
-                    finish();
+                } else {
+                    feedBackActivityPresenter.feedBack(YunDongApplication.getLoginBean().getData().getUserinfo().getId(), content, phoneNum);
                 }
                 break;
             case R.id.imgAddPic:
@@ -69,6 +77,7 @@ public class FeedBackActivity extends BaseActivity implements View.OnClickListen
     }
 
 
+    @RequiresApi(api = Build.VERSION_CODES.JELLY_BEAN)
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
@@ -96,5 +105,21 @@ public class FeedBackActivity extends BaseActivity implements View.OnClickListen
                 }
             }
         }
+    }
+
+    @Override
+    public void feedBack(BaseReceiveBean baseReceiveBean) {
+        if (baseReceiveBean.getCode().equals("2000")) {
+            startActivity(new Intent(this, FeedBackComActivity.class));
+            finish();
+        } else {
+            ToastUtil.showShortToast(baseReceiveBean.getMsg());
+        }
+
+    }
+
+    @Override
+    public void feedBackOnError(String e) {
+        ToastUtil.showShortToast("提交反馈出错"+e);
     }
 }

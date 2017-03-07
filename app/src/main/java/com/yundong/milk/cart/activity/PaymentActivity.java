@@ -4,17 +4,32 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
+import android.widget.ImageView;
+import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
 import com.yundong.milk.R;
 import com.yundong.milk.base.BaseActivity;
+import com.yundong.milk.manager.YunDongApplication;
+import com.yundong.milk.model.BuyNowBean;
+import com.yundong.milk.model.GoodsAndAddressBean;
+import com.yundong.milk.model.GoodsDetailsBean;
+import com.yundong.milk.model.ReceiveGoodsAddressBean;
+import com.yundong.milk.present.PaymentActivityPresenter;
+import com.yundong.milk.util.ToastUtil;
+import com.yundong.milk.util.rxbus.RxBus;
+import com.yundong.milk.util.rxbus.Subscribe;
+import com.yundong.milk.util.rxbus.ThreadMode;
+import com.yundong.milk.view.IBuyNowView;
 
 /**
  * Created by lj on 2017/1/5.
  * 支付
  */
-public class PaymentActivity extends BaseActivity {
+public class PaymentActivity extends BaseActivity implements IBuyNowView {
 
     private int mPayStyle = 0;
+    private PaymentActivityPresenter paymentActivityPresenter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,6 +56,8 @@ public class PaymentActivity extends BaseActivity {
                 }
             }
         });
+
+        paymentActivityPresenter = PaymentActivityPresenter.getInstance().with(this);
     }
 
     @Override
@@ -49,11 +66,55 @@ public class PaymentActivity extends BaseActivity {
         switch (view.getId()) {
             case R.id.txtBuyIm:
                 if (mPayStyle == 0) { //支付宝
-
+                    paymentActivityPresenter.buyNow("8"
+                            , goodsDetailsBean.getData().getGoods_id(), goodsCount, msg
+                    );
+                    ToastUtil.showShortToast("8"+goodsDetailsBean.getData().getGoods_id()+" "+goodsCount+"  "+msg);
                 } else if (mPayStyle == 1) { //微信
-
+                    paymentActivityPresenter.buyNow(YunDongApplication.getLoginBean().getData().getUserinfo().getId()
+                            , goodsDetailsBean.getData().getGoods_id(), goodsCount, msg
+                    );
                 }
                 break;
         }
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+        RxBus.getDefault().register(this);
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        RxBus.getDefault().unRegister(this);
+    }
+
+    private GoodsDetailsBean goodsDetailsBean;
+    private ReceiveGoodsAddressBean receiveGoodsAddressBean;
+    private String msg;
+    private String totlePrice;
+    private String goodsCount;
+
+    @Subscribe(threadMode = ThreadMode.MAIN, sticky = true)
+    public void receive(GoodsAndAddressBean goodsAndAddressBean) {
+        ToastUtil.showShortToast("-----"+goodsAndAddressBean);
+        receiveGoodsAddressBean = goodsAndAddressBean.getReceiveGoodsAddressBean();
+        goodsDetailsBean = goodsAndAddressBean.getGoodsDetailsBean();
+        msg = goodsAndAddressBean.getMsg();
+        totlePrice = goodsAndAddressBean.getTotlePrice();
+        goodsCount = goodsAndAddressBean.getCount();
+    }
+
+
+    @Override
+    public void buyNow(BuyNowBean buyNowBean) {
+        ToastUtil.showShortToast(buyNowBean.getMsg());
+    }
+
+    @Override
+    public void buyNowOnError(String e) {
+
     }
 }

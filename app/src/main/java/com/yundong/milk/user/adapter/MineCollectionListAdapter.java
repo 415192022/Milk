@@ -1,6 +1,7 @@
 package com.yundong.milk.user.adapter;
 
 import android.content.Context;
+import android.content.Intent;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -10,10 +11,14 @@ import android.view.animation.AnimationUtils;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.ImageView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.yundong.milk.R;
+import com.yundong.milk.cart.activity.GoodsDetailActivity;
+import com.yundong.milk.model.MyCollectionBean;
+import com.yundong.milk.user.activity.MineCollectionActivity;
 import com.yundong.milk.user.model.GoodsListModel;
 import com.yundong.milk.util.ToastUtil;
 
@@ -28,11 +33,15 @@ import java.util.Map;
 public class MineCollectionListAdapter extends RecyclerView.Adapter<MineCollectionListAdapter.GoodsHolder>{
 
     private HashMap<Integer, Integer> mSizeList = new HashMap<>();
-    private ArrayList<GoodsListModel> mList;
+    private ArrayList<MyCollectionBean.MyCollectionBeanData.MyCollectionBeanDataArray> myCollectionBeanDataArrays=new ArrayList<>();
     private Context mContext;
     public boolean mIsShowBox = false; //是否显示单选框,默认false
     private Map<Integer, Boolean> map = new HashMap<>(); // 存储勾选框状态的map集合
     private TextView mTextView;
+
+    public ArrayList<MyCollectionBean.MyCollectionBeanData.MyCollectionBeanDataArray> getMyCollectionBeanDataArrays() {
+        return myCollectionBeanDataArrays;
+    }
 
     public MineCollectionListAdapter(Context context, TextView textView) {
         this.mContext = context;
@@ -61,8 +70,8 @@ public class MineCollectionListAdapter extends RecyclerView.Adapter<MineCollecti
         return map;
     }
 
-    public void addData(ArrayList<GoodsListModel> list) {
-        mList.addAll(list);
+    public void addData(ArrayList<MyCollectionBean.MyCollectionBeanData.MyCollectionBeanDataArray> list) {
+        myCollectionBeanDataArrays.addAll(list);
         notifyDataSetChanged();
     }
 
@@ -91,10 +100,10 @@ public class MineCollectionListAdapter extends RecyclerView.Adapter<MineCollecti
 
     @Override
     public void onBindViewHolder(final GoodsHolder holder, final int position) {
-        Glide.with(mContext).load(R.mipmap.img_test).into(holder.imgCollectionPic);
-        holder.txtCollectionContent.setText("房管局色粉hi粉红色的解放后几号付款的叫声");
-        holder.txtPrice.setText("￥199.00");
-        holder.txtCollectionNum.setText("月售2831");
+        Glide.with(mContext).load(myCollectionBeanDataArrays.get(position).getGoods_main_image()).into(holder.imgCollectionPic);
+        holder.txtCollectionContent.setText(myCollectionBeanDataArrays.get(position).getGoods_text());
+        holder.txtPrice.setText("￥"+myCollectionBeanDataArrays.get(position).getGoods_price());
+        holder.txtCollectionNum.setText("月售"+myCollectionBeanDataArrays.get(position).getGoods_salenum());
         Animation animation = AnimationUtils.loadAnimation(mContext, R.anim.list_anim);
         if (mIsShowBox) {
             holder.checkDelete.setVisibility(View.VISIBLE);
@@ -134,11 +143,18 @@ public class MineCollectionListAdapter extends RecyclerView.Adapter<MineCollecti
             map.put(position, false);
         }
         holder.checkDelete.setChecked(map.get(position));
+        holder.rl_item_collection_root.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                mContext.startActivity(new Intent(mContext, GoodsDetailActivity.class));
+            }
+        });
+
     }
 
     @Override
     public int getItemCount() {
-        return 20;
+        return myCollectionBeanDataArrays.size();
     }
 
     public static class GoodsHolder extends RecyclerView.ViewHolder {
@@ -148,6 +164,7 @@ public class MineCollectionListAdapter extends RecyclerView.Adapter<MineCollecti
         private TextView txtPrice;
         private TextView txtCollectionNum;
         private CheckBox checkDelete;
+        private RelativeLayout rl_item_collection_root;
 
         public GoodsHolder(View itemView) {
             super(itemView);
@@ -156,6 +173,7 @@ public class MineCollectionListAdapter extends RecyclerView.Adapter<MineCollecti
             txtPrice = (TextView) itemView.findViewById(R.id.txtPrice);
             txtCollectionNum = (TextView) itemView.findViewById(R.id.txtCollectionNum);
             checkDelete = (CheckBox) itemView.findViewById(R.id.checkDelete);
+            rl_item_collection_root= (RelativeLayout) itemView.findViewById(R.id.rl_item_collection_root);
         }
     }
 }

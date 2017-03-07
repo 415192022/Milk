@@ -93,6 +93,7 @@
             android:textSize="@dimen/text_size_16" />
 
         <TextView
+            android:id="@+id/tv_nick_name"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:layout_alignParentRight="true"
@@ -143,7 +144,7 @@
     <!--</RelativeLayout>-->
 
     <TextView
-        android:id="@+id/txtLoginOut"
+        android:id="@+id/tv_modify"
         android:layout_width="match_parent"
         android:layout_height="@dimen/dip_50"
         android:layout_alignParentBottom="true"

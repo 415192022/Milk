@@ -8,11 +8,19 @@ import android.widget.RadioGroup;
 
 import com.yundong.milk.R;
 import com.yundong.milk.base.BaseActivity;
+import com.yundong.milk.model.OrderListBean;
+import com.yundong.milk.present.MineOrderFragmentPresenter;
 import com.yundong.milk.user.adapter.OrderFragmentAdapter;
 import com.yundong.milk.user.fragment.MineOrderFragment;
+import com.yundong.milk.view.IOrderListView;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import rx.Observable;
+import rx.Subscriber;
+import rx.android.schedulers.AndroidSchedulers;
+import rx.schedulers.Schedulers;
 
 /**
  * Created by lj on 2016/11/14.
@@ -22,6 +30,8 @@ public class MineOrderActivity extends BaseActivity {
 
     private RadioGroup mRadGroup;
     private ViewPager mViewPager;
+
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,6 +50,8 @@ public class MineOrderActivity extends BaseActivity {
         mViewPager.setAdapter(adapter);
         mViewPager.addOnPageChangeListener(new PagerChangedListener());
         initTitleColor();
+
+
     }
 
     @Override
@@ -66,6 +78,7 @@ public class MineOrderActivity extends BaseActivity {
                 break;
         }
     }
+
 
     class PagerChangedListener implements ViewPager.OnPageChangeListener{
 
@@ -113,4 +126,5 @@ public class MineOrderActivity extends BaseActivity {
             }
         }
     }
+
 }
