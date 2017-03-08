@@ -1,7 +1,10 @@
 package com.yundong.milk.present;
 
+import com.yundong.milk.interaptor.impl.MyCollectionDeleteImpl;
 import com.yundong.milk.interaptor.impl.MyCollectionImpl;
+import com.yundong.milk.model.BaseReceiveBean;
 import com.yundong.milk.model.MyCollectionBean;
+import com.yundong.milk.view.IMyCollectionDeleteView;
 import com.yundong.milk.view.IMyCollectionView;
 
 import rx.Subscriber;
@@ -19,8 +22,13 @@ public class MineCollectionActivityPresenter {
     private MyCollectionImpl myCollection;
     private IMyCollectionView iMyCollectionView;
 
+    //删除收藏
+    private MyCollectionDeleteImpl myCollectionDelete;
+    private IMyCollectionDeleteView iMyCollectionDeleteView;
+
     private MineCollectionActivityPresenter() {
         myCollection = new MyCollectionImpl();
+        myCollectionDelete = new MyCollectionDeleteImpl();
     }
 
     public static MineCollectionActivityPresenter getInstance() {
@@ -28,8 +36,9 @@ public class MineCollectionActivityPresenter {
         return mineCollectionActivityPresenter;
     }
 
-    public MineCollectionActivityPresenter with(IMyCollectionView iMyCollectionView) {
+    public MineCollectionActivityPresenter with(IMyCollectionView iMyCollectionView, IMyCollectionDeleteView iMyCollectionDeleteView) {
         this.iMyCollectionView = iMyCollectionView;
+        this.iMyCollectionDeleteView = iMyCollectionDeleteView;
         return mineCollectionActivityPresenter;
     }
 
@@ -51,6 +60,28 @@ public class MineCollectionActivityPresenter {
                     @Override
                     public void onNext(MyCollectionBean myCollectionBean) {
                         iMyCollectionView.myCollection(myCollectionBean);
+                    }
+                });
+    }
+
+    public void deleteMyCollection(String coll_id) {
+        myCollectionDelete.deleteMyCollection(coll_id)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new Subscriber<BaseReceiveBean>() {
+                    @Override
+                    public void onCompleted() {
+
+                    }
+
+                    @Override
+                    public void onError(Throwable e) {
+                        iMyCollectionDeleteView.deleteMyCollectionOnError(e.getMessage());
+                    }
+
+                    @Override
+                    public void onNext(BaseReceiveBean baseReceiveBean) {
+                        iMyCollectionDeleteView.deleteMyCollection(baseReceiveBean);
                     }
                 });
     }

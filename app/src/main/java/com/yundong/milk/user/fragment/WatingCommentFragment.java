@@ -4,7 +4,6 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.GridLayoutManager;
-import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -29,18 +28,18 @@ import rx.schedulers.Schedulers;
 
 /**
  * Created by MingweiLi on 2017/3/6.
- * 待收货
+ * 待付款
  */
 
-public class WatingReceiveGoodsFragment extends Fragment implements SwipyRefreshLayout.OnRefreshListener,IOrderListView {
+public class WatingCommentFragment extends Fragment implements SwipyRefreshLayout.OnRefreshListener,IOrderListView {
     private RecyclerView mRecyclerView;
     private OrderListAdapter mAdapter;
     private SwipyRefreshLayout srl_order_list;
 
     public MineOrderFragmentPresenter maineOrderActivityPresenter;
 
-    public static WatingReceiveGoodsFragment newInstance(int page) {
-        WatingReceiveGoodsFragment fragment = new WatingReceiveGoodsFragment();
+    public static WatingCommentFragment newInstance(int page) {
+        WatingCommentFragment fragment = new WatingCommentFragment();
         Bundle bundle = new Bundle();
         bundle.putInt("page", page);
         fragment.setArguments(bundle);
@@ -61,7 +60,7 @@ public class WatingReceiveGoodsFragment extends Fragment implements SwipyRefresh
 
 
         maineOrderActivityPresenter = MineOrderFragmentPresenter.getInstance().with(this);
-        maineOrderActivityPresenter.orderList(YunDongApplication.getLoginBean().getData().getUserinfo().getId(), "3", "", "1", "20");
+        maineOrderActivityPresenter.orderList(YunDongApplication.getLoginBean().getData().getUserinfo().getId(), "4", "", "1", "20");
         return view;
     }
 
@@ -119,7 +118,7 @@ public class WatingReceiveGoodsFragment extends Fragment implements SwipyRefresh
         if (direction == SwipyRefreshLayoutDirection.TOP) {
             mAdapter.getmList().clear();
             orderListDataArrays.clear();
-            maineOrderActivityPresenter.orderList(YunDongApplication.getLoginBean().getData().getUserinfo().getId(), "3", "", "1", "20");
+            maineOrderActivityPresenter.orderList(YunDongApplication.getLoginBean().getData().getUserinfo().getId(), "4", "", "1", "20");
         } else if (direction == SwipyRefreshLayoutDirection.BOTTOM) {
             ToastUtil.showShortToast("上拉加载");
             srl_order_list.setRefreshing(false);

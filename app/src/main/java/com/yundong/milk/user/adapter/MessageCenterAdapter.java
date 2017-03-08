@@ -11,7 +11,10 @@ import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.yundong.milk.R;
+import com.yundong.milk.model.MessageListBean;
 import com.yundong.milk.user.activity.SystemMsgActivity;
+
+import java.util.ArrayList;
 
 /**
  * Created by lj on 2017/1/3.
@@ -20,6 +23,7 @@ import com.yundong.milk.user.activity.SystemMsgActivity;
 public class MessageCenterAdapter extends RecyclerView.Adapter<MessageCenterAdapter.MessageCenterHolder> implements View.OnClickListener{
 
     private Activity mContext;
+    private ArrayList<MessageListBean.MessageListData.MessageListDataArray> messageListDataArrays=new ArrayList<>();
 
     public MessageCenterAdapter(Activity context) {
         this.mContext = context;
@@ -50,7 +54,7 @@ public class MessageCenterAdapter extends RecyclerView.Adapter<MessageCenterAdap
 
     @Override
     public int getItemCount() {
-        return 2;
+        return messageListDataArrays.size();
     }
 
     @Override

@@ -1,7 +1,6 @@
 package com.yundong.milk.user.activity;
 
 import android.os.Bundle;
-import android.support.v4.widget.SwipeRefreshLayout;
 import android.view.View;
 
 import com.yundong.milk.R;
@@ -13,6 +12,8 @@ import com.yundong.milk.present.RefundActivityPresenter;
 import com.yundong.milk.util.ToastUtil;
 import com.yundong.milk.view.IRefundView;
 import com.yundong.milk.widget.recyclerview.XRecyclerView;
+import com.yundong.milk.widget.swiprefreshlayout.SwipyRefreshLayout;
+import com.yundong.milk.widget.swiprefreshlayout.SwipyRefreshLayoutDirection;
 
 import java.util.ArrayList;
 
@@ -27,12 +28,12 @@ import rx.schedulers.Schedulers;
  */
 public class RefundActivity extends BaseActivity
         implements
-        SwipeRefreshLayout.OnRefreshListener,
+        SwipyRefreshLayout.OnRefreshListener,
         IRefundView {
 
     private XRecyclerView mRecyclerView;
     private RefundListAdapter mAdapter;
-    private SwipeRefreshLayout srl_refund;
+    private SwipyRefreshLayout srl_refund;
 
     private RefundActivityPresenter refundActivityPresenter;
 
@@ -45,7 +46,7 @@ public class RefundActivity extends BaseActivity
         mRecyclerView.setPullRefreshEnabled(false);
         mRecyclerView.setLoadingMoreEnabled(false);
 
-        srl_refund = (SwipeRefreshLayout) findViewById(R.id.srl_refund);
+        srl_refund = (SwipyRefreshLayout) findViewById(R.id.srl_message_center);
         srl_refund.setOnRefreshListener(this);
         srl_refund.setRefreshing(true);
         mRecyclerView.initParams();
@@ -60,13 +61,6 @@ public class RefundActivity extends BaseActivity
     public void onClick(View view) {
         super.onClick(view);
 
-    }
-
-    @Override
-    public void onRefresh() {
-        refunLists.clear();
-        mAdapter.getmList().clear();
-        refundActivityPresenter.refundList(YunDongApplication.getLoginBean().getData().getUserinfo().getId(), "1", "20");
     }
 
     ArrayList<RefundBean.RefundData.RefundArray> refunLists = new ArrayList<>();
@@ -98,5 +92,16 @@ public class RefundActivity extends BaseActivity
     @Override
     public void refundListOnError(String e) {
         ToastUtil.showShortToast("加载退款数据失败");
+    }
+
+    @Override
+    public void onRefresh(SwipyRefreshLayoutDirection direction) {
+        if (direction == SwipyRefreshLayoutDirection.TOP) {
+            refunLists.clear();
+            mAdapter.getmList().clear();
+            refundActivityPresenter.refundList(YunDongApplication.getLoginBean().getData().getUserinfo().getId(), "1", "20");
+        } else if (direction == SwipyRefreshLayoutDirection.BOTTOM) {
+            ToastUtil.showShortToast("上拉加载");
+        }
     }
 }

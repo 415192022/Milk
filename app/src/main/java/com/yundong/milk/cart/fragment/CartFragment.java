@@ -1,7 +1,6 @@
 package com.yundong.milk.cart.fragment;
 
 import android.os.Handler;
-import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.GridLayoutManager;
 import android.view.View;
 
@@ -18,6 +17,8 @@ import com.yundong.milk.view.ICarListView;
 import com.yundong.milk.view.IDeleteCarView;
 import com.yundong.milk.widget.LoadingDialog;
 import com.yundong.milk.widget.recyclerview.XRecyclerView;
+import com.yundong.milk.widget.swiprefreshlayout.SwipyRefreshLayout;
+import com.yundong.milk.widget.swiprefreshlayout.SwipyRefreshLayoutDirection;
 
 import java.util.ArrayList;
 
@@ -32,11 +33,11 @@ import rx.schedulers.Schedulers;
  */
 public class CartFragment extends BaseFragment
         implements
-        SwipeRefreshLayout.OnRefreshListener,
+        SwipyRefreshLayout.OnRefreshListener,
         ICarListView,
         IDeleteCarView
 {
-    private SwipeRefreshLayout srl_car_list;
+    private SwipyRefreshLayout srl_car_list;
 
     private XRecyclerView mRecyclerView;
     private CartListAdapter mAdapter;
@@ -65,7 +66,6 @@ public class CartFragment extends BaseFragment
         mRecyclerView.initParams();
         mRecyclerView.setLoadingMoreEnabled(false);
         mRecyclerView.setPullRefreshEnabled(false);
-//        mRecyclerView.setLoadingListener(this);
         View footerView = View.inflate(getActivity(), R.layout.cart_footer, null);
         mFooterRecyclerView = (XRecyclerView) footerView.findViewById(R.id.recyclerViewFooter);
         mFooterRecyclerView.initParams();
@@ -75,10 +75,10 @@ public class CartFragment extends BaseFragment
         mRecyclerView.addFootView(footerView);
 //        mFooterRecyclerView.setPullRefreshEnabled(false);
 //        mFooterRecyclerView.setLoadingMoreEnabled(false);
-        srl_car_list= (SwipeRefreshLayout) view.findViewById(R.id.srl_car_list);
+        srl_car_list= (SwipyRefreshLayout) view.findViewById(R.id.srl_car_list);
         srl_car_list.setColorSchemeColors(getActivity().getResources().getColor(R.color.colorPrimary));
         srl_car_list.setOnRefreshListener(this);
-        srl_car_list.setRefreshing(false);
+        srl_car_list.setRefreshing(true);
         carFragmentPresenter=CarFragmentPresenter.getInstance().with(this,this);
         carFragmentPresenter.getCarList(YunDongApplication.getLoginBean().getData().getUserinfo().getId());
 
@@ -146,8 +146,14 @@ public class CartFragment extends BaseFragment
     }
 
     @Override
-    public void onRefresh() {
-        mAdapter.getmList().clear();
-        carFragmentPresenter.getCarList(YunDongApplication.getLoginBean().getData().getUserinfo().getId());
+    public void onRefresh(SwipyRefreshLayoutDirection direction) {
+        if (direction == SwipyRefreshLayoutDirection.TOP) {
+            mAdapter.getmList().clear();
+            carFragmentPresenter.getCarList(YunDongApplication.getLoginBean().getData().getUserinfo().getId());
+        } else if (direction == SwipyRefreshLayoutDirection.BOTTOM) {
+            ToastUtil.showShortToast("上拉加载");
+            srl_car_list.setRefreshing(false);
+        }
+
     }
 }

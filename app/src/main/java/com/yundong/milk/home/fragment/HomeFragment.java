@@ -4,7 +4,6 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Handler;
 import android.os.Message;
-import android.support.v4.widget.SwipeRefreshLayout;
 import android.view.View;
 import android.widget.TextView;
 
@@ -14,7 +13,7 @@ import com.yundong.milk.home.activity.GoodsListTwoSortActivity;
 import com.yundong.milk.home.activity.InformationActivity;
 import com.yundong.milk.home.activity.SearchGoodsActivity;
 import com.yundong.milk.home.adapter.HomeGoodsListAdapter;
-import com.yundong.milk.model.BaseReceiveBean;
+import com.yundong.milk.manager.YunDongApplication;
 import com.yundong.milk.model.GoodsCommentBean;
 import com.yundong.milk.model.LettersBean;
 import com.yundong.milk.model.RecommentTypeBean;
@@ -24,12 +23,10 @@ import com.yundong.milk.view.IGoodsCommentView;
 import com.yundong.milk.view.ILettersView;
 import com.yundong.milk.view.IRecommentTypeView;
 import com.yundong.milk.widget.NoScrollListView;
-import com.yundong.milk.widget.PullToRefreshView;
-import com.yundong.milk.widget.SwipeRefreshLoadMore;
+import com.yundong.milk.widget.swiprefreshlayout.SwipyRefreshLayout;
+import com.yundong.milk.widget.swiprefreshlayout.SwipyRefreshLayoutDirection;
 
 import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.Date;
 import java.util.List;
 
 import rx.Observable;
@@ -44,13 +41,12 @@ import rx.schedulers.Schedulers;
 public class HomeFragment extends BaseFragment
         implements
         View.OnClickListener
-        , SwipeRefreshLoadMore.OnRefreshListener
-        , SwipeRefreshLoadMore.OnLoadListener
+        , SwipyRefreshLayout.OnRefreshListener
         , IRecommentTypeView
         , ILettersView
         , IGoodsCommentView {
 
-    private SwipeRefreshLoadMore mPullToRefreshView;
+    private SwipyRefreshLayout mPullToRefreshView;
     private HomeGoodsListAdapter mAdapter;
     private NoScrollListView mListView;
 
@@ -119,13 +115,12 @@ public class HomeFragment extends BaseFragment
         recommentTypeViews.add(txtNewProduct);
         recommentTypeViews.add(txtActivity);
         view.findViewById(R.id.lineInformation).setOnClickListener(this);
-        mPullToRefreshView = (SwipeRefreshLoadMore) view.findViewById(R.id.main_pull_refresh_view);
+        mPullToRefreshView = (SwipyRefreshLayout) view.findViewById(R.id.main_pull_refresh_view);
         mPullToRefreshView.setOnRefreshListener(this);
-        mPullToRefreshView.setOnLoadListener(this);
         mPullToRefreshView.setRefreshing(true);
+        mPullToRefreshView.setDirection(SwipyRefreshLayoutDirection.BOTH);
 
         mListView = (NoScrollListView) view.findViewById(R.id.listView);
-
 
 
         homeFragmentPresenter = HomeFragmentPresenter.getInstance().with(this, this, this);
@@ -275,16 +270,18 @@ public class HomeFragment extends BaseFragment
         commpletRefresh();
     }
 
-    @Override
-    public void onRefresh() {
-//        homeFragmentPresenter.getRecommentType();
-        homeFragmentPresenter.getLetters("1", "desc");
-        homeFragmentPresenter.getGoodsComment("1");
-    }
 
     @Override
-    public void onLoad() {
-        ToastUtil.showShortToast("======");
+    public void onRefresh(SwipyRefreshLayoutDirection direction) {
+        if (direction == SwipyRefreshLayoutDirection.TOP) {
+            //        homeFragmentPresenter.getRecommentType();
+            homeFragmentPresenter.getLetters("1", "desc");
+            homeFragmentPresenter.getGoodsComment("1");
+        } else if (direction == SwipyRefreshLayoutDirection.BOTTOM) {
+            ToastUtil.showShortToast("上拉加载");
+            mPullToRefreshView.setRefreshing(false);
+        }
+
     }
 
     public class MyHandler extends Handler {
@@ -294,7 +291,9 @@ public class HomeFragment extends BaseFragment
             mPullToRefreshView.setRefreshing(false);
         }
     }
+
     MyHandler myHandler = new MyHandler();
+
     private void commpletRefresh() {
         myHandler.sendEmptyMessage(0);
     }

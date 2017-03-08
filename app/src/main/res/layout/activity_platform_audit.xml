@@ -20,7 +20,7 @@
             android:text="@string/companyName" />
 
         <EditText
-            android:id="@+id/editCompanyName"
+            android:id="@+id/et_CompanyName"
             style="@style/txtPlatformTextViewContent"
             android:layout_toRightOf="@+id/txtName"
             android:text="上海华生有限公司" />
@@ -39,7 +39,7 @@
             android:text="@string/currentArea" />
 
         <TextView
-            android:id="@+id/txtCompanyArea"
+            android:id="@+id/tv_CompanyArea"
             style="@style/txtPlatformTextViewContent"
             android:layout_toRightOf="@+id/txtArea"
             android:hint="@string/please_select_current_area" />
@@ -58,7 +58,7 @@
             android:text="@string/person_in_charge" />
 
         <EditText
-            android:id="@+id/editChargeMan"
+            android:id="@+id/et_ChargeMan"
             style="@style/txtPlatformTextViewContent"
             android:layout_toRightOf="@+id/txtChargeMan"
             android:text="张三丰" />
@@ -77,7 +77,7 @@
             android:text="@string/contactWay" />
 
         <EditText
-            android:id="@+id/editPhone"
+            android:id="@+id/et_Phone"
             style="@style/txtPlatformTextViewContent"
             android:layout_toRightOf="@+id/txtPhone"
             android:inputType="phone"
@@ -87,7 +87,7 @@
     </RelativeLayout>
 
     <ImageView
-        android:id="@+id/imgLicense"
+        android:id="@+id/iv_License"
         android:layout_width="@dimen/dip_90"
         android:layout_height="@dimen/dip_90"
         android:layout_below="@+id/reContactWay"
@@ -96,19 +96,19 @@
         android:src="@mipmap/img_add_pic" />
 
     <TextView
-        android:id="@+id/txtUploadLicense"
+        android:id="@+id/tv_UploadLicense"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@+id/reContactWay"
         android:layout_marginLeft="@dimen/dip_15"
         android:layout_marginTop="@dimen/dip_60"
-        android:layout_toRightOf="@+id/imgLicense"
+        android:layout_toRightOf="@+id/iv_License"
         android:text="@string/Upload_a_business_license"
         android:textColor="@color/lineColor"
         android:textSize="@dimen/text_size_12" />
 
     <TextView
-        android:id="@+id/txtComplete"
+        android:id="@+id/tv_Complete"
         android:layout_width="match_parent"
         android:layout_height="@dimen/dip_50"
         android:layout_alignParentBottom="true"

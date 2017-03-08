@@ -9,5 +9,5 @@ import rx.Observable;
  */
 
 public interface IFeedBack {
-    Observable<BaseReceiveBean> feedBack(String user_id, String comment, String phone);
+    Observable<BaseReceiveBean> feedBack(String user_id, String comment, String phone,String feedback_img);
 }

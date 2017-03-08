@@ -6,10 +6,12 @@ import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.RequiresApi;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageView;
 
+import com.google.gson.Gson;
 import com.yundong.milk.R;
 import com.yundong.milk.base.BaseActivity;
 import com.yundong.milk.cache.CacheActivity;
@@ -18,7 +20,9 @@ import com.yundong.milk.imagechoose.MultiImageSelectorActivity;
 import com.yundong.milk.imagechoose.crop.HDApp;
 import com.yundong.milk.manager.YunDongApplication;
 import com.yundong.milk.model.BaseReceiveBean;
+import com.yundong.milk.model.send.CommentImageBean;
 import com.yundong.milk.present.FeedBackActivityPresenter;
+import com.yundong.milk.util.Base64Utils;
 import com.yundong.milk.util.ToastUtil;
 import com.yundong.milk.view.IFeedBackView;
 
@@ -67,7 +71,18 @@ public class FeedBackActivity extends BaseActivity implements View.OnClickListen
                 } else if (phoneNum.length() != 11) {
                     ToastUtil.showShortToast(getString(R.string.phone_number_not_correct));
                 } else {
-                    feedBackActivityPresenter.feedBack(YunDongApplication.getLoginBean().getData().getUserinfo().getId(), content, phoneNum);
+                    if (images.size() > 0) {
+                        CommentImageBean commentImageBean = new CommentImageBean();
+                        ArrayList<String> ig = new ArrayList<String>();
+                        ig.add(Base64Utils.bitmapToBase64(images.get(0)));
+                        commentImageBean.setImages(ig);
+                        String json = new Gson().toJson(commentImageBean);
+                        feedBackActivityPresenter.feedBack(YunDongApplication.getLoginBean().getData().getUserinfo().getId(), content, phoneNum, json)
+                        ;
+
+                    } else {
+                        feedBackActivityPresenter.feedBack(YunDongApplication.getLoginBean().getData().getUserinfo().getId(), content, phoneNum, "");
+                    }
                 }
                 break;
             case R.id.imgAddPic:
@@ -76,6 +91,8 @@ public class FeedBackActivity extends BaseActivity implements View.OnClickListen
         }
     }
 
+
+    ArrayList<Bitmap> images = new ArrayList<>();
 
     @RequiresApi(api = Build.VERSION_CODES.JELLY_BEAN)
     @Override
@@ -88,6 +105,8 @@ public class FeedBackActivity extends BaseActivity implements View.OnClickListen
                 picturePath_All = url;
                 Bitmap loacalBitmap = ChooseImage.getSmallBitmap(url);
                 mImgAddPic.setImageBitmap(loacalBitmap);
+                images.clear();
+                images.add(loacalBitmap);
                 mImgAddPic.setBackground(null);
                 String spStr[] = mSelectPath.get(0).split("/");
                 picturePath_rootDirectory = spStr[spStr.length - 1];
@@ -101,6 +120,8 @@ public class FeedBackActivity extends BaseActivity implements View.OnClickListen
                     timeStamp = System.currentTimeMillis();
                     Bitmap loacalBitmap = ChooseImage.getSmallBitmap(path);
                     mImgAddPic.setImageBitmap(loacalBitmap);
+                    images.clear();
+                    images.add(loacalBitmap);
                     mImgAddPic.setBackground(null);
                 }
             }
@@ -120,6 +141,6 @@ public class FeedBackActivity extends BaseActivity implements View.OnClickListen
 
     @Override
     public void feedBackOnError(String e) {
-        ToastUtil.showShortToast("提交反馈出错"+e);
+        ToastUtil.showShortToast("提交反馈出错" + e);
     }
 }

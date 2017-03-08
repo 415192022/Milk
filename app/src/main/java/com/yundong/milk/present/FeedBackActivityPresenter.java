@@ -33,8 +33,8 @@ public class FeedBackActivityPresenter {
         return feedBackActivityPresenter;
     }
 
-    public void feedBack(String user_id, String comment, String phone){
-        feedBack.feedBack(user_id,comment,phone)
+    public void feedBack(String user_id, String comment, String phone,String feedback_img){
+        feedBack.feedBack(user_id,comment,phone,feedback_img)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new Subscriber<BaseReceiveBean>() {

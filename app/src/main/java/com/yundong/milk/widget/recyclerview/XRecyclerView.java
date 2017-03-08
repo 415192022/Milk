@@ -230,7 +230,7 @@ public class XRecyclerView extends RecyclerView implements ItemSidesHelper.Callb
                     if (isOnTop() && pullRefreshEnabled) {
                         mRefreshHeader.onMove(deltaY / DRAG_RATE);
                         if (mRefreshHeader.getVisibleHeight() > 0 && mRefreshHeader.getState() < ArrowRefreshHeader.STATE_REFRESHING) {
-                            return false;
+
                         }
                     }
                 }
@@ -529,7 +529,7 @@ public class XRecyclerView extends RecyclerView implements ItemSidesHelper.Callb
 
     @Override
     public View findTargetView(float x, float y) {
-        if(mRecyclerView == null) {
+        if (mRecyclerView == null) {
             return null;
         }
         return mRecyclerView.findChildViewUnder(x, y);

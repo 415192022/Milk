@@ -28,12 +28,13 @@ import java.util.Map;
 
 /**
  * Created by lj on 2016/11/17.
- *  我的收藏
+ * 我的收藏
  */
-public class MineCollectionListAdapter extends RecyclerView.Adapter<MineCollectionListAdapter.GoodsHolder>{
+public class MineCollectionListAdapter extends RecyclerView.Adapter<MineCollectionListAdapter.GoodsHolder> {
 
     private HashMap<Integer, Integer> mSizeList = new HashMap<>();
-    private ArrayList<MyCollectionBean.MyCollectionBeanData.MyCollectionBeanDataArray> myCollectionBeanDataArrays=new ArrayList<>();
+    private ArrayList<String> checkedList = new ArrayList<>();
+    private ArrayList<MyCollectionBean.MyCollectionBeanData.MyCollectionBeanDataArray> myCollectionBeanDataArrays = new ArrayList<>();
     private Context mContext;
     public boolean mIsShowBox = false; //是否显示单选框,默认false
     private Map<Integer, Boolean> map = new HashMap<>(); // 存储勾选框状态的map集合
@@ -41,6 +42,10 @@ public class MineCollectionListAdapter extends RecyclerView.Adapter<MineCollecti
 
     public ArrayList<MyCollectionBean.MyCollectionBeanData.MyCollectionBeanDataArray> getMyCollectionBeanDataArrays() {
         return myCollectionBeanDataArrays;
+    }
+
+    public ArrayList<String> getCheckedList() {
+        return checkedList;
     }
 
     public MineCollectionListAdapter(Context context, TextView textView) {
@@ -75,11 +80,11 @@ public class MineCollectionListAdapter extends RecyclerView.Adapter<MineCollecti
         notifyDataSetChanged();
     }
 
-    public int getCheckListSize(){
+    public int getCheckListSize() {
         return mSizeList.size();
     }
 
-    public void removeCheckList(){
+    public void removeCheckList() {
         mSizeList.clear();
     }
 
@@ -102,8 +107,8 @@ public class MineCollectionListAdapter extends RecyclerView.Adapter<MineCollecti
     public void onBindViewHolder(final GoodsHolder holder, final int position) {
         Glide.with(mContext).load(myCollectionBeanDataArrays.get(position).getGoods_main_image()).into(holder.imgCollectionPic);
         holder.txtCollectionContent.setText(myCollectionBeanDataArrays.get(position).getGoods_text());
-        holder.txtPrice.setText("￥"+myCollectionBeanDataArrays.get(position).getGoods_price());
-        holder.txtCollectionNum.setText("月售"+myCollectionBeanDataArrays.get(position).getGoods_salenum());
+        holder.txtPrice.setText("￥" + myCollectionBeanDataArrays.get(position).getGoods_price());
+        holder.txtCollectionNum.setText("月售" + myCollectionBeanDataArrays.get(position).getGoods_salenum());
         Animation animation = AnimationUtils.loadAnimation(mContext, R.anim.list_anim);
         if (mIsShowBox) {
             holder.checkDelete.setVisibility(View.VISIBLE);
@@ -123,17 +128,18 @@ public class MineCollectionListAdapter extends RecyclerView.Adapter<MineCollecti
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                 //用map集合保存
-                ToastUtil.showShortToast("   " + position);
                 map.put(position, isChecked);
                 if (isChecked) {
 //                    mSizeList.add(position);
                     mSizeList.put(position, position);
-                }else {
+                    checkedList.add(position + "");
+                } else {
                     mSizeList.remove(position);
+                    checkedList.remove(position+"");
                 }
-                if (mSizeList.size() > 0){
+                if (mSizeList.size() > 0) {
                     mTextView.setText(R.string.delete);
-                }else {
+                } else {
                     mTextView.setText(R.string.edit);
                 }
             }
@@ -173,7 +179,7 @@ public class MineCollectionListAdapter extends RecyclerView.Adapter<MineCollecti
             txtPrice = (TextView) itemView.findViewById(R.id.txtPrice);
             txtCollectionNum = (TextView) itemView.findViewById(R.id.txtCollectionNum);
             checkDelete = (CheckBox) itemView.findViewById(R.id.checkDelete);
-            rl_item_collection_root= (RelativeLayout) itemView.findViewById(R.id.rl_item_collection_root);
+            rl_item_collection_root = (RelativeLayout) itemView.findViewById(R.id.rl_item_collection_root);
         }
     }
 }

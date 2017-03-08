@@ -1,25 +1,25 @@
 <?xml version="1.0" encoding="utf-8"?>
-<com.yundong.milk.widget.SwipeRefreshLoadMore xmlns:android="http://schemas.android.com/apk/res/android"
-    android:id="@+id/srl_refund"
+
+
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:background="@color/bg"
+    android:clipToPadding="false"
+    android:fitsSystemWindows="true"
+    android:orientation="vertical">
 
-    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    <include layout="@layout/head_view" />
+
+
+    <com.yundong.milk.widget.swiprefreshlayout.SwipyRefreshLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        android:id="@+id/srl_message_center"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:background="@color/bg"
-        android:clipToPadding="false"
-        android:fitsSystemWindows="true"
-        android:orientation="vertical">
-
-        <include layout="@layout/head_view" />
-
-
+        android:layout_height="match_parent">
         <android.support.v7.widget.RecyclerView
             android:id="@+id/rv_mycollection"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_marginTop="@dimen/dip_1" />
-
-    </LinearLayout>
-</com.yundong.milk.widget.SwipeRefreshLoadMore>
+    </com.yundong.milk.widget.swiprefreshlayout.SwipyRefreshLayout>
+</LinearLayout>

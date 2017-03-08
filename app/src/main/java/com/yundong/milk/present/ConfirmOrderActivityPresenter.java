@@ -1,7 +1,11 @@
 package com.yundong.milk.present;
 
+import com.yundong.milk.interaptor.IApplyForModify;
+import com.yundong.milk.interaptor.impl.ApplyForModifyImpl;
 import com.yundong.milk.interaptor.impl.ReceiveGoodsAddressImpl;
+import com.yundong.milk.model.BaseReceiveBean;
 import com.yundong.milk.model.ReceiveGoodsAddressBean;
+import com.yundong.milk.view.IApplyForModifyView;
 import com.yundong.milk.view.IReceiveGoodsAddressView;
 
 import rx.Subscriber;
@@ -14,16 +18,26 @@ import rx.schedulers.Schedulers;
 
 public class ConfirmOrderActivityPresenter {
     private static ConfirmOrderActivityPresenter confirmOrderActivityPresenter;
-
+    //获取收货地址
     private ReceiveGoodsAddressImpl receiveGoodsAddress;
     private IReceiveGoodsAddressView iReceiveGoodsAddressView;
 
+    //申请修改收货地址
+    private ApplyForModifyImpl applyFroModify;
+    private IApplyForModifyView iApplyForModifyView;
+
     private ConfirmOrderActivityPresenter() {
         receiveGoodsAddress = new ReceiveGoodsAddressImpl();
+        applyFroModify=new ApplyForModifyImpl();
     }
 
     public ConfirmOrderActivityPresenter with(IReceiveGoodsAddressView iReceiveGoodsAddressView) {
         this.iReceiveGoodsAddressView = iReceiveGoodsAddressView;
+        return confirmOrderActivityPresenter;
+    }
+    public ConfirmOrderActivityPresenter with(IReceiveGoodsAddressView iReceiveGoodsAddressView,IApplyForModifyView iApplyForModifyView) {
+        this.iReceiveGoodsAddressView = iReceiveGoodsAddressView;
+        this.iApplyForModifyView=iApplyForModifyView;
         return confirmOrderActivityPresenter;
     }
 
@@ -50,6 +64,28 @@ public class ConfirmOrderActivityPresenter {
                     @Override
                     public void onNext(ReceiveGoodsAddressBean receiveGoodsAddressBean) {
                         iReceiveGoodsAddressView.receiveGoodsAddress(receiveGoodsAddressBean);
+                    }
+                });
+    }
+
+    public void applyFroModify(String address_id){
+        applyFroModify.applyFroModify(address_id)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new Subscriber<BaseReceiveBean>() {
+                    @Override
+                    public void onCompleted() {
+
+                    }
+
+                    @Override
+                    public void onError(Throwable e) {
+                        iApplyForModifyView.applyForModifyOnError(e.getMessage());
+                    }
+
+                    @Override
+                    public void onNext(BaseReceiveBean baseReceiveBean) {
+                        iApplyForModifyView.applyForModify(baseReceiveBean);
                     }
                 });
     }

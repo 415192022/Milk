@@ -1,5 +1,6 @@
 package com.yundong.milk.user.activity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -9,13 +10,16 @@ import android.widget.TextView;
 import com.yundong.milk.R;
 import com.yundong.milk.base.BaseActivity;
 import com.yundong.milk.manager.YunDongApplication;
+import com.yundong.milk.model.BaseReceiveBean;
 import com.yundong.milk.model.MyCollectionBean;
 import com.yundong.milk.present.MineCollectionActivityPresenter;
 import com.yundong.milk.user.adapter.MineCollectionListAdapter;
 import com.yundong.milk.util.ToastUtil;
+import com.yundong.milk.view.IMyCollectionDeleteView;
 import com.yundong.milk.view.IMyCollectionView;
-import com.yundong.milk.widget.SwipeRefreshLoadMore;
 import com.yundong.milk.widget.dialog.SweetAlertDialog;
+import com.yundong.milk.widget.swiprefreshlayout.SwipyRefreshLayout;
+import com.yundong.milk.widget.swiprefreshlayout.SwipyRefreshLayoutDirection;
 
 import java.util.HashMap;
 
@@ -29,13 +33,15 @@ import rx.schedulers.Schedulers;
  * 我的收藏
  */
 public class MineCollectionActivity extends BaseActivity
-        implements IMyCollectionView ,SwipeRefreshLoadMore.OnLoadListener,SwipeRefreshLoadMore.OnRefreshListener{
+        implements
+        IMyCollectionView
+        , SwipyRefreshLayout.OnRefreshListener
+        , IMyCollectionDeleteView {
 
     private TextView mTxtEdit;
     private RecyclerView rv_mycollection;
-    private SwipeRefreshLoadMore srl_refund;
+    private SwipyRefreshLayout srl_refund;
     private MineCollectionListAdapter mAdapter;
-    private HashMap<Integer, Boolean> mItemStatus = new HashMap<>();
     private int mClickStatus = 0;//0未点击  1点击
     private boolean mIsClick = false;
     private MineCollectionActivityPresenter mineCollectionActivityPresenter;
@@ -47,8 +53,9 @@ public class MineCollectionActivity extends BaseActivity
         initTitle(R.string.mine_collection, true, getString(R.string.edit), this);
 
 
-        srl_refund= (SwipeRefreshLoadMore) findViewById(R.id.srl_refund);
+        srl_refund = (SwipyRefreshLayout) findViewById(R.id.srl_message_center);
         srl_refund.setOnRefreshListener(this);
+        srl_refund.setDirection(SwipyRefreshLayoutDirection.BOTH);
         srl_refund.setRefreshing(true);
 
 
@@ -58,7 +65,7 @@ public class MineCollectionActivity extends BaseActivity
         mAdapter = new MineCollectionListAdapter(this, mTxtEdit);
         rv_mycollection.setAdapter(mAdapter);
 
-        mineCollectionActivityPresenter = MineCollectionActivityPresenter.getInstance().with(this);
+        mineCollectionActivityPresenter = MineCollectionActivityPresenter.getInstance().with(this, this);
         mineCollectionActivityPresenter.myCollection(YunDongApplication.getLoginBean().getData().getUserinfo().getId());
     }
 
@@ -88,7 +95,17 @@ public class MineCollectionActivity extends BaseActivity
                         dialog.setConfirmClickListener(new SweetAlertDialog.OnSweetClickListener() {
                             @Override
                             public void onClick(SweetAlertDialog sweetAlertDialog) {
-                                ToastUtil.showShortToast("我要删除  " + mAdapter.getCheckListSize());
+                                String collIds = "";
+                                for (int i = 0; i < mAdapter.getCheckedList().size(); i++) {
+                                    if(mAdapter.getCheckedList().size()>1){
+                                        collIds += "," + mAdapter.getMyCollectionBeanDataArrays().get(i).getId();
+                                    }else{
+                                        collIds +=  mAdapter.getMyCollectionBeanDataArrays().get(i).getId();
+                                    }
+
+                                }
+                                ToastUtil.showShortToast("我要删除  " + collIds);
+                                mineCollectionActivityPresenter.deleteMyCollection(collIds);
                                 dialog.dismiss();
 //                                    mAdapter.initMap();
                                 mTxtEdit.setText(R.string.edit);
@@ -156,14 +173,30 @@ public class MineCollectionActivity extends BaseActivity
 
     }
 
+
     @Override
-    public void onRefresh() {
+    public void onRefresh(SwipyRefreshLayoutDirection direction) {
+        if (direction == SwipyRefreshLayoutDirection.TOP) {
+            mAdapter.getMyCollectionBeanDataArrays().clear();
+            mAdapter.notifyDataSetChanged();
+            mineCollectionActivityPresenter.myCollection(YunDongApplication.getLoginBean().getData().getUserinfo().getId());
+        } else if (direction == SwipyRefreshLayoutDirection.BOTTOM) {
+            ToastUtil.showShortToast("上拉加载");
+            srl_refund.setRefreshing(false);
+        }
+
+    }
+
+    @Override
+    public void deleteMyCollection(BaseReceiveBean baseReceiveBean) {
+        ToastUtil.showShortToast(baseReceiveBean.getMsg());
         mAdapter.getMyCollectionBeanDataArrays().clear();
+        mAdapter.notifyDataSetChanged();
         mineCollectionActivityPresenter.myCollection(YunDongApplication.getLoginBean().getData().getUserinfo().getId());
     }
 
     @Override
-    public void onLoad() {
-        ToastUtil.showShortToast("加载更多");
+    public void deleteMyCollectionOnError(String e) {
+        ToastUtil.showShortToast(e);
     }
 }

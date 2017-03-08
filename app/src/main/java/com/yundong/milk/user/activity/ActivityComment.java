@@ -189,6 +189,6 @@ public class ActivityComment extends BaseActivity implements IOrderCommentView {
 
     @Override
     public void orderCommentOnError(String e) {
-
+        ToastUtil.showShortToast(e);
     }
 }

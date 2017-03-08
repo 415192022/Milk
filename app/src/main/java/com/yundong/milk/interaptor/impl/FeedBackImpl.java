@@ -15,10 +15,10 @@ import rx.Observable;
 
 public class FeedBackImpl implements IFeedBack {
     @Override
-    public Observable<BaseReceiveBean> feedBack(String user_id, String comment, String phone) {
+    public Observable<BaseReceiveBean> feedBack(String user_id, String comment, String phone, String feedback_img) {
         return RetrofitUtils.
                 getInstance().
                 retrofitCtreate(URLConst.URL_MILK_BASE, IFeedBackService.class).
-                feedBack(user_id, comment, phone);
+                feedBack(user_id, comment, phone, feedback_img);
     }
 }
