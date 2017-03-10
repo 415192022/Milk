@@ -15,5 +15,5 @@ import rx.Observable;
 public interface IApplyForModifyService {
     @FormUrlEncoded
     @POST("address_check")
-    Observable<BaseReceiveBean> applyForModify(@Field("address_check")String address_check);
+    Observable<BaseReceiveBean> applyForModify(@Field("address_id")String address_id);
 }

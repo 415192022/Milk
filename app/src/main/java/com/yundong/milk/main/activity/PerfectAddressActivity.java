@@ -18,16 +18,22 @@ import com.baidu.mapapi.search.geocode.OnGetGeoCoderResultListener;
 import com.baidu.mapapi.search.geocode.ReverseGeoCodeResult;
 import com.yundong.milk.R;
 import com.yundong.milk.base.BaseActivity;
+import com.yundong.milk.manager.YunDongApplication;
 import com.yundong.milk.model.BaseReceiveBean;
+import com.yundong.milk.model.LoginBean;
 import com.yundong.milk.model.PCABean;
 import com.yundong.milk.model.RegistBean;
 import com.yundong.milk.model.RegisterCompleteLoginBean;
+import com.yundong.milk.present.LoginPresenter;
 import com.yundong.milk.present.PerfectAddressActivityPresenter;
+import com.yundong.milk.util.Const;
+import com.yundong.milk.util.PreferencesUtils;
 import com.yundong.milk.util.ToastUtil;
 import com.yundong.milk.util.rxbus.RxBus;
 import com.yundong.milk.util.rxbus.Subscribe;
 import com.yundong.milk.util.rxbus.ThreadMode;
 import com.yundong.milk.view.IAddReceiveAddressView;
+import com.yundong.milk.view.ILoginView;
 import com.yundong.milk.widget.popupwindow.PCAPopupWindow;
 
 /**
@@ -38,7 +44,9 @@ public class PerfectAddressActivity extends BaseActivity
         implements
         OnGetGeoCoderResultListener,
         PCAPopupWindow.OnCompleteListenner,
-        IAddReceiveAddressView {
+        IAddReceiveAddressView ,
+        ILoginView
+{
 
     private TextView mTxtCurrentLocation;
     private LocationClient mLocationClient;
@@ -162,6 +170,20 @@ public class PerfectAddressActivity extends BaseActivity
 
     }
 
+    //填完收货地址后登陆结果
+    @Override
+    public void login(LoginBean baseReceiveBean) {
+        if (baseReceiveBean.getCode().equals("2000")) {
+        } else if (baseReceiveBean.getCode().equals("3004")) {
+            ToastUtil.showShortToast("密码错误");
+        }
+    }
+
+    @Override
+    public void loginOnError(String e) {
+
+    }
+
 
     private class MyBDLocationListener implements BDLocationListener {
 
@@ -198,6 +220,9 @@ public class PerfectAddressActivity extends BaseActivity
     @Override
     public void addReceiveAddress(BaseReceiveBean baseReceiveBean) {
         ToastUtil.showShortToast(baseReceiveBean.getMsg());
+        LoginPresenter.getInstance()
+                .with(this)
+                .login(registerCompleteLoginBean.getRegistBean().getData().getPhone(), registerCompleteLoginBean.getPwd());
     }
 
     @Override

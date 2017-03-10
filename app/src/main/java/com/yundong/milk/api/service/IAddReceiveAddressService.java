@@ -15,7 +15,7 @@ import rx.Observable;
 
 public interface IAddReceiveAddressService {
     @FormUrlEncoded
-    @POST("setAddress")
+    @POST("address/add")
     Observable<BaseReceiveBean> addReceiveAddress(
             @Field("user_id") String user_id
             , @Field("phone") String phone
