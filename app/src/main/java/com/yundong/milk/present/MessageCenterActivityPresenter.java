@@ -1,7 +1,11 @@
 package com.yundong.milk.present;
 
+import com.yundong.milk.interaptor.IMessageInfo;
+import com.yundong.milk.interaptor.impl.MessageInfoImpl;
 import com.yundong.milk.interaptor.impl.MessageListImpl;
+import com.yundong.milk.model.MessageInfoBean;
 import com.yundong.milk.model.MessageListBean;
+import com.yundong.milk.view.IMessageInfoView;
 import com.yundong.milk.view.IMessageListView;
 
 import rx.Subscriber;
@@ -15,8 +19,10 @@ import rx.schedulers.Schedulers;
 public class MessageCenterActivityPresenter {
     private static MessageCenterActivityPresenter messageCenterActivityPresenter;
 
+    //获得消息列表
     private MessageListImpl messageList;
     private IMessageListView iMessageListView;
+
 
     private MessageCenterActivityPresenter() {
         messageList = new MessageListImpl();
@@ -27,10 +33,12 @@ public class MessageCenterActivityPresenter {
         return messageCenterActivityPresenter;
     }
 
+
     public MessageCenterActivityPresenter with(IMessageListView iMessageListView) {
         this.iMessageListView = iMessageListView;
         return messageCenterActivityPresenter;
     }
+
 
     public void messageList(String user_id
             , String message_type
@@ -55,6 +63,7 @@ public class MessageCenterActivityPresenter {
                         iMessageListView.messageList(messageListBean);
                     }
                 });
-
     }
+
+
 }

@@ -53,7 +53,7 @@ public class MineCollectionActivity extends BaseActivity
         initTitle(R.string.mine_collection, true, getString(R.string.edit), this);
 
 
-        srl_refund = (SwipyRefreshLayout) findViewById(R.id.srl_message_center);
+        srl_refund = (SwipyRefreshLayout) findViewById(R.id.srl_refund);
         srl_refund.setOnRefreshListener(this);
         srl_refund.setDirection(SwipyRefreshLayoutDirection.BOTH);
         srl_refund.setRefreshing(true);

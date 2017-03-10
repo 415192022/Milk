@@ -45,6 +45,7 @@ import com.yundong.milk.view.IGoodsClassCommentView;
 import com.yundong.milk.view.IGoodsCollectonView;
 import com.yundong.milk.view.IGoodsDetailsView;
 import com.yundong.milk.view.IIsCollectionGoodsView;
+import com.yundong.milk.widget.CircleImageView;
 import com.yundong.milk.widget.CircleIndicator;
 import com.yundong.milk.widget.recyclerview.XRecyclerView;
 
@@ -85,6 +86,7 @@ public class GoodsDetailActivity extends BaseActivity
     private TextView txtGoodsBrief;
     private TextView txtCommentNum;
     private TextView txtCriticName;
+    private CircleImageView imgCriticHead;
     private TextView txtCommentTime;
     private TextView txtCommentContent;
     private ViewPager guide_pager;
@@ -130,6 +132,7 @@ public class GoodsDetailActivity extends BaseActivity
         txtGoodsBrief = (TextView) findViewById(R.id.txtGoodsBrief);
         txtCommentNum = (TextView) findViewById(R.id.txtCommentNum);
         txtCriticName = (TextView) findViewById(R.id.txtCriticName);
+        imgCriticHead= (CircleImageView) findViewById(R.id.imgCriticHead);
         txtCommentTime = (TextView) findViewById(R.id.txtCommentTime);
         txtCommentContent = (TextView) findViewById(R.id.txtCommentContent);
 
@@ -173,7 +176,6 @@ public class GoodsDetailActivity extends BaseActivity
         super.onClick(view);
         switch (view.getId()) {
             case R.id.txtCommentMore:
-
                 RxBus.getDefault().post(goodsDetailsBean);
                 startActivity(new Intent(this, ActivityCommentList.class));
 
@@ -344,6 +346,8 @@ public class GoodsDetailActivity extends BaseActivity
         txtCommentNum.setText(goodsDetailsBean.getData().getComment_sum());
         //评论人名
         txtCriticName.setText(goodsDetailsBean.getData().getComment().getComment_frommembername());
+        //平评论人头像
+        Glide.with(this).load(goodsDetailsBean.getData().getComment().getAvatar()).into(imgCriticHead);
         //评论时间
         txtCommentTime.setText(goodsDetailsBean.getData().getComment().getComment_addtime());
         //评论内容

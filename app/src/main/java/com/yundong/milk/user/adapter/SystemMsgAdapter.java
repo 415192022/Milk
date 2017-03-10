@@ -8,17 +8,26 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.yundong.milk.R;
+import com.yundong.milk.model.MessageInfoBean;
+import com.yundong.milk.util.ToastUtil;
+
+import java.util.ArrayList;
 
 /**
  * Created by lj on 2017/1/3.
  * 消息中心
  */
-public class SystemMsgAdapter extends RecyclerView.Adapter<SystemMsgAdapter.MessageCenterHolder> implements View.OnClickListener {
+public class SystemMsgAdapter extends RecyclerView.Adapter<SystemMsgAdapter.MessageCenterHolder> {
 
     private Context mContext;
+    private ArrayList<MessageInfoBean.MessageInfoData> messageInfoBeen = new ArrayList<>();
 
     public SystemMsgAdapter(Context context) {
         this.mContext = context;
+    }
+
+    public ArrayList<MessageInfoBean.MessageInfoData> getMessageInfoBeen() {
+        return messageInfoBeen;
     }
 
     @Override
@@ -29,24 +38,16 @@ public class SystemMsgAdapter extends RecyclerView.Adapter<SystemMsgAdapter.Mess
 
     @Override
     public void onBindViewHolder(final MessageCenterHolder holder, final int position) {
-
-        holder.txtTitle.setText("恭喜加入牛奶之家");
-        holder.txtTime.setText("08-20");
-        holder.txtContent.setText("恭喜您加入牛奶之家, 我们给你准备了一份大礼, 去看看吧");
+//        holder.txtTitle.setText(messageInfoBeen.get(position).getMessage_title());
+//        holder.txtTime.setText(messageInfoBeen.get(position).getSend_time());
+//        holder.txtContent.setText(messageInfoBeen.get(position).getMessage_content());
     }
 
     @Override
     public int getItemCount() {
-        return 20;
+        return messageInfoBeen.size();
     }
 
-    @Override
-    public void onClick(View view) {
-        switch (view.getId()) {
-            default:
-                break;
-        }
-    }
 
     public static class MessageCenterHolder extends RecyclerView.ViewHolder {
 

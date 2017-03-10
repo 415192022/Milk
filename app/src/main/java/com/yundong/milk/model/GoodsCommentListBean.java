@@ -1,6 +1,7 @@
 package com.yundong.milk.model;
 
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by MingweiLi on 2017/3/7.
@@ -157,7 +158,7 @@ public class GoodsCommentListBean {
             private String comment_frommembername;
             private String comment_addtime;
             private String comment_content;
-            private ArrayList<String> comment_image;
+            private String avatar;
 
             @Override
             public String toString() {
@@ -166,16 +167,8 @@ public class GoodsCommentListBean {
                         ", comment_frommembername='" + comment_frommembername + '\'' +
                         ", comment_addtime='" + comment_addtime + '\'' +
                         ", comment_content='" + comment_content + '\'' +
-                        ", comment_image=" + comment_image +
+                        ", avatar='" + avatar + '\'' +
                         '}';
-            }
-
-            public void setComment_image(ArrayList<String> comment_image) {
-                this.comment_image = comment_image;
-            }
-
-            public ArrayList<String> getComment_image() {
-                return comment_image;
             }
 
             public void setComment_frommemberid(String comment_frommemberid) {
@@ -194,6 +187,11 @@ public class GoodsCommentListBean {
                 this.comment_content = comment_content;
             }
 
+
+            public void setAvatar(String avatar) {
+                this.avatar = avatar;
+            }
+
             public String getComment_frommemberid() {
                 return comment_frommemberid;
             }
@@ -208,6 +206,11 @@ public class GoodsCommentListBean {
 
             public String getComment_content() {
                 return comment_content;
+            }
+
+
+            public String getAvatar() {
+                return avatar;
             }
         }
     }

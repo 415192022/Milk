@@ -13,6 +13,7 @@ import android.widget.TextView;
 import com.bumptech.glide.Glide;
 import com.yundong.milk.R;
 import com.yundong.milk.model.RefundBean;
+import com.yundong.milk.user.activity.ActivityReturnGoods;
 import com.yundong.milk.user.activity.ApplyForMoney;
 import com.yundong.milk.user.activity.MoneyToWhereActivity;
 import com.yundong.milk.user.activity.RefundDetailActivity;
@@ -27,7 +28,7 @@ import java.util.ArrayList;
 
 public class RefundListAdapter extends RecyclerView.Adapter<RefundListAdapter.GoodsHolder> implements View.OnClickListener {
 
-    private ArrayList<RefundBean.RefundData.RefundArray> mList=new ArrayList<>();
+    private ArrayList<RefundBean.RefundData.RefundArray> mList = new ArrayList<>();
     private Context mContext;
 
     public ArrayList<RefundBean.RefundData.RefundArray> getmList() {
@@ -52,29 +53,38 @@ public class RefundListAdapter extends RecyclerView.Adapter<RefundListAdapter.Go
 
     @Override
     public void onBindViewHolder(final RefundListAdapter.GoodsHolder holder, final int position) {
-        if (mList.size() > 0 && null != mList) {
-            Glide.with(mContext).load(mList.get(position).getGoods_main_image()).into(holder.imgShopPic);
-            holder.txtShopName.setText(mList.get(position).getGoods_name());
-            Glide.with(mContext).load(mList.get(position).getGoods_main_image()).into(holder.imgGoodsPic);
-            holder.txtGoodsName.setText(mList.get(position).getGoods_name());
-            holder.txtShopPrice.setText("￥"+mList.get(position).getGoods_price());
-            holder.txtMarketPrice.setText("￥"+mList.get(position).getGoods_marketprice());
-            holder.txtGoodsAttr.setText("");
-            holder.txtExpress.setText("包邮");
-            holder.txtTotalPrice.setText("￥"+mList.get(position).getOrder_amount());
-            holder.txtTime.setText("0天11小时59分钟");
-            if (position % 2 == 0) {
-                holder.btnCommon.setText(R.string.cancel);
-                holder.txtRefundStatus.setText("处理中");
-            } else {
-                holder.btnCommon.setText("钱款去向");
-                holder.txtRefundStatus.setText("退款成功");
-            }
-            holder.btnCommon.setOnClickListener(this);
-            holder.btnCommon.setTag(position);
-            holder.itemView.setOnClickListener(this);
-            holder.itemView.setTag(position);
+        Glide.with(mContext).load(mList.get(position).getGoods_main_image()).into(holder.imgShopPic);
+        holder.txtShopName.setText(mList.get(position).getGoods_name());
+        Glide.with(mContext).load(mList.get(position).getGoods_main_image()).into(holder.imgGoodsPic);
+        holder.txtGoodsName.setText(mList.get(position).getGoods_name());
+        holder.txtShopPrice.setText("￥" + mList.get(position).getGoods_price());
+        holder.txtMarketPrice.setText("￥" + mList.get(position).getGoods_marketprice());
+        holder.txtGoodsAttr.setText("");
+        holder.txtExpress.setText("包邮");
+        holder.txtTotalPrice.setText("￥" + mList.get(position).getOrder_amount());
+        holder.txtTime.setText("0天11小时59分钟");
+
+        if(mList.get(position).getService_state().equals("-1")){
+            holder.txtRefundStatus.setText("已拒绝");
+        }else if(mList.get(position).getService_state().equals("0")){
+            holder.txtRefundStatus.setText("申请中");
+        }else if(mList.get(position).getService_state().equals("1")){
+            holder.txtRefundStatus.setText("退款中");
+        }else if(mList.get(position).getService_state().equals("2")){
+            holder.txtRefundStatus.setText("已完成");
         }
+        holder.btnCommon.setOnClickListener(this);
+        holder.btnCommon.setTag(position);
+        holder.itemView.setOnClickListener(this);
+        holder.itemView.setTag(position);
+
+        holder.btnCommon.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                mContext.startActivity(new Intent(mContext, ActivityReturnGoods.class));
+            }
+        });
+
     }
 
     @Override

@@ -8,6 +8,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
 import com.yundong.milk.R;
 import com.yundong.milk.model.GoodsCommentListBean;
 import com.yundong.milk.user.adapter.AdapterCommentPhoto;
@@ -56,6 +57,7 @@ public class GoodsCommentListAdapter extends RecyclerView.Adapter<GoodsCommentLi
         holder.rv_comment_images.setHasFixedSize(true);
         holder.rv_comment_images.setLayoutManager(new GridLayoutManager(mContext, 4));
         holder.rv_comment_images.setAdapter(adapterCommentPhoto);
+        Glide.with(mContext).load(goodsCommentListDataArrays.get(position).getAvatar()).into(holder.civ_comment_list_head);
     }
 
     @Override
@@ -74,7 +76,7 @@ public class GoodsCommentListAdapter extends RecyclerView.Adapter<GoodsCommentLi
 
         public GoodsCommentListHolder(View itemView) {
             super(itemView);
-//            civ_comment_list_head = (CircleImageView) itemView.findViewById(R.id.civ_comment_list_head);
+            civ_comment_list_head = (CircleImageView) itemView.findViewById(R.id.civ_comment_list_head);
             tv_comment_list_uname = (TextView) itemView.findViewById(R.id.tv_comment_list_uname);
             tv_comment_list_time = (TextView) itemView.findViewById(R.id.tv_comment_list_time);
             tv_comment_list_content = (TextView) itemView.findViewById(R.id.tv_comment_list_content);

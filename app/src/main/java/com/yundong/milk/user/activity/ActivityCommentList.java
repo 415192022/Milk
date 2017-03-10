@@ -3,6 +3,7 @@ package com.yundong.milk.user.activity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 
 import com.yundong.milk.R;
 import com.yundong.milk.adapter.comment.GoodsCommentListAdapter;
@@ -97,6 +98,7 @@ public class ActivityCommentList extends BaseActivity implements IGoodsCommentLi
 
     @Override
     public void goodsCommentListOnError(String e) {
+        Log.i("LMW",e);
         ToastUtil.showShortToast(e);
     }
 }

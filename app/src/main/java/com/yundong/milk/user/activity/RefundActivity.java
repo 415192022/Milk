@@ -1,6 +1,9 @@
 package com.yundong.milk.user.activity;
 
 import android.os.Bundle;
+import android.support.v4.widget.SwipeRefreshLayout;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.view.View;
 
 import com.yundong.milk.R;
@@ -31,7 +34,7 @@ public class RefundActivity extends BaseActivity
         SwipyRefreshLayout.OnRefreshListener,
         IRefundView {
 
-    private XRecyclerView mRecyclerView;
+    private RecyclerView rv_refund;
     private RefundListAdapter mAdapter;
     private SwipyRefreshLayout srl_refund;
 
@@ -40,18 +43,18 @@ public class RefundActivity extends BaseActivity
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.common_list);
+        setContentView(R.layout.layout_refund_activity);
         initTitle(R.string.refund, true);
-        mRecyclerView = (XRecyclerView) findViewById(R.id.recyclerView);
-        mRecyclerView.setPullRefreshEnabled(false);
-        mRecyclerView.setLoadingMoreEnabled(false);
+        rv_refund = (RecyclerView) findViewById(R.id.rv_refund);
+        rv_refund.setHasFixedSize(true);
+        rv_refund.setLayoutManager(new LinearLayoutManager(this));
 
-        srl_refund = (SwipyRefreshLayout) findViewById(R.id.srl_message_center);
+        srl_refund = (SwipyRefreshLayout) findViewById(R.id.srl_refund);
+        srl_refund.setDirection(SwipyRefreshLayoutDirection.BOTH);
         srl_refund.setOnRefreshListener(this);
         srl_refund.setRefreshing(true);
-        mRecyclerView.initParams();
         mAdapter = new RefundListAdapter(this);
-        mRecyclerView.setAdapter(mAdapter);
+        rv_refund.setAdapter(mAdapter);
 
         refundActivityPresenter = RefundActivityPresenter.getInstance().with(this);
         refundActivityPresenter.refundList(YunDongApplication.getLoginBean().getData().getUserinfo().getId(), "1", "20");
@@ -102,6 +105,8 @@ public class RefundActivity extends BaseActivity
             refundActivityPresenter.refundList(YunDongApplication.getLoginBean().getData().getUserinfo().getId(), "1", "20");
         } else if (direction == SwipyRefreshLayoutDirection.BOTTOM) {
             ToastUtil.showShortToast("上拉加载");
+            srl_refund.setRefreshing(false);
         }
     }
+
 }

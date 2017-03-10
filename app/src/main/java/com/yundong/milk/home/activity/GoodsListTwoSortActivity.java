@@ -26,6 +26,7 @@ import java.util.ArrayList;
 import rx.Observable;
 import rx.Subscriber;
 import rx.android.schedulers.AndroidSchedulers;
+import rx.functions.Action1;
 import rx.schedulers.Schedulers;
 
 /**
@@ -149,7 +150,24 @@ public class GoodsListTwoSortActivity extends BaseActivity
                         });
 
                         mGoodsListAdapter.getData().clear();
-                        goodsListTwoSortActivityPresenter.getTypeGoods(allTypes.get(currentClsId).getGc_id(), typeBrands.get(0).getBrand_id(), "1", "20");
+                        Observable.just("").observeOn(Schedulers.io()).subscribeOn(AndroidSchedulers.mainThread())
+                                .subscribe(new Subscriber<String>() {
+                                    @Override
+                                    public void onCompleted() {
+
+                                    }
+
+                                    @Override
+                                    public void onError(Throwable e) {
+
+                                    }
+
+                                    @Override
+                                    public void onNext(String s) {
+                                        goodsListTwoSortActivityPresenter.getTypeGoods(allTypes.get(currentClsId).getGc_id(), typeBrands.get(0).getBrand_id(), "1", "20");
+                                    }
+                                });
+
                     }
 
                     @Override
@@ -194,7 +212,7 @@ public class GoodsListTwoSortActivity extends BaseActivity
                             mGoodsListAdapter.addData(typeGoodsBeanDataA);
                         }
                     });
-        }else{
+        } else {
             mGoodsListAdapter.getData().clear();
             mGoodsListAdapter.notifyDataSetChanged();
         }

@@ -53,4 +53,7 @@
     <!--评论列表类型筛选-->
     <color name="commentListTeye">#E6F9F7</color>
 
+
+    <color name="province_line_border">#C7C7C7</color>
+
 </resources>

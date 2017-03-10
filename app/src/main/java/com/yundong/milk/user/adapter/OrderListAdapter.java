@@ -16,6 +16,7 @@ import com.yundong.milk.model.BaseReceiveBean;
 import com.yundong.milk.model.OrderListBean;
 import com.yundong.milk.present.MineOrderFragmentPresenter;
 import com.yundong.milk.user.activity.ActivityComment;
+import com.yundong.milk.user.activity.ActivityReturnGoods;
 import com.yundong.milk.user.activity.OrderDetailActivity;
 import com.yundong.milk.user.fragment.MineOrderFragment;
 import com.yundong.milk.user.model.GoodsListModel;
@@ -30,7 +31,7 @@ import java.util.ArrayList;
  * Created by LMW on 2016/11/17.
  * 我的收藏
  */
-public class OrderListAdapter extends RecyclerView.Adapter<OrderListAdapter.GoodsHolder> implements View.OnClickListener, ICancleOrderView {
+public class OrderListAdapter extends RecyclerView.Adapter<OrderListAdapter.GoodsHolder> implements  ICancleOrderView {
 
     private ArrayList<OrderListBean.OrderListData.OrderListDataArray> mList = new ArrayList<>();
     private Context mContext;
@@ -83,6 +84,15 @@ public class OrderListAdapter extends RecyclerView.Adapter<OrderListAdapter.Good
             } else if (mList.get(position).getService_state().equals("1")) {
                 refundStatus = "退货";
             }
+            holder.btnCommonCenter.setText(refundStatus);
+            holder.btnCommonCenter.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    //退货
+                    RxBus.getDefault().post(mList.get(position));
+                    mContext.startActivity(new Intent(mContext,ActivityReturnGoods.class));
+                }
+            });
             holder.txtRefundStatus.setText(refundStatus);
 
 
@@ -132,10 +142,8 @@ public class OrderListAdapter extends RecyclerView.Adapter<OrderListAdapter.Good
                 }
             });
 
-            holder.btnCommonCenter.setText(R.string.deleteOrder);
+
             holder.txtMarketPrice.getPaint().setFlags(Paint.STRIKE_THRU_TEXT_FLAG | Paint.ANTI_ALIAS_FLAG);  // 设置中划线并加清晰
-            holder.btnCommonCenter.setOnClickListener(this);
-            holder.itemView.setOnClickListener(this);
             holder.btnCommonRight.setTag(position);
             holder.btnCommonCenter.setTag(position);
             holder.itemView.setTag(position);
@@ -147,16 +155,6 @@ public class OrderListAdapter extends RecyclerView.Adapter<OrderListAdapter.Good
         return mList.size();
     }
 
-    @Override
-    public void onClick(View view) {
-        switch (view.getId()) {
-            case R.id.btnCommonCenter:
-                ToastUtil.showShortToast("  ** Center ");
-                break;
-            default:
-                break;
-        }
-    }
 
     @Override
     public void cancleOrder(BaseReceiveBean baseReceiveBean) {

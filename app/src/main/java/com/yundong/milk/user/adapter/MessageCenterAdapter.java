@@ -7,12 +7,14 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.yundong.milk.R;
 import com.yundong.milk.model.MessageListBean;
 import com.yundong.milk.user.activity.SystemMsgActivity;
+import com.yundong.milk.util.rxbus.RxBus;
 
 import java.util.ArrayList;
 
@@ -20,13 +22,17 @@ import java.util.ArrayList;
  * Created by lj on 2017/1/3.
  * 消息中心
  */
-public class MessageCenterAdapter extends RecyclerView.Adapter<MessageCenterAdapter.MessageCenterHolder> implements View.OnClickListener{
+public class MessageCenterAdapter extends RecyclerView.Adapter<MessageCenterAdapter.MessageCenterHolder> {
 
     private Activity mContext;
-    private ArrayList<MessageListBean.MessageListData.MessageListDataArray> messageListDataArrays=new ArrayList<>();
+    private ArrayList<MessageListBean.MessageListData.MessageListDataArray> messageListDataArrays = new ArrayList<>();
 
     public MessageCenterAdapter(Activity context) {
         this.mContext = context;
+    }
+
+    public ArrayList<MessageListBean.MessageListData.MessageListDataArray> getMessageListDataArrays() {
+        return messageListDataArrays;
     }
 
     @Override
@@ -37,19 +43,26 @@ public class MessageCenterAdapter extends RecyclerView.Adapter<MessageCenterAdap
 
     @Override
     public void onBindViewHolder(final MessageCenterHolder holder, final int position) {
-
-        holder.itemView.setOnClickListener(this);
         holder.itemView.setTag(position);
-        if (position == 0) {
+        if (messageListDataArrays.get(position).getMessage_type().equals("1")) {
             Glide.with(mContext).load(R.mipmap.img_message_center_system).into(holder.imgMsgType);
-            holder.txtMsgType.setText(R.string.systemMsg);
-        }else if (position == 1){
+        } else if (messageListDataArrays.get(position).getMessage_type().equals("2")) {
             Glide.with(mContext).load(R.mipmap.img_message_center_comment).into(holder.imgMsgType);
-            holder.txtMsgType.setText(R.string.commentMsg);
         }
+        holder.txtMsgType.setText(messageListDataArrays.get(position).getMessage_title());
         Glide.with(mContext).load(R.mipmap.img_red_point).into(holder.imgRedPoint);
-        holder.txtTime.setText("2017-1-3 11:51");
-        holder.txtMsgBrief.setText("发的啥福建省的方式发生的粉红色的发生的纠纷开发发货的开始减肥和第三方是大方的说法水电费水电费");
+        holder.txtTime.setText(messageListDataArrays.get(position).getSend_time());
+        holder.txtMsgBrief.setText(messageListDataArrays.get(position).getMessage_content());
+
+        holder.itemView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                RxBus.getDefault().post(messageListDataArrays.get(position));
+                mContext.startActivity(new Intent(mContext, SystemMsgActivity.class));
+            }
+        });
+
+
     }
 
     @Override
@@ -57,22 +70,8 @@ public class MessageCenterAdapter extends RecyclerView.Adapter<MessageCenterAdap
         return messageListDataArrays.size();
     }
 
-    @Override
-    public void onClick(View view) {
-        int index = (Integer) view.getTag();
-        switch (view.getId()){
-           default:
-               if (index == 0){ //系统消息
-                   mContext.startActivity(new Intent(mContext, SystemMsgActivity.class));
-               }else if (index == 1){ //活动消息
-                   mContext.startActivity(new Intent(mContext, SystemMsgActivity.class));
-               }
-                break;
-        }
-    }
 
     public static class MessageCenterHolder extends RecyclerView.ViewHolder {
-
         private ImageView imgMsgType;
         private TextView txtMsgType;
         private ImageView imgRedPoint;

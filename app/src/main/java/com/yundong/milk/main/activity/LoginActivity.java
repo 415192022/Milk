@@ -17,12 +17,14 @@ import com.yundong.milk.model.BaseReceiveBean;
 import com.yundong.milk.model.CheckVerificationCodeBean;
 import com.yundong.milk.model.LoginBean;
 import com.yundong.milk.model.RegistBean;
+import com.yundong.milk.model.RegisterCompleteLoginBean;
 import com.yundong.milk.net.VolleyUtil;
 import com.yundong.milk.present.LoginPresenter;
 import com.yundong.milk.util.Const;
 import com.yundong.milk.util.MD5;
 import com.yundong.milk.util.PreferencesUtils;
 import com.yundong.milk.util.ToastUtil;
+import com.yundong.milk.util.rxbus.RxBus;
 import com.yundong.milk.view.ICheckVerificationView;
 import com.yundong.milk.view.IGetVerificationView;
 import com.yundong.milk.view.ILoginView;
@@ -56,7 +58,7 @@ public class LoginActivity extends BaseActivity implements ILoginView, IGetVerif
         loginPresenter = LoginPresenter.getInstance().with(this, this, this, this);
         loginPresenter.login(PreferencesUtils.getString(this, Const.LOGIN_NAME), PreferencesUtils.getString(this, Const.LOGIN_PWD));
     }
-
+    String registerTwoPwd;
     @Override
     public void onClick(View view) {
         super.onClick(view);
@@ -118,15 +120,15 @@ public class LoginActivity extends BaseActivity implements ILoginView, IGetVerif
                 }
                 break;
             case R.id.btnComplete: //注册界面二的完成按钮
-                String pwd = ((EditText) findViewById(R.id.editPwd)).getText().toString().trim();
-                if (TextUtils.isEmpty(pwd)) {
+                 registerTwoPwd = ((EditText) findViewById(R.id.editPwd)).getText().toString().trim();
+                if (TextUtils.isEmpty(registerTwoPwd)) {
                     ToastUtil.showShortToast(R.string.please_set_login_pwd);
-                } else if (pwd.length() < 6) {
+                } else if (registerTwoPwd.length() < 6) {
                     ToastUtil.showShortToast(R.string.password_require);
                 } else {
-                    loginPresenter.register(((EditText) findViewById(R.id.editPhone)).getText().toString().trim(), pwd);
-
-
+                    loginPresenter.register(((EditText) findViewById(R.id.editPhone)).getText().toString().trim(), registerTwoPwd);
+                    //debug
+                    startActivity(new Intent(this, PerfectAddressActivity.class));
                 }
                 break;
             case R.id.txtForgetPwd: //登录界面的忘记密码
@@ -197,14 +199,10 @@ public class LoginActivity extends BaseActivity implements ILoginView, IGetVerif
 
     @Override
     public void checkVerificationCode(BaseReceiveBean baseReceiveBean) {
-        ToastUtil.showShortToast(baseReceiveBean + "");
         if (baseReceiveBean.getCode().equals("3003")) {
             ToastUtil.showShortToast("该手机号码已经注册，请尝试登录或找回密码。");
         } else if (baseReceiveBean.getCode().equals("3000")) {
             ToastUtil.showShortToast("验证码输入错误，请重新输入。");
-            findViewById(R.id.layoutLogin).setVisibility(View.GONE);
-            findViewById(R.id.layoutRegisterFirst).setVisibility(View.GONE);
-            findViewById(R.id.layoutRegisterSecond).setVisibility(View.VISIBLE);
         } else {
             findViewById(R.id.layoutLogin).setVisibility(View.GONE);
             findViewById(R.id.layoutRegisterFirst).setVisibility(View.GONE);
@@ -218,14 +216,18 @@ public class LoginActivity extends BaseActivity implements ILoginView, IGetVerif
     }
 
     @Override
-    public void register(RegistBean loginBean) {
-        ToastUtil.showShortToast(loginBean + "");
-        if (loginBean.getCode().equals("2000")) {
+    public void register(RegistBean registBean) {
+        ToastUtil.showShortToast(registBean + "");
+        if (registBean.getCode().equals("2000")) {
             ToastUtil.showShortToast("注册成功。");
+            RegisterCompleteLoginBean registerCompleteLoginBean=new RegisterCompleteLoginBean();
+            registerCompleteLoginBean.setRegistBean(registBean);
+            registerCompleteLoginBean.setPwd(registerTwoPwd);
+            RxBus.getDefault().post(registerCompleteLoginBean);
             startActivity(new Intent(this, PerfectAddressActivity.class));
             finish();
         } else {
-            ToastUtil.showShortToast("注册失败。");
+            ToastUtil.showShortToast(registBean.getMsg());
         }
 
     }
