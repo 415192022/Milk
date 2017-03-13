@@ -7,7 +7,7 @@ package com.yundong.milk.model;
 public class RegistBean {
     private String code;
     private String msg;
-    private String data;
+    private RegistData data;
 
     @Override
     public String toString() {
@@ -26,7 +26,7 @@ public class RegistBean {
         this.msg = msg;
     }
 
-    public void setData(String data) {
+    public void setData(RegistData data) {
         this.data = data;
     }
 
@@ -38,7 +38,7 @@ public class RegistBean {
         return msg;
     }
 
-    public String getData() {
+    public RegistData getData() {
         return data;
     }
 

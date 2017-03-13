@@ -1,12 +1,13 @@
 package com.yundong.milk.model;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
 /**
  * Created by MingweiLi on 2017/3/2.
  */
 
-public class GoodsDetailsBean {
+public class GoodsDetailsBean implements Serializable {
     private String code;
     private String msg;
     private GoodsDetailsDataO data;
@@ -369,6 +370,7 @@ public class GoodsDetailsBean {
             private String comment_frommembername;
             private String comment_addtime;
             private String comment_content;
+            private String avatar;
 
             @Override
             public String toString() {
@@ -377,7 +379,16 @@ public class GoodsDetailsBean {
                         ", comment_frommembername='" + comment_frommembername + '\'' +
                         ", comment_addtime='" + comment_addtime + '\'' +
                         ", comment_content='" + comment_content + '\'' +
+                        ", avatar='" + avatar + '\'' +
                         '}';
+            }
+
+            public void setAvatar(String avatar) {
+                this.avatar = avatar;
+            }
+
+            public String getAvatar() {
+                return avatar;
             }
 
             public void setComment_frommemberid(String comment_frommemberid) {

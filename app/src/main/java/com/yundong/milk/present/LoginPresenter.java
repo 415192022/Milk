@@ -23,15 +23,19 @@ import rx.schedulers.Schedulers;
  */
 
 public class LoginPresenter {
+    //登录
     private ILoginView iLoginView;
     private LoginImpl login;
 
+    //获取验证码
     private IGetVerificationView iGetVerificationView;
     private GetVerificationImpl getVerification;
 
+    //检查验证码
     private ICheckVerificationView iCheckVerificationView;
     private CheckVerificationCodeImpl checkVerificationCode;
 
+    //注册
     private IRegisterView iRegisterView;
     private RegisterImpl register;
 
@@ -54,6 +58,15 @@ public class LoginPresenter {
         this.iCheckVerificationView = iCheckVerificationView;
         this.iGetVerificationView = iGetVerificationView;
         this.iLoginView = iLoginView;
+        return loginPresenter;
+    }
+    public LoginPresenter with(IGetVerificationView iGetVerificationView, ICheckVerificationView iCheckVerificationView) {
+        this.iCheckVerificationView = iCheckVerificationView;
+        this.iGetVerificationView = iGetVerificationView;
+        return loginPresenter;
+    }
+    public LoginPresenter with(IGetVerificationView iGetVerificationView) {
+        this.iGetVerificationView = iGetVerificationView;
         return loginPresenter;
     }
     public LoginPresenter with(ILoginView iLoginView) {
