@@ -19,17 +19,10 @@ import com.yundong.milk.model.GoodsDetailsBean;
 import com.yundong.milk.model.OrderListBean;
 import com.yundong.milk.model.ReceiveGoodsAddressBean;
 import com.yundong.milk.present.ConfirmOrderActivityPresenter;
-import com.yundong.milk.util.ToastUtil;
 import com.yundong.milk.util.rxbus.RxBus;
 import com.yundong.milk.util.rxbus.Subscribe;
 import com.yundong.milk.util.rxbus.ThreadMode;
 import com.yundong.milk.view.IReceiveGoodsAddressView;
-
-import java.util.concurrent.TimeUnit;
-
-import rx.Observable;
-import rx.Subscriber;
-import rx.android.schedulers.AndroidSchedulers;
 
 /**
  * Created by lj on 2017/1/5.
@@ -96,9 +89,9 @@ public class ConfirmOrderActivity extends BaseActivity
         txtShopPrice.setText(goodsAndCountBean.getGoodsDetailsBean().getData().getGoods_price());
         txtMarketPrice.setText(goodsAndCountBean.getGoodsDetailsBean().getData().getGoods_marketprice());
         tv_totle_price.setText("¥ " + goodsAndCountBean.getTotlePrice());
-        ((TextView)findViewById(R.id.txtTotal)).setText("¥ " + totlePrice);
-        goodsCount = goodsAndCountBean.getCount();
         totlePrice = goodsAndCountBean.getTotlePrice();
+        goodsCount = goodsAndCountBean.getCount();
+        ((TextView)findViewById(R.id.txtTotal)).setText("¥ " + totlePrice);
     }
 
     private OrderListBean.OrderListData.OrderListDataArray orderListDataArray;

@@ -1,8 +1,6 @@
 package com.yundong.milk.api.service;
 
-import com.yundong.milk.model.BaseReceiveBean;
 import com.yundong.milk.model.GoodsCommentListBean;
-import com.yundong.milk.model.RecommentTypeBean;
 
 import retrofit2.http.Field;
 import retrofit2.http.FormUrlEncoded;
@@ -16,6 +14,9 @@ import rx.Observable;
 public interface IGoodsCommentListService {
     @FormUrlEncoded
     @POST("goods/comment_list")
-    Observable<GoodsCommentListBean> goodsCommentList(@Field("goods_id") String goods_id, @Field("page") String page
+    Observable<GoodsCommentListBean> goodsCommentList(
+            @Field("goods_id") String goods_id
+            , @Field("page") String page
+            , @Field("scores") String scores
     );
 }

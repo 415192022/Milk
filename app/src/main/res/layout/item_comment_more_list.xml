@@ -18,7 +18,7 @@
             android:layout_height="match_parent"
             android:layout_centerVertical="true"
             android:padding="@dimen/dip_10"
-            android:src="@mipmap/img_test" />
+            />
 
         <TextView
             android:id="@+id/txtCriticName"
@@ -28,7 +28,6 @@
             android:layout_toRightOf="@+id/imgCriticHead"
             android:gravity="center_vertical"
             android:paddingLeft="@dimen/dip_10"
-            android:text="T**机器人"
             android:textColor="@color/titleColor"
             android:textSize="@dimen/text_size_15" />
 
@@ -41,7 +40,6 @@
             android:gravity="center_vertical"
             android:paddingLeft="@dimen/dip_10"
             android:paddingRight="@dimen/dip_15"
-            android:text="2016-11-17"
             android:textColor="@color/lineColor"
             android:textSize="@dimen/text_size_11" />
 
@@ -56,7 +54,6 @@
         android:paddingLeft="@dimen/dip_15"
         android:paddingRight="@dimen/dip_15"
         android:paddingTop="@dimen/dip_5"
-        android:text="井冈山费德勒看过国际法的来看广官方的广泛地了空间刚刚飞得更快的发了几个缸发动机了公开答复泛地公开发的了苹果"
         android:textColor="@color/titleColor"
         android:textSize="@dimen/text_size_13" />
 
@@ -69,7 +66,6 @@
         android:paddingLeft="@dimen/dip_15"
         android:paddingRight="@dimen/dip_15"
         android:paddingTop="@dimen/dip_5"
-        android:text="全脂200ml*24"
         android:textColor="@color/lineColor"
         android:textSize="@dimen/text_size_13" />
     <android.support.v7.widget.RecyclerView

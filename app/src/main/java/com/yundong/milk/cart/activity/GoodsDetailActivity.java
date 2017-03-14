@@ -13,7 +13,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.WindowManager;
-import android.webkit.WebView;
 import android.widget.AdapterView;
 import android.widget.EditText;
 import android.widget.GridView;
@@ -47,7 +46,6 @@ import com.yundong.milk.widget.CircleImageView;
 import com.yundong.milk.widget.recyclerview.XRecyclerView;
 import com.zzhoujay.richtext.RichText;
 
-
 import java.util.ArrayList;
 import java.util.Arrays;
 
@@ -73,7 +71,7 @@ public class GoodsDetailActivity extends BaseActivity
     private TextView mTxtGoodsDetail, mTxtGoodsAttrs, mTxtRecommendGoods, txtCommentMore;
     private View mLineOne, mLineTwo, mLineThree;
     private LinearLayout mGoodsAttr, mLineRecommendGoods;
-    private ImageView mImgGoodsDetailPic;
+    private TextView tv_goods_detail_content;
     private ImageView imgGoodsPic;
     private XRecyclerView mRecyclerView;
     private RecommendGoodsListAdapter mAdapter;
@@ -122,7 +120,7 @@ public class GoodsDetailActivity extends BaseActivity
         mTxtGoodsAttrs = (TextView) findViewById(R.id.txtGoodsAttrs);
         mTxtRecommendGoods = (TextView) findViewById(R.id.txtRecommendGoods);
         mGoodsAttr = (LinearLayout) findViewById(R.id.goodsAttr);
-        mImgGoodsDetailPic = (ImageView) findViewById(R.id.imgGoodsDetailPic);
+        tv_goods_detail_content = (TextView) findViewById(R.id.tv_goods_detail_content);
         imgGoodsPic = (ImageView) findViewById(R.id.imgGoodsPic);
         mLineRecommendGoods = (LinearLayout) findViewById(R.id.lineRecommendGoods);
 
@@ -187,7 +185,7 @@ public class GoodsDetailActivity extends BaseActivity
                 mLineOne.setVisibility(View.VISIBLE);
                 mLineTwo.setVisibility(View.INVISIBLE);
                 mLineThree.setVisibility(View.INVISIBLE);
-                mImgGoodsDetailPic.setVisibility(View.VISIBLE);
+                tv_goods_detail_content.setVisibility(View.VISIBLE);
                 mGoodsAttr.setVisibility(View.GONE);
                 mLineRecommendGoods.setVisibility(View.GONE);
                 mTxtGoodsDetail.setTextColor(ContextCompat.getColor(this, R.color.colorPrimary));
@@ -198,7 +196,7 @@ public class GoodsDetailActivity extends BaseActivity
                 mLineOne.setVisibility(View.INVISIBLE);
                 mLineTwo.setVisibility(View.VISIBLE);
                 mLineThree.setVisibility(View.INVISIBLE);
-                mImgGoodsDetailPic.setVisibility(View.GONE);
+                tv_goods_detail_content.setVisibility(View.GONE);
                 mGoodsAttr.setVisibility(View.VISIBLE);
                 mLineRecommendGoods.setVisibility(View.GONE);
                 mTxtGoodsDetail.setTextColor(ContextCompat.getColor(this, R.color.titleColor));
@@ -209,7 +207,7 @@ public class GoodsDetailActivity extends BaseActivity
                 mLineOne.setVisibility(View.INVISIBLE);
                 mLineTwo.setVisibility(View.INVISIBLE);
                 mLineThree.setVisibility(View.VISIBLE);
-                mImgGoodsDetailPic.setVisibility(View.GONE);
+                tv_goods_detail_content.setVisibility(View.GONE);
                 mGoodsAttr.setVisibility(View.GONE);
                 mLineRecommendGoods.setVisibility(View.VISIBLE);
                 mTxtGoodsDetail.setTextColor(ContextCompat.getColor(this, R.color.titleColor));
@@ -340,9 +338,11 @@ public class GoodsDetailActivity extends BaseActivity
         //名称
         txtGoodsTitle.setText(goodsDetailsBean.getData().getGoods_name());
         //简介
-        RichText.from(goodsDetailsBean.getData().getGoods_text())
-                .clickable(false)
-                .into(wv_info);
+        if (null != goodsDetailsBean.getData().getGoods_describe() && !goodsDetailsBean.getData().getGoods_describe().equals(null)) {
+            RichText.from(goodsDetailsBean.getData().getGoods_describe())
+                    .clickable(false)
+                    .into(wv_info);
+        }
         //商品评价
         txtCommentNum.setText(goodsDetailsBean.getData().getComment_sum());
         //评论人名
@@ -350,9 +350,15 @@ public class GoodsDetailActivity extends BaseActivity
         //平评论人头像
         Glide.with(this).load(goodsDetailsBean.getData().getComment().getAvatar()).into(imgCriticHead);
         //评论时间
-        txtCommentTime.setText(TimeUtils.getTimeString(Long.decode(goodsDetailsBean.getData().getComment().getComment_addtime())) );
+        txtCommentTime.setText(TimeUtils.getTimeString(Long.decode(goodsDetailsBean.getData().getComment().getComment_addtime())));
         //评论内容
         txtCommentContent.setText(goodsDetailsBean.getData().getComment().getComment_content());
+        //商品详情
+        if (null != goodsDetailsBean.getData().getGoods_text() && !goodsDetailsBean.getData().getGoods_text().equals(null)) {
+            RichText.from(goodsDetailsBean.getData().getGoods_text())
+                    .clickable(true)
+                    .into(tv_goods_detail_content);
+        }
         //banner
         Observable.from(goodsDetailsBean.getData().getGoods_image())
                 .subscribeOn(Schedulers.io())

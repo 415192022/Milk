@@ -15,8 +15,6 @@ import com.yundong.milk.util.ToastUtil;
 import com.yundong.milk.view.IApplyForModifyView;
 import com.yundong.milk.view.IReceiveGoodsAddressView;
 import com.yundong.milk.widget.dialog.SweetAlertDialog;
-import com.yundong.milk.widget.swiprefreshlayout.SwipyRefreshLayout;
-import com.yundong.milk.widget.swiprefreshlayout.SwipyRefreshLayoutDirection;
 
 /**
  * Created by lj on 2016/12/28.
@@ -116,7 +114,9 @@ public class ReceiptAddressActivity extends BaseActivity implements IReceiveGood
     //申请修改收货地址
     @Override
     public void applyForModify(BaseReceiveBean baseReceiveBean) {
-        if (baseReceiveBean.getCode().equals("3000")) {
+        if(null != receiveGoodsAddressBean && receiveGoodsAddressBean.getData().getIs_apply().equals("2")){
+            ToastUtil.showLongToast("已提交修改收获地址,请勿重复提交！");
+            return;
         }
         ToastUtil.showShortToast(baseReceiveBean.getMsg());
     }

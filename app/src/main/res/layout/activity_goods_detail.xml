@@ -57,7 +57,8 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="vertical">
+                android:orientation="vertical"
+                android:baselineAligned="false">
 
                 <RelativeLayout
                     android:id="@+id/rl_root"
@@ -128,6 +129,24 @@
 
                 </RelativeLayout>
 
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1">
+
+                    <TextView
+                        android:id="@+id/txtQuality"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:layout_centerInParent="true"
+                        android:drawableLeft="@mipmap/img_quality"
+                        android:drawablePadding="@dimen/dip_2"
+                        android:gravity="center"
+                        android:text="安全监测"
+                        android:textColor="@color/titleColor"
+                        android:textSize="@dimen/text_size_13" />
+                </RelativeLayout>
+
                 <TextView
                     android:id="@+id/txtGoodsTitle"
                     android:layout_width="match_parent"
@@ -151,7 +170,6 @@
                     android:paddingLeft="@dimen/dip_15"
                     android:paddingRight="@dimen/dip_15"
                     android:paddingTop="@dimen/dip_4"
-                    android:text="发生的发速反馈讲的是覅喝点水健康发育的收费就冻死了房间独守空房山地百年树人将发生的发货的思考几分但是"
                     android:textColor="@color/titleColor"
                     android:textSize="@dimen/text_size_14" />
 
@@ -198,24 +216,6 @@
                             android:drawablePadding="@dimen/dip_2"
                             android:gravity="center"
                             android:text="正品保障"
-                            android:textColor="@color/titleColor"
-                            android:textSize="@dimen/text_size_13" />
-                    </RelativeLayout>
-
-                    <RelativeLayout
-                        android:layout_width="0dp"
-                        android:layout_height="match_parent"
-                        android:layout_weight="1">
-
-                        <TextView
-                            android:id="@+id/txtQuality"
-                            android:layout_width="wrap_content"
-                            android:layout_height="match_parent"
-                            android:layout_centerInParent="true"
-                            android:drawableLeft="@mipmap/img_quality"
-                            android:drawablePadding="@dimen/dip_2"
-                            android:gravity="center"
-                            android:text="安全监测"
                             android:textColor="@color/titleColor"
                             android:textSize="@dimen/text_size_13" />
                     </RelativeLayout>
@@ -279,7 +279,7 @@
                         android:layout_height="match_parent"
                         android:layout_centerVertical="true"
                         android:padding="@dimen/dip_10"
-                        android:src="@mipmap/img_test" />
+                        />
 
                     <TextView
                         android:id="@+id/txtCriticName"
@@ -289,7 +289,6 @@
                         android:layout_toRightOf="@+id/imgCriticHead"
                         android:gravity="center_vertical"
                         android:paddingLeft="@dimen/dip_10"
-                        android:text="T**机器人"
                         android:textColor="@color/titleColor"
                         android:textSize="@dimen/text_size_15" />
 
@@ -302,7 +301,6 @@
                         android:gravity="center_vertical"
                         android:paddingLeft="@dimen/dip_10"
                         android:paddingRight="@dimen/dip_15"
-                        android:text="2016-11-17"
                         android:textColor="@color/lineColor"
                         android:textSize="@dimen/text_size_11" />
 
@@ -317,20 +315,18 @@
                     android:paddingLeft="@dimen/dip_15"
                     android:paddingRight="@dimen/dip_15"
                     android:paddingTop="@dimen/dip_5"
-                    android:text="井冈山费德勒看过国际法的来看广官方的广泛地了空间刚刚飞得更快的发了几个缸发动机了公开答复泛地公开发的了苹果"
                     android:textColor="@color/titleColor"
                     android:textSize="@dimen/text_size_13" />
 
                 <TextView
                     android:id="@+id/txtGoodsAttr"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
+                    android:layout_height="match_parent"
                     android:background="@color/white"
                     android:paddingBottom="@dimen/dip_7"
                     android:paddingLeft="@dimen/dip_15"
                     android:paddingRight="@dimen/dip_15"
                     android:paddingTop="@dimen/dip_5"
-                    android:text="全脂200ml*24"
                     android:textColor="@color/lineColor"
                     android:textSize="@dimen/text_size_13" />
 
@@ -374,7 +370,7 @@
 
         <ScrollView
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
             android:fillViewport="true"
             android:paddingBottom="@dimen/dip_30">
 
@@ -396,14 +392,16 @@
                     <TextView
                         android:id="@+id/txtGoodsDetail"
                         style="@style/goodsSortTitleTextView"
-                        android:text="@string/goodsDetail" />
+                        android:text="@string/goodsDetail"
+                        android:layout_height="match_parent" />
 
                     <View style="@style/goodsSortVerticalLine" />
 
                     <TextView
                         android:id="@+id/txtGoodsAttrs"
                         style="@style/goodsSortTitleTextView"
-                        android:text="@string/goodsAttr" />
+                        android:text="@string/goodsAttr"
+                        android:layout_height="match_parent" />
 
                     <View style="@style/goodsSortVerticalLine" />
 
@@ -442,12 +440,12 @@
                     android:layout_height="@dimen/dip_10"
                     android:background="@color/bg" />
 
-                <ImageView
-                    android:id="@+id/imgGoodsDetailPic"
+                <TextView
+                    android:id="@+id/tv_goods_detail_content"
                     android:layout_width="match_parent"
-                    android:layout_height="700dp"
+                    android:layout_height="wrap_content"
                     android:scaleType="fitXY"
-                    android:src="@mipmap/img_test" />
+                    />
 
                 <include layout="@layout/layout_goods_detail_goods_attr" />
 
@@ -474,7 +472,8 @@
         android:layout_width="match_parent"
         android:layout_height="@dimen/dip_40"
         android:layout_alignParentBottom="true"
-        android:orientation="horizontal">
+        android:orientation="horizontal"
+        android:baselineAligned="false">
 
         <TextView
             android:id="@+id/txtCollection"
@@ -493,7 +492,7 @@
         <TextView
             android:id="@+id/txtAddCart"
             android:layout_width="0dp"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
             android:layout_weight="1.5"
             android:background="@color/bgAddCart"
             android:gravity="center"

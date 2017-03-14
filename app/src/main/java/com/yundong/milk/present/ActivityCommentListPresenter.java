@@ -2,7 +2,6 @@ package com.yundong.milk.present;
 
 import com.yundong.milk.interaptor.impl.GoodsCommentListImpl;
 import com.yundong.milk.model.GoodsCommentListBean;
-import com.yundong.milk.util.ToastUtil;
 import com.yundong.milk.view.IGoodsCommentListView;
 
 import rx.Subscriber;
@@ -36,8 +35,8 @@ public class ActivityCommentListPresenter {
     }
 
 
-    public void goodsCommentList(String goods_id, String page) {
-        goodsCommentList.goodsCommentList(goods_id, page)
+    public void goodsCommentList(String goods_id, String page ,String scores) {
+        goodsCommentList.goodsCommentList(goods_id, page,scores)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new Subscriber<GoodsCommentListBean>() {

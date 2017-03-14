@@ -1,6 +1,5 @@
 package com.yundong.milk.model;
 
-import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -8,6 +7,13 @@ import java.util.List;
  */
 
 public class GoodsCommentListBean {
+
+    /**
+     * code : 2000
+     * msg : 请求成功
+     * data : {"total_page":1,"total":6,"per_page":20,"current_page":1,"last_page":1,"next_page_url":null,"prev_page_url":null,"from":1,"to":6,"data":[{"comment_frommemberid":12,"comment_frommembername":"Ggg","comment_addtime":1489397920,"comment_content":"民工","comment_image":["http://ogqd71wd5.bkt.clouddn.com/FmJnLIhAc9LThobEembDK13Rd3Py","http://ogqd71wd5.bkt.clouddn.com/FmAQ5ZQZL5tAGqi-_I3Mw7XETvXA"],"comment_scores":3,"avatar":"http://ogqd71wd5.bkt.clouddn.com/FgLldADla5nZpD-_YQtkpjuPIBk_"}]}
+     */
+
     private String code;
     private String msg;
     private GoodsCommentListData data;
@@ -21,31 +27,44 @@ public class GoodsCommentListBean {
                 '}';
     }
 
-    public void setCode(String code) {
-        this.code = code;
-    }
-
-    public void setMsg(String msg) {
-        this.msg = msg;
-    }
-
-    public void setData(GoodsCommentListData data) {
-        this.data = data;
-    }
-
     public String getCode() {
         return code;
+    }
+
+    public void setCode(String code) {
+        this.code = code;
     }
 
     public String getMsg() {
         return msg;
     }
 
+    public void setMsg(String msg) {
+        this.msg = msg;
+    }
+
     public GoodsCommentListData getData() {
         return data;
     }
 
-    public class GoodsCommentListData {
+    public void setData(GoodsCommentListData data) {
+        this.data = data;
+    }
+
+    public static class GoodsCommentListData {
+        /**
+         * total_page : 1
+         * total : 6
+         * per_page : 20
+         * current_page : 1
+         * last_page : 1
+         * next_page_url : null
+         * prev_page_url : null
+         * from : 1
+         * to : 6
+         * data : [{"comment_frommemberid":12,"comment_frommembername":"Ggg","comment_addtime":1489397920,"comment_content":"民工","comment_image":["http://ogqd71wd5.bkt.clouddn.com/FmJnLIhAc9LThobEembDK13Rd3Py","http://ogqd71wd5.bkt.clouddn.com/FmAQ5ZQZL5tAGqi-_I3Mw7XETvXA"],"comment_scores":3,"avatar":"http://ogqd71wd5.bkt.clouddn.com/FgLldADla5nZpD-_YQtkpjuPIBk_"}]
+         */
+
         private String total_page;
         private String total;
         private String per_page;
@@ -55,21 +74,21 @@ public class GoodsCommentListBean {
         private String prev_page_url;
         private String from;
         private String to;
-        private ArrayList<GoodsCommentListDataArray> data;
+        private List<GoodsCommentListArray> data;
 
         @Override
         public String toString() {
             return "GoodsCommentListData{" +
-                    "data=" + data +
-                    ", to='" + to + '\'' +
-                    ", from='" + from + '\'' +
-                    ", prev_page_url='" + prev_page_url + '\'' +
-                    ", next_page_url='" + next_page_url + '\'' +
-                    ", last_page='" + last_page + '\'' +
-                    ", current_page='" + current_page + '\'' +
-                    ", per_page='" + per_page + '\'' +
+                    "total_page='" + total_page + '\'' +
                     ", total='" + total + '\'' +
-                    ", total_page='" + total_page + '\'' +
+                    ", per_page='" + per_page + '\'' +
+                    ", current_page='" + current_page + '\'' +
+                    ", last_page='" + last_page + '\'' +
+                    ", next_page_url='" + next_page_url + '\'' +
+                    ", prev_page_url='" + prev_page_url + '\'' +
+                    ", from='" + from + '\'' +
+                    ", to='" + to + '\'' +
+                    ", data=" + data +
                     '}';
         }
 
@@ -109,7 +128,7 @@ public class GoodsCommentListBean {
             this.to = to;
         }
 
-        public void setData(ArrayList<GoodsCommentListDataArray> data) {
+        public void setData(List<GoodsCommentListArray> data) {
             this.data = data;
         }
 
@@ -149,24 +168,36 @@ public class GoodsCommentListBean {
             return to;
         }
 
-        public ArrayList<GoodsCommentListDataArray> getData() {
+        public List<GoodsCommentListArray> getData() {
             return data;
         }
 
-        public class GoodsCommentListDataArray {
+        public static class GoodsCommentListArray {
+            /**
+             * comment_frommemberid : 12
+             * comment_frommembername : Ggg
+             * comment_addtime : 1489397920
+             * comment_content : 民工
+             * comment_image : ["http://ogqd71wd5.bkt.clouddn.com/FmJnLIhAc9LThobEembDK13Rd3Py","http://ogqd71wd5.bkt.clouddn.com/FmAQ5ZQZL5tAGqi-_I3Mw7XETvXA"]
+             * comment_scores : 3
+             * avatar : http://ogqd71wd5.bkt.clouddn.com/FgLldADla5nZpD-_YQtkpjuPIBk_
+             */
+
             private String comment_frommemberid;
             private String comment_frommembername;
             private String comment_addtime;
             private String comment_content;
+            private String comment_scores;
             private String avatar;
 
             @Override
             public String toString() {
-                return "GoodsCommentListDataArray{" +
+                return "GoodsCommentListArray{" +
                         "comment_frommemberid='" + comment_frommemberid + '\'' +
                         ", comment_frommembername='" + comment_frommembername + '\'' +
                         ", comment_addtime='" + comment_addtime + '\'' +
                         ", comment_content='" + comment_content + '\'' +
+                        ", comment_scores='" + comment_scores + '\'' +
                         ", avatar='" + avatar + '\'' +
                         '}';
             }
@@ -187,10 +218,14 @@ public class GoodsCommentListBean {
                 this.comment_content = comment_content;
             }
 
+            public void setComment_scores(String comment_scores) {
+                this.comment_scores = comment_scores;
+            }
 
             public void setAvatar(String avatar) {
                 this.avatar = avatar;
             }
+
 
             public String getComment_frommemberid() {
                 return comment_frommemberid;
@@ -208,10 +243,14 @@ public class GoodsCommentListBean {
                 return comment_content;
             }
 
+            public String getComment_scores() {
+                return comment_scores;
+            }
 
             public String getAvatar() {
                 return avatar;
             }
+
         }
     }
 }

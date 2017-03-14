@@ -48,6 +48,7 @@ public class GoodsDetailsBean implements Serializable {
 
 
     public class GoodsDetailsDataO {
+        private String goods_describe;
         private String goods_id;
         private String goods_type;
         private String goods_type_name;
@@ -80,41 +81,12 @@ public class GoodsDetailsBean implements Serializable {
         private Comment comment;
         private String comment_sum;
 
-        @Override
-        public String toString() {
-            return "GoodsDetailsDataO{" +
-                    "goods_id='" + goods_id + '\'' +
-                    ", goods_type='" + goods_type + '\'' +
-                    ", goods_type_name='" + goods_type_name + '\'' +
-                    ", brand_id='" + brand_id + '\'' +
-                    ", brand_name='" + brand_name + '\'' +
-                    ", goods_spec='" + goods_spec + '\'' +
-                    ", goods_name='" + goods_name + '\'' +
-                    ", goods_text='" + goods_text + '\'' +
-                    ", goods_sum='" + goods_sum + '\'' +
-                    ", goods_price='" + goods_price + '\'' +
-                    ", goods_marketprice='" + goods_marketprice + '\'' +
-                    ", Recommend='" + Recommend + '\'' +
-                    ", goods_salenum='" + goods_salenum + '\'' +
-                    ", goods_collect='" + goods_collect + '\'' +
-                    ", goods_main_image='" + goods_main_image + '\'' +
-                    ", goods_image=" + goods_image +
-                    ", province_id='" + province_id + '\'' +
-                    ", area_id='" + area_id + '\'' +
-                    ", place_of_origin='" + place_of_origin + '\'' +
-                    ", features='" + features + '\'' +
-                    ", batching='" + batching + '\'' +
-                    ", net_content='" + net_content + '\'' +
-                    ", shelf_life='" + shelf_life + '\'' +
-                    ", is_check='" + is_check + '\'' +
-                    ", goods_state='" + goods_state + '\'' +
-                    ", goods_stateremark='" + goods_stateremark + '\'' +
-                    ", send_city='" + send_city + '\'' +
-                    ", add_time='" + add_time + '\'' +
-                    ", update_time='" + update_time + '\'' +
-                    ", comment=" + comment +
-                    ", comment_sum='" + comment_sum + '\'' +
-                    '}';
+        public void setGoods_describe(String goods_describe) {
+            this.goods_describe = goods_describe;
+        }
+
+        public String getGoods_describe() {
+            return goods_describe;
         }
 
         public void setGoods_id(String goods_id) {

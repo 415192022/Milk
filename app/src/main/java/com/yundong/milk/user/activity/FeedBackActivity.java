@@ -6,8 +6,8 @@ import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.RequiresApi;
 import android.text.TextUtils;
-import android.util.Log;
 import android.view.View;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 
@@ -42,13 +42,15 @@ public class FeedBackActivity extends BaseActivity implements View.OnClickListen
     private static final int REQUEST_IMAGE = 2;
 
     private FeedBackActivityPresenter feedBackActivityPresenter;
+    private Button btnCommitFeedBack;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_feed_back);
         initTitle(R.string.feed_back, true);
-        findViewById(R.id.btnCommitFeedBack).setOnClickListener(this);
+        btnCommitFeedBack = (Button) findViewById(R.id.btnCommitFeedBack);
+        btnCommitFeedBack.setOnClickListener(this);
         mImgAddPic = (ImageView) findViewById(R.id.imgAddPic);
         mImgAddPic.setOnClickListener(this);
         if (!CacheActivity.activityList.contains(FeedBackActivity.this)) {
@@ -62,6 +64,7 @@ public class FeedBackActivity extends BaseActivity implements View.OnClickListen
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.btnCommitFeedBack:
+                btnCommitFeedBack.setClickable(false);
                 String content = ((EditText) findViewById(R.id.editContent)).getText().toString().trim();
                 String phoneNum = ((EditText) findViewById(R.id.editPhoneNum)).getText().toString().trim();
                 if (TextUtils.isEmpty(content)) {
@@ -137,12 +140,12 @@ public class FeedBackActivity extends BaseActivity implements View.OnClickListen
         } else {
             ToastUtil.showShortToast(baseReceiveBean.getMsg());
         }
-        findViewById(R.id.btnCommitFeedBack).setClickable(true);
+        btnCommitFeedBack.setClickable(true);
     }
 
     @Override
     public void feedBackOnError(String e) {
         ToastUtil.showShortToast("提交反馈出错" + e);
-        findViewById(R.id.btnCommitFeedBack).setClickable(true);
+        btnCommitFeedBack.setClickable(false);
     }
 }

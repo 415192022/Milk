@@ -23,10 +23,10 @@ import java.util.ArrayList;
 
 public class GoodsCommentListAdapter extends RecyclerView.Adapter<GoodsCommentListAdapter.GoodsCommentListHolder> {
 
-    private ArrayList<GoodsCommentListBean.GoodsCommentListData.GoodsCommentListDataArray> goodsCommentListDataArrays = new ArrayList<>();
+    private ArrayList<GoodsCommentListBean.GoodsCommentListData.GoodsCommentListArray> goodsCommentListDataArrays = new ArrayList<>();
     private Context mContext;
 
-    public ArrayList<GoodsCommentListBean.GoodsCommentListData.GoodsCommentListDataArray> getGoodsCommentListDataArrays() {
+    public ArrayList<GoodsCommentListBean.GoodsCommentListData.GoodsCommentListArray> getGoodsCommentListDataArrays() {
         return goodsCommentListDataArrays;
     }
 
@@ -35,7 +35,7 @@ public class GoodsCommentListAdapter extends RecyclerView.Adapter<GoodsCommentLi
         adapterCommentPhoto = new AdapterCommentPhoto(mContext);
     }
 
-    public void addData(ArrayList<GoodsCommentListBean.GoodsCommentListData.GoodsCommentListDataArray> list) {
+    public void addData(ArrayList<GoodsCommentListBean.GoodsCommentListData.GoodsCommentListArray> list) {
         goodsCommentListDataArrays.addAll(list);
         notifyDataSetChanged();
     }
