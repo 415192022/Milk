@@ -135,6 +135,7 @@
                     android:layout_weight="1">
 
                     <TextView
+                        android:visibility="gone"
                         android:id="@+id/txtQuality"
                         android:layout_width="wrap_content"
                         android:layout_height="match_parent"
@@ -443,9 +444,9 @@
                 <TextView
                     android:id="@+id/tv_goods_detail_content"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
+                    android:layout_height="700dp"
                     android:scaleType="fitXY"
-                    />
+                    android:src="@mipmap/img_test" />
 
                 <include layout="@layout/layout_goods_detail_goods_attr" />
 
@@ -492,7 +493,7 @@
         <TextView
             android:id="@+id/txtAddCart"
             android:layout_width="0dp"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
             android:layout_weight="1.5"
             android:background="@color/bgAddCart"
             android:gravity="center"
