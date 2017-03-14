@@ -1,6 +1,5 @@
 package com.yundong.milk.user.activity;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -20,8 +19,6 @@ import com.yundong.milk.view.IMyCollectionView;
 import com.yundong.milk.widget.dialog.SweetAlertDialog;
 import com.yundong.milk.widget.swiprefreshlayout.SwipyRefreshLayout;
 import com.yundong.milk.widget.swiprefreshlayout.SwipyRefreshLayoutDirection;
-
-import java.util.HashMap;
 
 import rx.Observable;
 import rx.Subscriber;
@@ -104,7 +101,6 @@ public class MineCollectionActivity extends BaseActivity
                                     }
 
                                 }
-                                ToastUtil.showShortToast("我要删除  " + collIds);
                                 mineCollectionActivityPresenter.deleteMyCollection(collIds);
                                 dialog.dismiss();
 //                                    mAdapter.initMap();
@@ -181,7 +177,6 @@ public class MineCollectionActivity extends BaseActivity
             mAdapter.notifyDataSetChanged();
             mineCollectionActivityPresenter.myCollection(YunDongApplication.getLoginBean().getData().getUserinfo().getId());
         } else if (direction == SwipyRefreshLayoutDirection.BOTTOM) {
-            ToastUtil.showShortToast("上拉加载");
             srl_refund.setRefreshing(false);
         }
 

@@ -11,6 +11,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.yundong.milk.R;
+import com.yundong.milk.adapter.order.OrderWaitingReceiveListAdapter;
 import com.yundong.milk.manager.YunDongApplication;
 import com.yundong.milk.model.OrderListBean;
 import com.yundong.milk.present.MineOrderFragmentPresenter;
@@ -34,7 +35,7 @@ import rx.schedulers.Schedulers;
 
 public class WatingReceiveGoodsFragment extends Fragment implements SwipyRefreshLayout.OnRefreshListener,IOrderListView {
     private RecyclerView mRecyclerView;
-    private OrderListAdapter mAdapter;
+    private OrderWaitingReceiveListAdapter orderWaitingReceiveListAdapter;
     private SwipyRefreshLayout srl_order_list;
 
     public MineOrderFragmentPresenter maineOrderActivityPresenter;
@@ -78,8 +79,8 @@ public class WatingReceiveGoodsFragment extends Fragment implements SwipyRefresh
             case 3:
                 break;
         }
-        mAdapter = new OrderListAdapter(getActivity());
-        mRecyclerView.setAdapter(mAdapter);
+        orderWaitingReceiveListAdapter = new OrderWaitingReceiveListAdapter(getActivity());
+        mRecyclerView.setAdapter(orderWaitingReceiveListAdapter);
     }
 
 
@@ -92,8 +93,14 @@ public class WatingReceiveGoodsFragment extends Fragment implements SwipyRefresh
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new Subscriber<OrderListBean.OrderListData.OrderListDataArray>() {
                     @Override
+                    public void onStart() {
+                        super.onStart();
+                        orderWaitingReceiveListAdapter.getmList().clear();
+                        orderWaitingReceiveListAdapter.notifyDataSetChanged();
+                    }
+
+                    @Override
                     public void onCompleted() {
-                        mAdapter.addData(orderListDataArrays);
                         srl_order_list.setRefreshing(false);
                     }
 
@@ -104,7 +111,8 @@ public class WatingReceiveGoodsFragment extends Fragment implements SwipyRefresh
 
                     @Override
                     public void onNext(OrderListBean.OrderListData.OrderListDataArray orderListDataArray) {
-                        orderListDataArrays.add(orderListDataArray);
+                        orderWaitingReceiveListAdapter.getmList().add(orderListDataArray);
+                        orderWaitingReceiveListAdapter.notifyDataSetChanged();
                     }
                 });
     }
@@ -117,11 +125,10 @@ public class WatingReceiveGoodsFragment extends Fragment implements SwipyRefresh
     @Override
     public void onRefresh(SwipyRefreshLayoutDirection direction) {
         if (direction == SwipyRefreshLayoutDirection.TOP) {
-            mAdapter.getmList().clear();
+            orderWaitingReceiveListAdapter.getmList().clear();
             orderListDataArrays.clear();
             maineOrderActivityPresenter.orderList(YunDongApplication.getLoginBean().getData().getUserinfo().getId(), "3", "", "1", "20");
         } else if (direction == SwipyRefreshLayoutDirection.BOTTOM) {
-            ToastUtil.showShortToast("上拉加载");
             srl_order_list.setRefreshing(false);
         }
     }

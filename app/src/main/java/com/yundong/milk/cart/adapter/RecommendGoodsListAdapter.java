@@ -20,13 +20,17 @@ import java.util.ArrayList;
  * Created by lj on 2016/11/17.
  * 我的收藏
  */
-public class RecommendGoodsListAdapter extends RecyclerView.Adapter<RecommendGoodsListAdapter.GoodsHolder> implements View.OnClickListener {
+public class RecommendGoodsListAdapter extends RecyclerView.Adapter<RecommendGoodsListAdapter.GoodsHolder> {
 
     private ArrayList<GoodsClassCommentBean.GoodsClassCommentDataO.GoodsClassCommentDataA> mList = new ArrayList<>();
     private Activity mContext;
 
     public RecommendGoodsListAdapter(Activity context) {
         this.mContext = context;
+    }
+
+    public ArrayList<GoodsClassCommentBean.GoodsClassCommentDataO.GoodsClassCommentDataA> getmList() {
+        return mList;
     }
 
     public void addData(ArrayList<GoodsClassCommentBean.GoodsClassCommentDataO.GoodsClassCommentDataA> list) {
@@ -47,7 +51,14 @@ public class RecommendGoodsListAdapter extends RecyclerView.Adapter<RecommendGoo
             holder.txtCollectionContent.setText(mList.get(position).getGoods_name());
             holder.txtPrice.setText("¥" + mList.get(position).getGoods_price());
             holder.txtCollectionNum.setText("月售" + mList.get(position).getGoods_salenum());
-            holder.itemView.setOnClickListener(this);
+            holder.itemView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    Intent intent=new Intent(mContext, GoodsDetailActivity.class);
+                    intent.putExtra("GOODS_ID",mList.get(position).getGoods_id());
+                    mContext.startActivity(intent);
+                }
+            });
             holder.itemView.setTag(position);
         }
     }
@@ -57,14 +68,6 @@ public class RecommendGoodsListAdapter extends RecyclerView.Adapter<RecommendGoo
         return mList.size();
     }
 
-    @Override
-    public void onClick(View view) {
-        switch (view.getId()) {
-            default:
-                mContext.startActivity(new Intent(mContext, GoodsDetailActivity.class));
-                break;
-        }
-    }
 
     public static class GoodsHolder extends RecyclerView.ViewHolder {
 

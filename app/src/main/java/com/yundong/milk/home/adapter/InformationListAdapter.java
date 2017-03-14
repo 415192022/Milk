@@ -12,7 +12,9 @@ import android.widget.TextView;
 import com.bumptech.glide.Glide;
 import com.yundong.milk.R;
 import com.yundong.milk.home.activity.InformationDetailActivity;
+import com.yundong.milk.model.LettersBean;
 import com.yundong.milk.user.model.GoodsListModel;
+import com.yundong.milk.util.rxbus.RxBus;
 
 import java.util.ArrayList;
 
@@ -20,17 +22,21 @@ import java.util.ArrayList;
  * Created by lj on 2016/11/17.
  *  我的收藏
  */
-public class InformationListAdapter extends RecyclerView.Adapter<InformationListAdapter.GoodsHolder> implements View.OnClickListener{
+public class InformationListAdapter extends RecyclerView.Adapter<InformationListAdapter.GoodsHolder> {
 
-    private ArrayList<GoodsListModel> mList;
+    private ArrayList<LettersBean.LettersDataO.LettersDataA> lettersDataAs=new ArrayList<>();
     private Activity mContext;
 
     public InformationListAdapter(Activity context) {
         this.mContext = context;
     }
 
-    public void addData(ArrayList<GoodsListModel> list) {
-        mList.addAll(list);
+    public ArrayList<LettersBean.LettersDataO.LettersDataA> getLettersDataAs() {
+        return lettersDataAs;
+    }
+
+    public void addData(ArrayList<LettersBean.LettersDataO.LettersDataA> list) {
+        lettersDataAs.addAll(list);
         notifyDataSetChanged();
     }
 
@@ -42,25 +48,23 @@ public class InformationListAdapter extends RecyclerView.Adapter<InformationList
 
     @Override
     public void onBindViewHolder(final GoodsHolder holder, final int position) {
-        Glide.with(mContext).load(R.mipmap.img_test).into(holder.imgPic);
-        holder.txtName.setText("发货的空间司法所发货独守空房发货的dfs思考几分喝点水发生的航空件发生");
-        holder.itemView.setOnClickListener(this);
+        Glide.with(mContext).load(lettersDataAs.get(position).getArticle_img()).into(holder.imgPic);
+        holder.txtName.setText(lettersDataAs.get(position).getArticle_title());
+        holder.itemView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                RxBus.getDefault().post(lettersDataAs.get(position));
+                mContext.startActivity(new Intent(mContext, InformationDetailActivity.class));
+            }
+        });
         holder.itemView.setTag(position);
     }
 
     @Override
     public int getItemCount() {
-        return 4;
+        return lettersDataAs.size();
     }
 
-    @Override
-    public void onClick(View view) {
-        switch (view.getId()){
-           default:
-               mContext.startActivity(new Intent(mContext, InformationDetailActivity.class));
-                break;
-        }
-    }
 
     public static class GoodsHolder extends RecyclerView.ViewHolder {
 

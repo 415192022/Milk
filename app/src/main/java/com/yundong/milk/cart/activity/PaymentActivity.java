@@ -12,8 +12,10 @@ import com.yundong.milk.R;
 import com.yundong.milk.base.BaseActivity;
 import com.yundong.milk.manager.YunDongApplication;
 import com.yundong.milk.model.BuyNowBean;
+import com.yundong.milk.model.CarListBean;
 import com.yundong.milk.model.GoodsAndAddressBean;
 import com.yundong.milk.model.GoodsDetailsBean;
+import com.yundong.milk.model.OrderListBean;
 import com.yundong.milk.model.ReceiveGoodsAddressBean;
 import com.yundong.milk.present.PaymentActivityPresenter;
 import com.yundong.milk.util.ToastUtil;
@@ -66,14 +68,43 @@ public class PaymentActivity extends BaseActivity implements IBuyNowView {
         switch (view.getId()) {
             case R.id.txtBuyIm:
                 if (mPayStyle == 0) { //支付宝
-                    paymentActivityPresenter.buyNow("8"
-                            , goodsDetailsBean.getData().getGoods_id(), goodsCount, msg
-                    );
-                    ToastUtil.showShortToast("8"+goodsDetailsBean.getData().getGoods_id()+" "+goodsCount+"  "+msg);
-                } else if (mPayStyle == 1) { //微信
-                    paymentActivityPresenter.buyNow(YunDongApplication.getLoginBean().getData().getUserinfo().getId()
-                            , goodsDetailsBean.getData().getGoods_id(), goodsCount, msg
-                    );
+                    if (null != goodsDetailsBean) {
+                        paymentActivityPresenter.buyNow(YunDongApplication.getLoginBean().getData().getUserinfo()
+                                        .getId()
+                                , goodsDetailsBean.getData().getGoods_id(), goodsCount, msg);
+
+                    }
+                    if (null != carListDataA) {
+                        paymentActivityPresenter.buyNow(YunDongApplication.getLoginBean().getData().getUserinfo()
+                                        .getId()
+                                , carListDataA.getGoods_id(), goodsCount, msg
+                        );
+                    }
+                    if (null != orderListDataArray) {
+                        paymentActivityPresenter.buyNow(YunDongApplication.getLoginBean().getData().getUserinfo()
+                                        .getId()
+                                , orderListDataArray.getGoods_id(), goodsCount, msg);
+                    }
+
+                } else if (mPayStyle == 1) {
+                    //微信
+                    if (null != goodsDetailsBean) {
+                        paymentActivityPresenter.buyNow(YunDongApplication.getLoginBean().getData().getUserinfo()
+                                        .getId()
+                                , goodsDetailsBean.getData().getGoods_id(), goodsCount, msg);
+
+                    }
+                    if (null != carListDataA) {
+                        paymentActivityPresenter.buyNow(YunDongApplication.getLoginBean().getData().getUserinfo()
+                                        .getId()
+                                , carListDataA.getGoods_id(), goodsCount, msg
+                        );
+                    }
+                    if (null != orderListDataArray) {
+                        paymentActivityPresenter.buyNow(YunDongApplication.getLoginBean().getData().getUserinfo()
+                                        .getId()
+                                , orderListDataArray.getGoods_id(), goodsCount, msg);
+                    }
                 }
                 break;
         }
@@ -96,11 +127,15 @@ public class PaymentActivity extends BaseActivity implements IBuyNowView {
     private String msg;
     private String totlePrice;
     private String goodsCount;
+    private CarListBean.CarListDataA carListDataA;
+    private OrderListBean.OrderListData.OrderListDataArray orderListDataArray;
 
     @Subscribe(threadMode = ThreadMode.MAIN, sticky = true)
     public void receive(GoodsAndAddressBean goodsAndAddressBean) {
-        ToastUtil.showShortToast("-----"+goodsAndAddressBean);
+        ToastUtil.showShortToast("-----" + goodsAndAddressBean);
         receiveGoodsAddressBean = goodsAndAddressBean.getReceiveGoodsAddressBean();
+        carListDataA = goodsAndAddressBean.getCarListDataA();
+        orderListDataArray = goodsAndAddressBean.getOrderListDataArray();
         goodsDetailsBean = goodsAndAddressBean.getGoodsDetailsBean();
         msg = goodsAndAddressBean.getMsg();
         totlePrice = goodsAndAddressBean.getTotlePrice();
@@ -111,6 +146,7 @@ public class PaymentActivity extends BaseActivity implements IBuyNowView {
     @Override
     public void buyNow(BuyNowBean buyNowBean) {
         ToastUtil.showShortToast(buyNowBean.getMsg());
+        finish();
     }
 
     @Override

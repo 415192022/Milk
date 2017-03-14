@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.text.TextUtils;
+import android.view.KeyEvent;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
@@ -25,6 +26,8 @@ import com.yundong.milk.util.MD5;
 import com.yundong.milk.util.PreferencesUtils;
 import com.yundong.milk.util.ToastUtil;
 import com.yundong.milk.util.rxbus.RxBus;
+import com.yundong.milk.util.rxbus.Subscribe;
+import com.yundong.milk.util.rxbus.ThreadMode;
 import com.yundong.milk.view.ICheckVerificationView;
 import com.yundong.milk.view.IGetVerificationView;
 import com.yundong.milk.view.ILoginView;
@@ -42,6 +45,10 @@ public class LoginActivity extends BaseActivity implements ILoginView, IGetVerif
     private LoginPresenter loginPresenter;
     private String password;
 
+
+    private Boolean isAutoLogin = true;
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -56,9 +63,19 @@ public class LoginActivity extends BaseActivity implements ILoginView, IGetVerif
         mTxtGetVerCode.setOnClickListener(this);
         findViewById(R.id.txtTriangleLogin).setVisibility(View.VISIBLE);
         loginPresenter = LoginPresenter.getInstance().with(this, this, this, this);
-        loginPresenter.login(PreferencesUtils.getString(this, Const.LOGIN_NAME), PreferencesUtils.getString(this, Const.LOGIN_PWD));
+        if (null != getIntent()) {
+            isAutoLogin = getIntent().getBooleanExtra("IS_AUTO_LOGIN", true);
+        }
+        if (isAutoLogin) {
+            loginPresenter.login(PreferencesUtils.getString(this, Const.LOGIN_PHONE), PreferencesUtils.getString(this, Const.LOGIN_PWD));
+        }
+//        if (null != YunDongApplication.getLoginBean()) {
+//            ToastUtil.showShortToast(YunDongApplication.getLoginBean().getData().getUserinfo() + "");
+//        }
     }
+
     String registerTwoPwd;
+
     @Override
     public void onClick(View view) {
         super.onClick(view);
@@ -120,7 +137,7 @@ public class LoginActivity extends BaseActivity implements ILoginView, IGetVerif
                 }
                 break;
             case R.id.btnComplete: //注册界面二的完成按钮
-                 registerTwoPwd = ((EditText) findViewById(R.id.editPwd)).getText().toString().trim();
+                registerTwoPwd = ((EditText) findViewById(R.id.editPwd)).getText().toString().trim();
                 if (TextUtils.isEmpty(registerTwoPwd)) {
                     ToastUtil.showShortToast(R.string.please_set_login_pwd);
                 } else if (registerTwoPwd.length() < 6) {
@@ -168,7 +185,9 @@ public class LoginActivity extends BaseActivity implements ILoginView, IGetVerif
         if (loginBean.getCode().equals("2000")) {
             ToastUtil.showShortToast(loginBean.getData().getUserinfo().getUname() + "登录成功");
             PreferencesUtils.putString(this, Const.LOGIN_NAME, loginBean.getData().getUserinfo().getUname());
-            PreferencesUtils.putString(this, Const.LOGIN_PWD, password);
+            if (null != password && !password.equals("") && !"".equals(password) && !password.equals(null)) {
+                PreferencesUtils.putString(this, Const.LOGIN_PWD, password);
+            }
             PreferencesUtils.putString(this, Const.LOGIN_TOKEN, loginBean.getData().getToken());
             PreferencesUtils.putString(this, Const.LOGIN_AVATAR, loginBean.getData().getUserinfo().getAvatar());
             PreferencesUtils.putString(this, Const.LOGIN_PHONE, loginBean.getData().getUserinfo().getPhone());
@@ -184,12 +203,10 @@ public class LoginActivity extends BaseActivity implements ILoginView, IGetVerif
 
     @Override
     public void loginOnError(String e) {
-        ToastUtil.showShortToast("登录错误，请检查账号或密码是否正确或网络是否连接正常");
     }
 
     @Override
     public void getVerificationCode(BaseReceiveBean baseReceiveBean) {
-        ToastUtil.showShortToast("" + baseReceiveBean);
     }
 
     @Override
@@ -217,10 +234,9 @@ public class LoginActivity extends BaseActivity implements ILoginView, IGetVerif
 
     @Override
     public void register(RegistBean registBean) {
-        ToastUtil.showShortToast(registBean + "");
         if (registBean.getCode().equals("2000")) {
             ToastUtil.showShortToast("注册成功。");
-            RegisterCompleteLoginBean registerCompleteLoginBean=new RegisterCompleteLoginBean();
+            RegisterCompleteLoginBean registerCompleteLoginBean = new RegisterCompleteLoginBean();
             registerCompleteLoginBean.setRegistBean(registBean);
             registerCompleteLoginBean.setPwd(registerTwoPwd);
             RxBus.getDefault().post(registerCompleteLoginBean);
@@ -235,5 +251,14 @@ public class LoginActivity extends BaseActivity implements ILoginView, IGetVerif
     @Override
     public void registerOnError(String e) {
         ToastUtil.showShortToast("注册失败。");
+    }
+
+    @Override
+    public boolean onKeyDown(int keyCode, KeyEvent event) {
+        if (keyCode == KeyEvent.KEYCODE_BACK) {
+            System.exit(0);
+            return true;
+        }
+        return super.onKeyDown(keyCode, event);
     }
 }

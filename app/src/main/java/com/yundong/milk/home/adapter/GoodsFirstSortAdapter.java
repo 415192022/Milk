@@ -19,6 +19,10 @@ public class GoodsFirstSortAdapter extends BaseAdapter{
 	private LayoutInflater mInflater;
 	private int selectIndex = -1;
 
+	public ArrayList<RecommentTypeBean> getmListTitles() {
+		return mListTitles;
+	}
+
 	public GoodsFirstSortAdapter(Context context, ArrayList<RecommentTypeBean> titles){
 		this.mContext = context;
 		this.mListTitles = titles;

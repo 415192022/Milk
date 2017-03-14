@@ -4,10 +4,14 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Handler;
 import android.os.Message;
+import android.support.v7.widget.GridLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
 import com.yundong.milk.R;
+import com.yundong.milk.adapter.home.RecommentTypeAdapter;
 import com.yundong.milk.base.BaseFragment;
 import com.yundong.milk.home.activity.GoodsListTwoSortActivity;
 import com.yundong.milk.home.activity.InformationActivity;
@@ -73,55 +77,31 @@ public class HomeFragment extends BaseFragment
         return R.layout.fragment_head_list;
     }
 
-    private TextView txtRoomMilk;
-    private TextView txtLowMilk;
-    private TextView txtChildMilk;
-    private TextView txtOldMilk;
-    private TextView txtAdultMilk;
-    private TextView txtMineralWater;
-    private TextView txtNewProduct;
-    private TextView txtActivity;
-    private List<TextView> recommentTypeViews = new ArrayList<>();
 
 
     private TextView tv_article;
-
+    private RecyclerView rv_type_head;
+    private RecommentTypeAdapter recommentTypeAdapter;
     @Override
     public void initView(View view) {
         view.findViewById(R.id.imgSearch).setOnClickListener(this);
-        txtRoomMilk = (TextView) view.findViewById(R.id.txtRoomMilk);
-        txtRoomMilk.setOnClickListener(this);
-        txtLowMilk = (TextView) view.findViewById(R.id.txtLowMilk);
-        txtLowMilk.setOnClickListener(this);
-        txtChildMilk = (TextView) view.findViewById(R.id.txtChildMilk);
-        txtChildMilk.setOnClickListener(this);
-        txtOldMilk = (TextView) view.findViewById(R.id.txtOldMilk);
-        txtOldMilk.setOnClickListener(this);
-        txtAdultMilk = (TextView) view.findViewById(R.id.txtAdultMilk);
-        txtAdultMilk.setOnClickListener(this);
-        txtMineralWater = (TextView) view.findViewById(R.id.txtMineralWater);
-        txtMineralWater.setOnClickListener(this);
-        txtNewProduct = (TextView) view.findViewById(R.id.txtNewProduct);
-        txtNewProduct.setOnClickListener(this);
-        txtActivity = (TextView) view.findViewById(R.id.txtActivity);
-        txtActivity.setOnClickListener(this);
         tv_article = (TextView) view.findViewById(R.id.tv_article);
-        recommentTypeViews.add(txtRoomMilk);
-        recommentTypeViews.add(txtLowMilk);
-        recommentTypeViews.add(txtChildMilk);
-        recommentTypeViews.add(txtOldMilk);
-        recommentTypeViews.add(txtAdultMilk);
-        recommentTypeViews.add(txtMineralWater);
-        recommentTypeViews.add(txtNewProduct);
-        recommentTypeViews.add(txtActivity);
         view.findViewById(R.id.lineInformation).setOnClickListener(this);
+
         mPullToRefreshView = (SwipyRefreshLayout) view.findViewById(R.id.main_pull_refresh_view);
         mPullToRefreshView.setOnRefreshListener(this);
         mPullToRefreshView.setRefreshing(true);
         mPullToRefreshView.setDirection(SwipyRefreshLayoutDirection.BOTH);
 
         mListView = (NoScrollListView) view.findViewById(R.id.listView);
+        mAdapter = new HomeGoodsListAdapter(getActivity());
+        mListView.setAdapter(mAdapter);
 
+        rv_type_head= (RecyclerView) view.findViewById(R.id.rv_type_head);
+        rv_type_head.setHasFixedSize(true);
+        rv_type_head.setLayoutManager(new GridLayoutManager(getActivity(),4));
+        recommentTypeAdapter=new RecommentTypeAdapter(getActivity());
+        rv_type_head.setAdapter(recommentTypeAdapter);
 
         homeFragmentPresenter = HomeFragmentPresenter.getInstance().with(this, this, this);
         homeFragmentPresenter.getRecommentType();
@@ -172,8 +152,7 @@ public class HomeFragment extends BaseFragment
     }
 
 
-    private List<String> recommentTypes = new ArrayList<>();
-
+    //获取推荐分类
     @Override
     public void getRecommentType(final RecommentTypeBean recommentTypeBean) {
         Observable.from(recommentTypeBean.getDatas())
@@ -181,10 +160,12 @@ public class HomeFragment extends BaseFragment
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new Subscriber<RecommentTypeBean>() {
                     @Override
+                    public void onStart() {
+                        super.onStart();
+                    }
+
+                    @Override
                     public void onCompleted() {
-                        for (int i = 0; i < recommentTypes.size(); i++) {
-                            recommentTypeViews.get(i).setText(recommentTypes.get(i));
-                        }
                     }
 
                     @Override
@@ -194,7 +175,8 @@ public class HomeFragment extends BaseFragment
 
                     @Override
                     public void onNext(RecommentTypeBean recommentTypeBean) {
-                        recommentTypes.add(recommentTypeBean.getGc_name());
+                        recommentTypeAdapter.getRecommentTypeBeanArrayList().add(recommentTypeBean);
+                        recommentTypeAdapter.notifyDataSetChanged();
                     }
                 });
 
@@ -236,10 +218,11 @@ public class HomeFragment extends BaseFragment
         commpletRefresh();
     }
 
-
+    private GoodsCommentBean goodsCommentBean;
     //获得推荐商品
     @Override
     public void getGoodsComment(GoodsCommentBean goodsCommentBean) {
+        this.goodsCommentBean=goodsCommentBean;
         Observable.from(goodsCommentBean.getData().getData())
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
@@ -257,9 +240,8 @@ public class HomeFragment extends BaseFragment
                     @Override
                     public void onNext(GoodsCommentBean.GoodsCommentDataO.GoodsCommentDataA goodsCommentDataA) {
                         //推荐商品Adapter
-                        mAdapter = new HomeGoodsListAdapter(getActivity());
-                        mAdapter.addData(goodsCommentDataA);
-                        mListView.setAdapter(mAdapter);
+                        mAdapter.getmList().add(goodsCommentDataA);
+                        mAdapter.notifyDataSetChanged();
                     }
                 });
     }
@@ -274,12 +256,19 @@ public class HomeFragment extends BaseFragment
     @Override
     public void onRefresh(SwipyRefreshLayoutDirection direction) {
         if (direction == SwipyRefreshLayoutDirection.TOP) {
+            mAdapter.getmList().clear();
             //        homeFragmentPresenter.getRecommentType();
             homeFragmentPresenter.getLetters("1", "desc");
             homeFragmentPresenter.getGoodsComment("1");
         } else if (direction == SwipyRefreshLayoutDirection.BOTTOM) {
-            ToastUtil.showShortToast("上拉加载");
             mPullToRefreshView.setRefreshing(false);
+            if(null != goodsCommentBean){
+                if(goodsCommentBean.getData().getCurrent_page().equals(goodsCommentBean.getData().getTotal_page())){
+                    ToastUtil.showShortToast("没有更多数据了");
+                }else{
+                    homeFragmentPresenter.getGoodsComment(String.valueOf(Integer.parseInt(goodsCommentBean.getData().getCurrent_page()) + 1));
+                }
+            }
         }
 
     }

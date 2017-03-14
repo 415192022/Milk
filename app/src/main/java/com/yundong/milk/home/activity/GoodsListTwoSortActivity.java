@@ -1,6 +1,8 @@
 package com.yundong.milk.home.activity;
 
 import android.os.Bundle;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
@@ -15,6 +17,9 @@ import com.yundong.milk.model.TypeBrandBean;
 import com.yundong.milk.model.TypeGoodsBean;
 import com.yundong.milk.present.GoodsListTwoSortActivityPresenter;
 import com.yundong.milk.util.ToastUtil;
+import com.yundong.milk.util.rxbus.RxBus;
+import com.yundong.milk.util.rxbus.Subscribe;
+import com.yundong.milk.util.rxbus.ThreadMode;
 import com.yundong.milk.view.IAllTypeView;
 import com.yundong.milk.view.ITypeBrandView;
 import com.yundong.milk.view.ITypeGoodsView;
@@ -35,16 +40,34 @@ import rx.schedulers.Schedulers;
  */
 public class GoodsListTwoSortActivity extends BaseActivity
         implements
-        XRecyclerView.LoadingListener
-        , IAllTypeView
+        IAllTypeView
         , ITypeBrandView
         , ITypeGoodsView {
     private HorizontalListView mFirstSortListView;
     private ListView mSecondSortListView;
-    private XRecyclerView mRecyclerViewGoodsList;
+    private RecyclerView mRecyclerViewGoodsList;
     private GoodsSortListTwoAdapter mGoodsListAdapter;
 
     private GoodsListTwoSortActivityPresenter goodsListTwoSortActivityPresenter;
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+        RxBus.getDefault().register(this);
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        RxBus.getDefault().unRegister(this);
+    }
+
+    private RecommentTypeBean rtb;
+
+    @Subscribe(threadMode = ThreadMode.MAIN, sticky = true)
+    public void receiveCommentType(RecommentTypeBean recommentTypeBean) {
+        this.rtb = recommentTypeBean;
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -53,9 +76,9 @@ public class GoodsListTwoSortActivity extends BaseActivity
         initTitle(R.string.commodity, true);
         mFirstSortListView = (HorizontalListView) findViewById(R.id.firstSortListView);
         mSecondSortListView = (ListView) findViewById(R.id.secondSortListView);
-        mRecyclerViewGoodsList = (XRecyclerView) findViewById(R.id.recyclerViewGoodsList);
-        mRecyclerViewGoodsList.initParams();
-        mRecyclerViewGoodsList.setLoadingListener(this);
+        mRecyclerViewGoodsList = (RecyclerView) findViewById(R.id.recyclerViewGoodsList);
+        mRecyclerViewGoodsList.setHasFixedSize(true);
+        mRecyclerViewGoodsList.setLayoutManager(new LinearLayoutManager(this));
 
         goodsListTwoSortActivityPresenter = GoodsListTwoSortActivityPresenter.getInstance().with(this, this, this);
         goodsListTwoSortActivityPresenter.getAllType();
@@ -63,19 +86,17 @@ public class GoodsListTwoSortActivity extends BaseActivity
 
         mGoodsListAdapter = new GoodsSortListTwoAdapter(GoodsListTwoSortActivity.this);
         mRecyclerViewGoodsList.setAdapter(mGoodsListAdapter);
+        secondSortAdapter = new GoodsSecondSortAdapter(GoodsListTwoSortActivity.this, typeBrands);
+        firstSortAdapter = new GoodsFirstSortAdapter(GoodsListTwoSortActivity.this, allTypes);
     }
 
-    @Override
-    public void onRefresh() {
-
-    }
-
-    @Override
-    public void onLoadMore() {
-
-    }
 
     private ArrayList<RecommentTypeBean> allTypes = new ArrayList<RecommentTypeBean>();
+    int position = 0;
+
+
+    //第一级适配器
+    GoodsFirstSortAdapter firstSortAdapter;
 
     @Override
     public void getAllType(final RecommentTypeBean recommentTypeBean) {
@@ -86,24 +107,35 @@ public class GoodsListTwoSortActivity extends BaseActivity
                     @Override
                     public void onCompleted() {
                         // 初始化第一级分类数据
-                        final GoodsFirstSortAdapter firstSortAdapter = new GoodsFirstSortAdapter(GoodsListTwoSortActivity.this, allTypes);
                         mFirstSortListView.setAdapter(firstSortAdapter);
                         typeBrands.clear();
-                        mFirstSortListView.setSelection(0);
+//                        mFirstSortListView.setSelection(0);
                         goodsListTwoSortActivityPresenter.getTypeBrand(recommentTypeBean.getDatas().get(0).getGc_id());
                         firstSortAdapter.setSelectIndex(0);
                         firstSortAdapter.notifyDataSetChanged();
+                        if (null != rtb) {
+                            typeBrands.clear();
+                            currentClsId = rtb.getPosition();
+//                            mFirstSortListView.setSelection(rtb.getPosition());
+                            goodsListTwoSortActivityPresenter.getTypeBrand(rtb.getGc_id());
+                            firstSortAdapter.setSelectIndex(rtb.getPosition());
+                            firstSortAdapter.notifyDataSetChanged();
+                        }
 
                         mFirstSortListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                             @Override
                             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                                secondSortAdapter.getmListTitles().clear();
                                 typeBrands.clear();
                                 currentClsId = i;
                                 goodsListTwoSortActivityPresenter.getTypeBrand(recommentTypeBean.getDatas().get(i).getGc_id());
                                 firstSortAdapter.setSelectIndex(i);
+//                                mFirstSortListView.setSelection(i);
                                 firstSortAdapter.notifyDataSetChanged();
+                                secondSortAdapter.notifyDataSetChanged();
                             }
                         });
+
                     }
 
                     @Override
@@ -126,6 +158,9 @@ public class GoodsListTwoSortActivity extends BaseActivity
 
     private ArrayList<TypeBrandBean> typeBrands = new ArrayList<TypeBrandBean>();
 
+    //第二级适配器
+    GoodsSecondSortAdapter secondSortAdapter;
+
     @Override
     public void getTypeBrand(TypeBrandBean typeBrandBean) {
         Observable.from(typeBrandBean.getDatas())
@@ -133,9 +168,14 @@ public class GoodsListTwoSortActivity extends BaseActivity
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new Subscriber<TypeBrandBean>() {
                     @Override
+                    public void onStart() {
+                        super.onStart();
+                        mGoodsListAdapter.getData().clear();
+                    }
+
+                    @Override
                     public void onCompleted() {
 //                        初始化第二级分类
-                        final GoodsSecondSortAdapter secondSortAdapter = new GoodsSecondSortAdapter(GoodsListTwoSortActivity.this, typeBrands);
                         mSecondSortListView.setAdapter(secondSortAdapter);
                         secondSortAdapter.setSelectIndex(0);
 
@@ -150,7 +190,9 @@ public class GoodsListTwoSortActivity extends BaseActivity
                         });
 
                         mGoodsListAdapter.getData().clear();
-                        Observable.just("").observeOn(Schedulers.io()).subscribeOn(AndroidSchedulers.mainThread())
+                        Observable.just("")
+                                .observeOn(Schedulers.io())
+                                .subscribeOn(AndroidSchedulers.mainThread())
                                 .subscribe(new Subscriber<String>() {
                                     @Override
                                     public void onCompleted() {

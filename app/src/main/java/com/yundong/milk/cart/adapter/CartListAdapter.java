@@ -14,9 +14,11 @@ import com.yundong.milk.R;
 import com.yundong.milk.cart.activity.ConfirmOrderActivity;
 import com.yundong.milk.cart.activity.GoodsDetailActivity;
 import com.yundong.milk.model.CarListBean;
+import com.yundong.milk.model.GoodsAndCountBean;
 import com.yundong.milk.present.CarFragmentPresenter;
 import com.yundong.milk.user.model.GoodsListModel;
 import com.yundong.milk.util.ToastUtil;
+import com.yundong.milk.util.rxbus.RxBus;
 import com.yundong.milk.widget.dialog.SweetAlertDialog;
 
 import java.util.ArrayList;
@@ -25,7 +27,7 @@ import java.util.ArrayList;
  * Created by lj on 2016/11/17.
  * 我的收藏
  */
-public class CartListAdapter extends RecyclerView.Adapter<CartListAdapter.GoodsHolder> implements View.OnClickListener {
+public class CartListAdapter extends RecyclerView.Adapter<CartListAdapter.GoodsHolder> {
 
     private ArrayList<CarListBean.CarListDataA> mList = new ArrayList<>();
     private Activity mContext;
@@ -44,7 +46,8 @@ public class CartListAdapter extends RecyclerView.Adapter<CartListAdapter.GoodsH
         mList.addAll(list);
         notifyDataSetChanged();
     }
-    public void deleteDataByIndex(int position){
+
+    public void deleteDataByIndex(int position) {
         mList.remove(position);
         notifyDataSetChanged();
     }
@@ -62,10 +65,14 @@ public class CartListAdapter extends RecyclerView.Adapter<CartListAdapter.GoodsH
             holder.txtGoodsName.setText(mList.get(position).getGoods_name());
             holder.txtShopPrice.setText("￥" + mList.get(position).getGoods_price());
             holder.txtMarketPrice.setText("￥" + mList.get(position).getGoods_marketprice());
-            holder.txtGoodsAttr.setText("全脂250ml * 24");
-            holder.txtDelete.setOnClickListener(this);
-            holder.txtSettlement.setOnClickListener(this);
-            holder.itemView.setOnClickListener(this);
+//            holder.txtGoodsAttr.setText("全脂250ml * 24");
+            holder.txtSettlement.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    RxBus.getDefault().post(mList.get(position));
+                    mContext.startActivity(new Intent(mContext, ConfirmOrderActivity.class));
+                }
+            });
             holder.txtDelete.setTag(position);
             holder.txtSettlement.setTag(position);
             holder.itemView.setTag(position);
@@ -85,9 +92,20 @@ public class CartListAdapter extends RecyclerView.Adapter<CartListAdapter.GoodsH
                         public void onClick(SweetAlertDialog sweetAlertDialog) {
                             dialog.dismiss();
                             ToastUtil.showShortToast("确定");
-                            carFragmentPresenter.deleteCar(mList.get(position).getId(),position);
+                            carFragmentPresenter.deleteCar(mList.get(position).getId(), position);
                         }
                     });
+                }
+            });
+
+            holder.itemView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+//                    Intent intent = new Intent(mContext, GoodsDetailActivity.class);
+//                    intent.putExtra("GOODS_ID", mList.get(position).getGoods_id());
+//                    mContext.startActivity(intent);
+                    RxBus.getDefault().post(mList.get(position));
+                    mContext.startActivity(new Intent(mContext, ConfirmOrderActivity.class));
                 }
             });
         }
@@ -98,17 +116,6 @@ public class CartListAdapter extends RecyclerView.Adapter<CartListAdapter.GoodsH
         return mList.size();
     }
 
-    @Override
-    public void onClick(View view) {
-        switch (view.getId()) {
-            case R.id.txtSettlement:
-                mContext.startActivity(new Intent(mContext, ConfirmOrderActivity.class));
-                break;
-            default:
-                mContext.startActivity(new Intent(mContext, GoodsDetailActivity.class));
-                break;
-        }
-    }
 
     public static class GoodsHolder extends RecyclerView.ViewHolder {
 

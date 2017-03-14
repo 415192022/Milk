@@ -45,6 +45,14 @@ public class HomeFragmentPresenter {
         goodsComment=new GoodsCommentImpl();
     }
 
+    public HomeFragmentPresenter with(IRecommentTypeView iRecommentTypeView) {
+        this.iRecommentTypeView = iRecommentTypeView;
+        return homeFragmentPresenter;
+    }
+    public HomeFragmentPresenter with(ILettersView iLettersView) {
+        this.lettersView = iLettersView;
+        return homeFragmentPresenter;
+    }
     public HomeFragmentPresenter with(IRecommentTypeView iRecommentTypeView, ILettersView lettersView,IGoodsCommentView iGoodsCommentView) {
         this.iRecommentTypeView = iRecommentTypeView;
         this.lettersView = lettersView;

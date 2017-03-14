@@ -11,6 +11,16 @@ public class RecommentTypeBean extends BaseReceivesBean<RecommentTypeBean> {
     private String gc_parent_id;
     private String gc_sort;
     private String recommend;
+    private int position;
+
+    public RecommentTypeBean setPosition(int position) {
+        this.position = position;
+        return this;
+    }
+
+    public int getPosition() {
+        return position;
+    }
 
     @Override
     public String toString() {

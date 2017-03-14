@@ -18,9 +18,22 @@ import rx.Observable;
 public class CommitPlateformAuditImpl implements ICommitPlateformAudit {
 
     @Override
-    public Observable<BaseReceiveBean> commitPlateformAudit(String user_id, String company_name, String area, String area_id, String charge_people, String charge_phone, String license) {
+    public Observable<BaseReceiveBean> commitPlateformAudit(
+            String user_id
+            , String company_name
+            , String charge_people
+            , String charge_phone
+            , String license
+            , String province_name
+            , String province_id
+            , String city_name
+            , String city_id
+            , String area_name
+            , String area_id
+            , String area_info
+    ) {
         return RetrofitUtils.getInstance()
                 .retrofitCtreate(URLConst.URL_MILK_BASE, ICommitPlateformAuditService.class)
-                .commitPlateformAudit(user_id, company_name, area, area_id, charge_people, charge_phone, license);
+                .commitPlateformAudit(user_id, company_name, charge_people, charge_phone, license, province_name, province_id, city_name, city_id, area_name, area_id, area_info);
     }
 }

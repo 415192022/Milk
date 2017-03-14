@@ -68,73 +68,77 @@
                 android:focusable="true"
                 android:focusableInTouchMode="true"
                 android:orientation="vertical">
-
-                <LinearLayout
+                <android.support.v7.widget.RecyclerView
+                    android:background="#FFF"
+                    android:id="@+id/rv_type_head"
                     android:layout_width="match_parent"
-                    android:layout_height="@dimen/dip_110"
-                    android:background="@color/white"
-                    android:orientation="horizontal"
-                    android:paddingTop="@dimen/dip_10">
+                    android:layout_height="180dp"></android.support.v7.widget.RecyclerView>
+                <!--<LinearLayout-->
+                    <!--android:layout_width="match_parent"-->
+                    <!--android:layout_height="@dimen/dip_110"-->
+                    <!--android:background="@color/white"-->
+                    <!--android:orientation="horizontal"-->
+                    <!--android:paddingTop="@dimen/dip_10">-->
 
-                    <TextView
-                        android:id="@+id/txtRoomMilk"
-                        style="@style/sortTextViewStyle"
-                        android:drawableTop="@mipmap/img_room_temp_milk"
-                        android:text="@string/roomTempMilk" />
+                    <!--<TextView-->
+                        <!--android:id="@+id/txtRoomMilk"-->
+                        <!--style="@style/sortTextViewStyle"-->
+                        <!--android:drawableTop="@mipmap/img_room_temp_milk"-->
+                        <!--android:text="@string/roomTempMilk" />-->
 
-                    <TextView
-                        android:id="@+id/txtLowMilk"
-                        style="@style/sortTextViewStyle"
-                        android:drawableTop="@mipmap/img_low_temp_milk"
-                        android:text="@string/lowTempMilk" />
+                    <!--<TextView-->
+                        <!--android:id="@+id/txtLowMilk"-->
+                        <!--style="@style/sortTextViewStyle"-->
+                        <!--android:drawableTop="@mipmap/img_low_temp_milk"-->
+                        <!--android:text="@string/lowTempMilk" />-->
 
-                    <TextView
-                        android:id="@+id/txtChildMilk"
-                        style="@style/sortTextViewStyle"
-                        android:drawableTop="@mipmap/img_child_milk"
-                        android:text="@string/childMilk" />
+                    <!--<TextView-->
+                        <!--android:id="@+id/txtChildMilk"-->
+                        <!--style="@style/sortTextViewStyle"-->
+                        <!--android:drawableTop="@mipmap/img_child_milk"-->
+                        <!--android:text="@string/childMilk" />-->
 
-                    <TextView
-                        android:id="@+id/txtOldMilk"
-                        style="@style/sortTextViewStyle"
-                        android:drawableTop="@mipmap/img_old_milk"
-                        android:text="@string/oldMilk" />
+                    <!--<TextView-->
+                        <!--android:id="@+id/txtOldMilk"-->
+                        <!--style="@style/sortTextViewStyle"-->
+                        <!--android:drawableTop="@mipmap/img_old_milk"-->
+                        <!--android:text="@string/oldMilk" />-->
 
-                </LinearLayout>
+                <!--</LinearLayout>-->
 
-                <LinearLayout
-                    android:paddingBottom="@dimen/dip_10"
-                    android:layout_width="match_parent"
-                    android:layout_height="@dimen/dip_110"
-                    android:background="@color/white"
-                    android:orientation="horizontal"
-                    android:paddingTop="-10dp">
+                <!--<LinearLayout-->
+                    <!--android:paddingBottom="@dimen/dip_10"-->
+                    <!--android:layout_width="match_parent"-->
+                    <!--android:layout_height="@dimen/dip_110"-->
+                    <!--android:background="@color/white"-->
+                    <!--android:orientation="horizontal"-->
+                    <!--android:paddingTop="-10dp">-->
 
-                    <TextView
-                        android:id="@+id/txtAdultMilk"
-                        style="@style/sortTextViewStyle"
-                        android:drawableTop="@mipmap/img_adult_milk"
-                        android:text="@string/adultMilk" />
+                    <!--<TextView-->
+                        <!--android:id="@+id/txtAdultMilk"-->
+                        <!--style="@style/sortTextViewStyle"-->
+                        <!--android:drawableTop="@mipmap/img_adult_milk"-->
+                        <!--android:text="@string/adultMilk" />-->
 
-                    <TextView
-                        android:id="@+id/txtMineralWater"
-                        style="@style/sortTextViewStyle"
-                        android:drawableTop="@mipmap/img_mineral_water"
-                        android:text="@string/mineralWater" />
+                    <!--<TextView-->
+                        <!--android:id="@+id/txtMineralWater"-->
+                        <!--style="@style/sortTextViewStyle"-->
+                        <!--android:drawableTop="@mipmap/img_mineral_water"-->
+                        <!--android:text="@string/mineralWater" />-->
 
-                    <TextView
-                        android:id="@+id/txtNewProduct"
-                        style="@style/sortTextViewStyle"
-                        android:drawableTop="@mipmap/img_new_product"
-                        android:text="@string/newProduct" />
+                    <!--<TextView-->
+                        <!--android:id="@+id/txtNewProduct"-->
+                        <!--style="@style/sortTextViewStyle"-->
+                        <!--android:drawableTop="@mipmap/img_new_product"-->
+                        <!--android:text="@string/newProduct" />-->
 
-                    <TextView
-                        android:id="@+id/txtActivity"
-                        style="@style/sortTextViewStyle"
-                        android:drawableTop="@mipmap/img_home_activity"
-                        android:text="@string/homeActivity" />
+                    <!--<TextView-->
+                        <!--android:id="@+id/txtActivity"-->
+                        <!--style="@style/sortTextViewStyle"-->
+                        <!--android:drawableTop="@mipmap/img_home_activity"-->
+                        <!--android:text="@string/homeActivity" />-->
 
-                </LinearLayout>
+                <!--</LinearLayout>-->
 
                 <LinearLayout
                     android:id="@+id/lineInformation"

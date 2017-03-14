@@ -22,7 +22,7 @@ import com.yundong.milk.widget.swiprefreshlayout.SwipyRefreshLayoutDirection;
  * Created by lj on 2016/12/28.
  * 收货地址
  */
-public class ReceiptAddressActivity extends BaseActivity implements IReceiveGoodsAddressView,IApplyForModifyView, SwipeRefreshLayout.OnRefreshListener {
+public class ReceiptAddressActivity extends BaseActivity implements IReceiveGoodsAddressView, IApplyForModifyView, SwipeRefreshLayout.OnRefreshListener {
     private ConfirmOrderActivityPresenter confirmOrderActivityPresenter;
 
     private TextView txtName;
@@ -54,15 +54,15 @@ public class ReceiptAddressActivity extends BaseActivity implements IReceiveGood
                 dialog.setConfirmClickListener(new SweetAlertDialog.OnSweetClickListener() {
                     @Override
                     public void onClick(SweetAlertDialog sweetAlertDialog) {
-                        if(null != receiveGoodsAddressBean){
-                            ToastUtil.showShortToast(receiveGoodsAddressBean.getData().getAddress_id());
+                        if (null != receiveGoodsAddressBean) {
                             //申请修改收货地址
                             if (null != receiveGoodsAddressBean) {
                                 confirmOrderActivityPresenter.applyFroModify(receiveGoodsAddressBean.getData().getAddress_id());
                             }
 
-                        }else {
-                            ToastUtil.showShortToast("提交失败,请关闭页面后重试！");
+                        } else {
+                            ToastUtil.showShortToast("未获取到地址信息!");
+
                         }
                         dialog.dismiss();
                     }
@@ -75,7 +75,7 @@ public class ReceiptAddressActivity extends BaseActivity implements IReceiveGood
         srl_receive_goods_address.setRefreshing(true);
         srl_receive_goods_address.setOnRefreshListener(this);
 
-        confirmOrderActivityPresenter = ConfirmOrderActivityPresenter.getInstance().with(this,this);
+        confirmOrderActivityPresenter = ConfirmOrderActivityPresenter.getInstance().with(this, this);
         confirmOrderActivityPresenter.receiveGoodsAddress(YunDongApplication.getLoginBean().getData().getUserinfo().getId());
     }
 
@@ -90,7 +90,13 @@ public class ReceiptAddressActivity extends BaseActivity implements IReceiveGood
         } else {
             txtName.setText(receiveGoodsAddressBean.getData().getUname());
             txtPhone.setText(receiveGoodsAddressBean.getData().getPhone());
-            txtAddress.setText(receiveGoodsAddressBean.getData().getArea_info());
+            txtAddress.setText(receiveGoodsAddressBean
+                    .getData()
+                    .getProvince_name()
+                    + " " + receiveGoodsAddressBean.getData().getCity_name()
+                    + " " + receiveGoodsAddressBean.getData().getArea_name()
+                    + " " + receiveGoodsAddressBean.getData().getArea_info()
+            );
             srl_receive_goods_address.setRefreshing(false);
         }
 
@@ -110,7 +116,7 @@ public class ReceiptAddressActivity extends BaseActivity implements IReceiveGood
     //申请修改收货地址
     @Override
     public void applyForModify(BaseReceiveBean baseReceiveBean) {
-        if(baseReceiveBean.getCode().equals("3000")){
+        if (baseReceiveBean.getCode().equals("3000")) {
         }
         ToastUtil.showShortToast(baseReceiveBean.getMsg());
     }

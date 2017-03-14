@@ -7,13 +7,13 @@ import android.graphics.drawable.BitmapDrawable;
 import android.os.Bundle;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.view.PagerAdapter;
-import android.support.v4.view.ViewPager;
 import android.support.v7.widget.GridLayoutManager;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.WindowManager;
+import android.webkit.WebView;
 import android.widget.AdapterView;
 import android.widget.EditText;
 import android.widget.GridView;
@@ -34,23 +34,24 @@ import com.yundong.milk.model.GoodsClassCommentBean;
 import com.yundong.milk.model.GoodsDetailsBean;
 import com.yundong.milk.present.GoodsDetailActivityPresenter;
 import com.yundong.milk.user.activity.ActivityCommentList;
-import com.yundong.milk.util.RxBusUtil;
 import com.yundong.milk.util.ShareUtil;
+import com.yundong.milk.util.TimeUtils;
 import com.yundong.milk.util.ToastUtil;
 import com.yundong.milk.util.rxbus.RxBus;
-import com.yundong.milk.util.rxbus.Subscribe;
-import com.yundong.milk.util.rxbus.ThreadMode;
 import com.yundong.milk.view.IAddCarView;
 import com.yundong.milk.view.IGoodsClassCommentView;
 import com.yundong.milk.view.IGoodsCollectonView;
 import com.yundong.milk.view.IGoodsDetailsView;
 import com.yundong.milk.view.IIsCollectionGoodsView;
 import com.yundong.milk.widget.CircleImageView;
-import com.yundong.milk.widget.CircleIndicator;
 import com.yundong.milk.widget.recyclerview.XRecyclerView;
+import com.zzhoujay.richtext.RichText;
+
 
 import java.util.ArrayList;
+import java.util.Arrays;
 
+import cn.bingoogolapple.bgabanner.BGABanner;
 import rx.Observable;
 import rx.Subscriber;
 import rx.android.schedulers.AndroidSchedulers;
@@ -83,14 +84,13 @@ public class GoodsDetailActivity extends BaseActivity
     private TextView txtOriginalPrice;
     private TextView txtSellNum;
     private TextView txtGoodsTitle;
-    private TextView txtGoodsBrief;
+    private TextView wv_info;
     private TextView txtCommentNum;
     private TextView txtCriticName;
     private CircleImageView imgCriticHead;
     private TextView txtCommentTime;
     private TextView txtCommentContent;
-    private ViewPager guide_pager;
-    private CircleIndicator cid_banner;
+    private BGABanner guide_pager;
 
     private EditText mEditGoodsNum;
     private boolean mIsCollect = true;
@@ -129,18 +129,15 @@ public class GoodsDetailActivity extends BaseActivity
         txtNowPrice = (TextView) findViewById(R.id.txtNowPrice);
         txtSellNum = (TextView) findViewById(R.id.txtSellNum);
         txtGoodsTitle = (TextView) findViewById(R.id.txtGoodsTitle);
-        txtGoodsBrief = (TextView) findViewById(R.id.txtGoodsBrief);
+        wv_info = (TextView) findViewById(R.id.wv_info);
         txtCommentNum = (TextView) findViewById(R.id.txtCommentNum);
         txtCriticName = (TextView) findViewById(R.id.txtCriticName);
-        imgCriticHead= (CircleImageView) findViewById(R.id.imgCriticHead);
+        imgCriticHead = (CircleImageView) findViewById(R.id.imgCriticHead);
         txtCommentTime = (TextView) findViewById(R.id.txtCommentTime);
         txtCommentContent = (TextView) findViewById(R.id.txtCommentContent);
 
 
-        guide_pager = (ViewPager) findViewById(R.id.guide_pager);
-        guide_pager.setAdapter(pagerAdapter);
-        cid_banner = (CircleIndicator) findViewById(R.id.cid_banner);
-        cid_banner.setViewPager(guide_pager);
+        guide_pager = (BGABanner) findViewById(R.id.guide_pager);
 
         mRecyclerView = (XRecyclerView) findViewById(R.id.recyclerView);
         mRecyclerView.initParams();
@@ -289,7 +286,7 @@ public class GoodsDetailActivity extends BaseActivity
         mPopupWindow.setBackgroundDrawable(new BitmapDrawable());
         mPopupWindow.showAtLocation(findViewById(R.id.imageLeft), Gravity.BOTTOM, 0, 0);
 
-
+        txtAttrPrice.setText("¥ " + String.valueOf(mGoodsNum * Float.parseFloat(goodsDetailsBean.getData().getGoods_price())));
         contentView.getBackground().setAlpha(220);
         mPopupWindow.setAnimationStyle(R.style.take_photo_anim);
         mGoodsAttrAdapter = new GoodsDetailAttrAdapter(this);
@@ -328,6 +325,8 @@ public class GoodsDetailActivity extends BaseActivity
 
     private GoodsDetailsBean goodsDetailsBean;
 
+    private ArrayList<String> images = new ArrayList<>();
+
     //商品详情
     @Override
     public void getGoodsDetails(GoodsDetailsBean goodsDetailsBean) {
@@ -341,7 +340,9 @@ public class GoodsDetailActivity extends BaseActivity
         //名称
         txtGoodsTitle.setText(goodsDetailsBean.getData().getGoods_name());
         //简介
-        txtGoodsBrief.setText(goodsDetailsBean.getData().getGoods_text());
+        RichText.from(goodsDetailsBean.getData().getGoods_text())
+                .clickable(false)
+                .into(wv_info);
         //商品评价
         txtCommentNum.setText(goodsDetailsBean.getData().getComment_sum());
         //评论人名
@@ -349,7 +350,7 @@ public class GoodsDetailActivity extends BaseActivity
         //平评论人头像
         Glide.with(this).load(goodsDetailsBean.getData().getComment().getAvatar()).into(imgCriticHead);
         //评论时间
-        txtCommentTime.setText(goodsDetailsBean.getData().getComment().getComment_addtime());
+        txtCommentTime.setText(TimeUtils.getTimeString(Long.decode(goodsDetailsBean.getData().getComment().getComment_addtime())) );
         //评论内容
         txtCommentContent.setText(goodsDetailsBean.getData().getComment().getComment_content());
         //banner
@@ -359,7 +360,18 @@ public class GoodsDetailActivity extends BaseActivity
                 .subscribe(new Subscriber<String>() {
                     @Override
                     public void onCompleted() {
-
+                        guide_pager.setAdapter(new BGABanner.Adapter<ImageView, String>() {
+                            @Override
+                            public void fillBannerItem(BGABanner banner, ImageView itemView, String model, int position) {
+                                Glide.with(GoodsDetailActivity.this)
+                                        .load(model)
+//                        .placeholder(R.drawable.holder)
+                                        .centerCrop()
+                                        .dontAnimate()
+                                        .into(itemView);
+                            }
+                        });
+                        guide_pager.setData(images, Arrays.asList(""));
                     }
 
                     @Override
@@ -374,6 +386,7 @@ public class GoodsDetailActivity extends BaseActivity
                         Glide.with(GoodsDetailActivity.this).load(s).into(imageView);
                         viewList.add(view);
                         pagerAdapter.notifyDataSetChanged();
+                        images.add(s);
                     }
                 });
 
@@ -382,7 +395,6 @@ public class GoodsDetailActivity extends BaseActivity
 
     @Override
     public void getGoodsDetailsOnError(String e) {
-        ToastUtil.showShortToast(e + "加载详情出错");
     }
 
     ArrayList<View> viewList = new ArrayList<>();
@@ -482,8 +494,13 @@ public class GoodsDetailActivity extends BaseActivity
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new Subscriber<GoodsClassCommentBean.GoodsClassCommentDataO.GoodsClassCommentDataA>() {
                     @Override
+                    public void onStart() {
+                        super.onStart();
+                        mAdapter.getmList().clear();
+                    }
+
+                    @Override
                     public void onCompleted() {
-                        mAdapter.addData(mList);
                     }
 
                     @Override
@@ -493,7 +510,8 @@ public class GoodsDetailActivity extends BaseActivity
 
                     @Override
                     public void onNext(GoodsClassCommentBean.GoodsClassCommentDataO.GoodsClassCommentDataA goodsClassCommentDataA) {
-                        mList.add(goodsClassCommentDataA);
+                        mAdapter.getmList().add(goodsClassCommentDataA);
+                        mAdapter.notifyDataSetChanged();
                     }
                 });
     }

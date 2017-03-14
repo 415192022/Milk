@@ -104,7 +104,6 @@ public class RefundActivity extends BaseActivity
             mAdapter.getmList().clear();
             refundActivityPresenter.refundList(YunDongApplication.getLoginBean().getData().getUserinfo().getId(), "1", "20");
         } else if (direction == SwipyRefreshLayoutDirection.BOTTOM) {
-            ToastUtil.showShortToast("上拉加载");
             srl_refund.setRefreshing(false);
         }
     }

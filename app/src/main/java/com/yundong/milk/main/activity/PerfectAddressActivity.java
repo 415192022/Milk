@@ -18,16 +18,11 @@ import com.baidu.mapapi.search.geocode.OnGetGeoCoderResultListener;
 import com.baidu.mapapi.search.geocode.ReverseGeoCodeResult;
 import com.yundong.milk.R;
 import com.yundong.milk.base.BaseActivity;
-import com.yundong.milk.manager.YunDongApplication;
 import com.yundong.milk.model.BaseReceiveBean;
 import com.yundong.milk.model.LoginBean;
 import com.yundong.milk.model.PCABean;
-import com.yundong.milk.model.RegistBean;
 import com.yundong.milk.model.RegisterCompleteLoginBean;
-import com.yundong.milk.present.LoginPresenter;
 import com.yundong.milk.present.PerfectAddressActivityPresenter;
-import com.yundong.milk.util.Const;
-import com.yundong.milk.util.PreferencesUtils;
 import com.yundong.milk.util.ToastUtil;
 import com.yundong.milk.util.rxbus.RxBus;
 import com.yundong.milk.util.rxbus.Subscribe;
@@ -44,9 +39,8 @@ public class PerfectAddressActivity extends BaseActivity
         implements
         OnGetGeoCoderResultListener,
         PCAPopupWindow.OnCompleteListenner,
-        IAddReceiveAddressView ,
-        ILoginView
-{
+        IAddReceiveAddressView,
+        ILoginView {
 
     private TextView mTxtCurrentLocation;
     private LocationClient mLocationClient;
@@ -114,7 +108,6 @@ public class PerfectAddressActivity extends BaseActivity
 //                    startActivity(new Intent(this, MainActivity.class));
 //                    finish();
                     //添加收货地址
-                    ToastUtil.showShortToast(province + "  " + city + "  " + area);
                     perfectAddressActivityPresenter.addReceiveAddress(
                             registerCompleteLoginBean.getRegistBean().getData().getId(),
                             registerCompleteLoginBean.getRegistBean().getData().getPhone(),
@@ -135,7 +128,8 @@ public class PerfectAddressActivity extends BaseActivity
                 getLocation();
                 break;
             case R.id.rl_location:
-                new PCAPopupWindow(this, this).showAtLocation(view, Gravity.BOTTOM, 0, 0);
+                PCAPopupWindow pcaPopupWindow= new PCAPopupWindow(this, this);
+                pcaPopupWindow.showAtLocation(view, Gravity.BOTTOM, 0, 0);
                 break;
         }
     }
@@ -220,9 +214,13 @@ public class PerfectAddressActivity extends BaseActivity
     @Override
     public void addReceiveAddress(BaseReceiveBean baseReceiveBean) {
         ToastUtil.showShortToast(baseReceiveBean.getMsg());
-        LoginPresenter.getInstance()
-                .with(this)
-                .login(registerCompleteLoginBean.getRegistBean().getData().getPhone(), registerCompleteLoginBean.getPwd());
+
+        Intent intent = new Intent(this, LoginActivity.class).setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
+        intent.putExtra("IS_AUTO_LOGIN", false);
+        startActivity(intent);
+//        LoginPresenter.getInstance()
+//                .with(this)
+//                .login(registerCompleteLoginBean.getRegistBean().getData().getPhone(), registerCompleteLoginBean.getPwd());
     }
 
     @Override

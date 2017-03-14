@@ -10,6 +10,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.yundong.milk.R;
+import com.yundong.milk.adapter.order.OrderWaitingCommentListAdapter;
 import com.yundong.milk.manager.YunDongApplication;
 import com.yundong.milk.model.OrderListBean;
 import com.yundong.milk.present.MineOrderFragmentPresenter;
@@ -33,7 +34,7 @@ import rx.schedulers.Schedulers;
 
 public class WatingCommentFragment extends Fragment implements SwipyRefreshLayout.OnRefreshListener,IOrderListView {
     private RecyclerView mRecyclerView;
-    private OrderListAdapter mAdapter;
+    private OrderWaitingCommentListAdapter orderWaitingCommentListAdapter;
     private SwipyRefreshLayout srl_order_list;
 
     public MineOrderFragmentPresenter maineOrderActivityPresenter;
@@ -60,7 +61,7 @@ public class WatingCommentFragment extends Fragment implements SwipyRefreshLayou
 
 
         maineOrderActivityPresenter = MineOrderFragmentPresenter.getInstance().with(this);
-        maineOrderActivityPresenter.orderList(YunDongApplication.getLoginBean().getData().getUserinfo().getId(), "4", "", "1", "20");
+        maineOrderActivityPresenter.orderList(YunDongApplication.getLoginBean().getData().getUserinfo().getId(), "4", "0", "1", "20");
         return view;
     }
 
@@ -77,8 +78,8 @@ public class WatingCommentFragment extends Fragment implements SwipyRefreshLayou
             case 3:
                 break;
         }
-        mAdapter = new OrderListAdapter(getActivity());
-        mRecyclerView.setAdapter(mAdapter);
+        orderWaitingCommentListAdapter = new OrderWaitingCommentListAdapter(getActivity());
+        mRecyclerView.setAdapter(orderWaitingCommentListAdapter);
     }
 
 
@@ -92,7 +93,7 @@ public class WatingCommentFragment extends Fragment implements SwipyRefreshLayou
                 .subscribe(new Subscriber<OrderListBean.OrderListData.OrderListDataArray>() {
                     @Override
                     public void onCompleted() {
-                        mAdapter.addData(orderListDataArrays);
+                        orderWaitingCommentListAdapter.addData(orderListDataArrays);
                         srl_order_list.setRefreshing(false);
                     }
 
@@ -103,7 +104,10 @@ public class WatingCommentFragment extends Fragment implements SwipyRefreshLayou
 
                     @Override
                     public void onNext(OrderListBean.OrderListData.OrderListDataArray orderListDataArray) {
-                        orderListDataArrays.add(orderListDataArray);
+                        if(orderListDataArray.getIs_comment().equals("0")){
+                            orderListDataArrays.add(orderListDataArray);
+                        }
+
                     }
                 });
     }
@@ -116,11 +120,10 @@ public class WatingCommentFragment extends Fragment implements SwipyRefreshLayou
     @Override
     public void onRefresh(SwipyRefreshLayoutDirection direction) {
         if (direction == SwipyRefreshLayoutDirection.TOP) {
-            mAdapter.getmList().clear();
+            orderWaitingCommentListAdapter.getmList().clear();
             orderListDataArrays.clear();
             maineOrderActivityPresenter.orderList(YunDongApplication.getLoginBean().getData().getUserinfo().getId(), "4", "", "1", "20");
         } else if (direction == SwipyRefreshLayoutDirection.BOTTOM) {
-            ToastUtil.showShortToast("上拉加载");
             srl_order_list.setRefreshing(false);
         }
     }

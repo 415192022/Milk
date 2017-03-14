@@ -1,32 +1,33 @@
 <?xml version="1.0" encoding="utf-8"?>
-<com.yundong.milk.widget.swiprefreshlayout.SwipyRefreshLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:id="@+id/srl_car_list"
+
+
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:background="@color/white"
+    android:clipToPadding="false"
+    android:fitsSystemWindows="true"
+    android:orientation="vertical">
 
-    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    <TextView
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:background="@color/white"
-        android:clipToPadding="false"
-        android:fitsSystemWindows="true"
-        android:orientation="vertical">
+        android:layout_height="@dimen/dip_48"
+        android:background="@color/colorPrimary"
+        android:gravity="center"
+        android:text="@string/cart"
+        android:textColor="@color/white"
+        android:textSize="@dimen/text_size_18" />
 
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="@dimen/dip_48"
-            android:background="@color/colorPrimary"
-            android:gravity="center"
-            android:text="@string/cart"
-            android:textColor="@color/white"
-            android:textSize="@dimen/text_size_18" />
+    <com.yundong.milk.widget.swiprefreshlayout.SwipyRefreshLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        android:id="@+id/srl_car_list"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
 
-
-        <com.yundong.milk.widget.recyclerview.XRecyclerView
+        <android.support.v7.widget.RecyclerView
             android:id="@+id/recyclerView"
             android:layout_width="match_parent"
             android:layout_height="match_parent" />
 
 
-    </LinearLayout>
-</com.yundong.milk.widget.swiprefreshlayout.SwipyRefreshLayout>
+    </com.yundong.milk.widget.swiprefreshlayout.SwipyRefreshLayout>
+</LinearLayout>

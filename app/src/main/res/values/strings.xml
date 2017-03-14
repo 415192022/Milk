@@ -174,7 +174,7 @@
     <string name="wait_seller_deal">待卖家处理</string>
     <string name="commitApply">提交申请</string>
     <string name="most_two_hundred">最多200字</string>
-    <string name="please_select_refund_reason">请选择退款原因</string>
+    <string name="please_select_refund_reason">选择省</string>
     <string name="uploadPic_most_three">上传凭证, 最多三张</string>
     <string name="withdrawal_of_application">撤销申请</string>
 

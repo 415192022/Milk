@@ -21,6 +21,7 @@ import com.yundong.milk.model.MyCollectionBean;
 import com.yundong.milk.user.activity.MineCollectionActivity;
 import com.yundong.milk.user.model.GoodsListModel;
 import com.yundong.milk.util.ToastUtil;
+import com.zzhoujay.richtext.RichText;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -106,7 +107,9 @@ public class MineCollectionListAdapter extends RecyclerView.Adapter<MineCollecti
     @Override
     public void onBindViewHolder(final GoodsHolder holder, final int position) {
         Glide.with(mContext).load(myCollectionBeanDataArrays.get(position).getGoods_main_image()).into(holder.imgCollectionPic);
-        holder.txtCollectionContent.setText(myCollectionBeanDataArrays.get(position).getGoods_text());
+        RichText.from(myCollectionBeanDataArrays.get(position).getGoods_text())
+                .clickable(false)
+                .into(holder.txtCollectionContent);
         holder.txtPrice.setText("￥" + myCollectionBeanDataArrays.get(position).getGoods_price());
         holder.txtCollectionNum.setText("月售" + myCollectionBeanDataArrays.get(position).getGoods_salenum());
         Animation animation = AnimationUtils.loadAnimation(mContext, R.anim.list_anim);
@@ -152,7 +155,9 @@ public class MineCollectionListAdapter extends RecyclerView.Adapter<MineCollecti
         holder.rl_item_collection_root.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                mContext.startActivity(new Intent(mContext, GoodsDetailActivity.class));
+                Intent intent=new Intent(mContext, GoodsDetailActivity.class);
+                        intent.putExtra("GOODS_ID",myCollectionBeanDataArrays.get(position).getGoods_id());
+                mContext.startActivity(intent);
             }
         });
 

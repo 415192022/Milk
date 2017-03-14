@@ -52,6 +52,12 @@ public class UserFragment extends BaseFragment implements View.OnClickListener, 
     @Override
     public void initView(View view) {
         imgUserHead = (CircleImageView) view.findViewById(R.id.imgUserHead);
+        imgUserHead.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(getActivity(), SettingActivity.class));
+            }
+        });
         txtUserInfo = (TextView) view.findViewById(R.id.txtUserInfo);
 
         view.findViewById(R.id.txtUserInfo).setOnClickListener(this);

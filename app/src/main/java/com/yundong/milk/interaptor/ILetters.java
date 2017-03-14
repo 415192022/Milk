@@ -10,5 +10,8 @@ import rx.Observable;
  */
 
 public interface ILetters {
-    Observable<LettersBean>  getLetters(String page, String sort);
+    Observable<LettersBean>  getLetters(
+            String page,
+            String sort
+    );
 }

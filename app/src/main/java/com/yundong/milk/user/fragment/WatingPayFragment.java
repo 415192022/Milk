@@ -10,6 +10,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.yundong.milk.R;
+import com.yundong.milk.adapter.order.OrderWaitingPayListAdapter;
 import com.yundong.milk.manager.YunDongApplication;
 import com.yundong.milk.model.OrderListBean;
 import com.yundong.milk.present.MineOrderFragmentPresenter;
@@ -33,7 +34,7 @@ import rx.schedulers.Schedulers;
 
 public class WatingPayFragment extends Fragment implements SwipyRefreshLayout.OnRefreshListener,IOrderListView {
     private RecyclerView mRecyclerView;
-    private OrderListAdapter mAdapter;
+    private OrderWaitingPayListAdapter orderWaitingPayListAdapter;
     private SwipyRefreshLayout srl_order_list;
 
     public MineOrderFragmentPresenter maineOrderActivityPresenter;
@@ -77,8 +78,8 @@ public class WatingPayFragment extends Fragment implements SwipyRefreshLayout.On
             case 3:
                 break;
         }
-        mAdapter = new OrderListAdapter(getActivity());
-        mRecyclerView.setAdapter(mAdapter);
+        orderWaitingPayListAdapter = new OrderWaitingPayListAdapter(getActivity());
+        mRecyclerView.setAdapter(orderWaitingPayListAdapter);
     }
 
 
@@ -91,9 +92,15 @@ public class WatingPayFragment extends Fragment implements SwipyRefreshLayout.On
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new Subscriber<OrderListBean.OrderListData.OrderListDataArray>() {
                     @Override
+                    public void onStart() {
+                        super.onStart();
+                        orderWaitingPayListAdapter.getmList().clear();
+                    }
+
+                    @Override
                     public void onCompleted() {
-                        mAdapter.addData(orderListDataArrays);
                         srl_order_list.setRefreshing(false);
+                        orderWaitingPayListAdapter.notifyDataSetChanged();
                     }
 
                     @Override
@@ -103,7 +110,8 @@ public class WatingPayFragment extends Fragment implements SwipyRefreshLayout.On
 
                     @Override
                     public void onNext(OrderListBean.OrderListData.OrderListDataArray orderListDataArray) {
-                        orderListDataArrays.add(orderListDataArray);
+                        orderWaitingPayListAdapter.getmList().add(orderListDataArray);
+                        orderWaitingPayListAdapter.notifyDataSetChanged();
                     }
                 });
     }
@@ -116,11 +124,10 @@ public class WatingPayFragment extends Fragment implements SwipyRefreshLayout.On
     @Override
     public void onRefresh(SwipyRefreshLayoutDirection direction) {
         if (direction == SwipyRefreshLayoutDirection.TOP) {
-            mAdapter.getmList().clear();
+            orderWaitingPayListAdapter.getmList().clear();
             orderListDataArrays.clear();
             maineOrderActivityPresenter.orderList(YunDongApplication.getLoginBean().getData().getUserinfo().getId(), "1", "", "1", "20");
         } else if (direction == SwipyRefreshLayoutDirection.BOTTOM) {
-            ToastUtil.showShortToast("上拉加载");
             srl_order_list.setRefreshing(false);
         }
     }

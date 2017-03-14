@@ -6,10 +6,28 @@ package com.yundong.milk.model;
 
 public class GoodsAndAddressBean {
     private ReceiveGoodsAddressBean receiveGoodsAddressBean;
+    private CarListBean.CarListDataA carListDataA;
+    private OrderListBean.OrderListData.OrderListDataArray orderListDataArray;
     private GoodsDetailsBean goodsDetailsBean;
     private String msg;
     private String count;
     private String totlePrice;
+
+    public void setOrderListDataArray(OrderListBean.OrderListData.OrderListDataArray orderListDataArray) {
+        this.orderListDataArray = orderListDataArray;
+    }
+
+    public OrderListBean.OrderListData.OrderListDataArray getOrderListDataArray() {
+        return orderListDataArray;
+    }
+
+    public void setCarListDataA(CarListBean.CarListDataA carListDataA) {
+        this.carListDataA = carListDataA;
+    }
+
+    public CarListBean.CarListDataA getCarListDataA() {
+        return carListDataA;
+    }
 
     public void setCount(String count) {
         this.count = count;

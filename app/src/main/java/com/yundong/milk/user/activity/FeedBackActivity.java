@@ -71,6 +71,7 @@ public class FeedBackActivity extends BaseActivity implements View.OnClickListen
                 } else if (phoneNum.length() != 11) {
                     ToastUtil.showShortToast(getString(R.string.phone_number_not_correct));
                 } else {
+                    findViewById(R.id.btnCommitFeedBack).setClickable(false);
                     if (images.size() > 0) {
                         CommentImageBean commentImageBean = new CommentImageBean();
                         ArrayList<String> ig = new ArrayList<String>();
@@ -136,11 +137,12 @@ public class FeedBackActivity extends BaseActivity implements View.OnClickListen
         } else {
             ToastUtil.showShortToast(baseReceiveBean.getMsg());
         }
-
+        findViewById(R.id.btnCommitFeedBack).setClickable(true);
     }
 
     @Override
     public void feedBackOnError(String e) {
         ToastUtil.showShortToast("提交反馈出错" + e);
+        findViewById(R.id.btnCommitFeedBack).setClickable(true);
     }
 }

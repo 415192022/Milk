@@ -15,6 +15,8 @@ import com.yundong.milk.base.BaseActivity;
 import com.yundong.milk.imagechoose.ChooseImage;
 import com.yundong.milk.imagechoose.MultiImageSelectorActivity;
 import com.yundong.milk.imagechoose.crop.HDApp;
+import com.yundong.milk.main.activity.LoginActivity;
+import com.yundong.milk.main.activity.MainActivity;
 import com.yundong.milk.manager.YunDongApplication;
 import com.yundong.milk.model.BaseReceiveBean;
 import com.yundong.milk.model.LoginBean;
@@ -24,6 +26,7 @@ import com.yundong.milk.util.Base64Utils;
 import com.yundong.milk.util.Const;
 import com.yundong.milk.util.PreferencesUtils;
 import com.yundong.milk.util.ToastUtil;
+import com.yundong.milk.util.rxbus.RxBus;
 import com.yundong.milk.view.ILoginView;
 import com.yundong.milk.view.IModifyNickNameView;
 import com.yundong.milk.view.IUploadHeadView;
@@ -79,14 +82,34 @@ public class SettingActivity extends BaseActivity
                 startActivityForResult(new Intent(this, MineNickNameActivity.class), 100);
                 break;
             case R.id.txtRight://保存
-                break;
-            case R.id.tv_modify://申请修改
                 if ("".equals(imageBase64) || "".equals(name)) {
                     ToastUtil.showShortToast("用户头像或昵称为空");
                 } else {
                     setingActivityPresenter.upLoadHead(imageBase64, YunDongApplication.getLoginBean().getData().getUserinfo().getId());
                     setingActivityPresenter.modifyNickName(name, YunDongApplication.getLoginBean().getData().getUserinfo().getId());
                 }
+                break;
+            case R.id.tv_modify://退出登录
+                final SweetAlertDialog dialog = new SweetAlertDialog(this);
+                dialog.showCancelButton(true);
+                dialog.setTitleText("您确定要注销账户吗？");
+                dialog.setCancelText(getString(R.string.cancel));
+                dialog.setConfirmText(getString(R.string.confirm));
+                dialog.show();
+                dialog.setConfirmClickListener(new SweetAlertDialog.OnSweetClickListener() {
+                    @Override
+                    public void onClick(SweetAlertDialog sweetAlertDialog) {
+                        dialog.dismiss();
+                        //注销账户
+                        finish();
+                        YunDongApplication.getApplication().finishActivity(MainActivity.class);
+                        Intent intent = new Intent();
+                        intent.putExtra("IS_AUTO_LOGIN",false);
+                        intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);//它可以关掉所要到的界面中间的activity
+                        intent.setClass(SettingActivity.this, LoginActivity.class);
+                        startActivity(intent);
+                    }
+                });
                 break;
         }
     }

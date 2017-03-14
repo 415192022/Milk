@@ -21,6 +21,7 @@
             android:src="@mipmap/img_left_back" />
 
         <EditText
+            android:id="@+id/et_search_content"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_marginBottom="@dimen/dip_5"
@@ -51,6 +52,17 @@
             android:textSize="@dimen/text_size_18" />
 
     </RelativeLayout>
+    <com.yundong.milk.widget.swiprefreshlayout.SwipyRefreshLayout
+        android:id="@+id/srl_search_result"
+        android:visibility="gone"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/rv_search_result"
+            android:visibility="gone"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"></android.support.v7.widget.RecyclerView>
+    </com.yundong.milk.widget.swiprefreshlayout.SwipyRefreshLayout>
 
     <TextView
         android:layout_width="match_parent"

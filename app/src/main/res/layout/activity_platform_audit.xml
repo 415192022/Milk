@@ -23,7 +23,7 @@
             android:id="@+id/et_CompanyName"
             style="@style/txtPlatformTextViewContent"
             android:layout_toRightOf="@+id/txtName"
-            android:text="上海华生有限公司" />
+            />
 
     </RelativeLayout>
 
@@ -61,7 +61,7 @@
             android:id="@+id/et_ChargeMan"
             style="@style/txtPlatformTextViewContent"
             android:layout_toRightOf="@+id/txtChargeMan"
-            android:text="张三丰" />
+            />
 
     </RelativeLayout>
 
@@ -82,7 +82,7 @@
             android:layout_toRightOf="@+id/txtPhone"
             android:inputType="phone"
             android:maxLength="11"
-            android:text="178900001234" />
+            />
 
     </RelativeLayout>
 

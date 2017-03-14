@@ -79,6 +79,16 @@ public class PCAPopupWindow extends PopupWindow implements IPCAView {
             @Override
             public void onItemClick(View view, int position) {
                 area = aAdapter.getPcaDatas().get(position);
+                if (null == province) {
+                    ToastUtil.showShortToast("请选择省");
+                } else if (null == city) {
+                    ToastUtil.showShortToast("请选择市");
+                } else if (null == area) {
+                    ToastUtil.showShortToast("请选择区");
+                } else {
+                    onCompleteListenner.OnComplete(province, city, area);
+                    dismiss();
+                }
             }
         });
         rv_province = (RecyclerView) view.findViewById(R.id.rv_province);
@@ -110,7 +120,7 @@ public class PCAPopupWindow extends PopupWindow implements IPCAView {
     }
 
     public PCAPopupWindow(Context mContext, final OnCompleteListenner onCompleteListenner) {
-
+        this.onCompleteListenner=onCompleteListenner;
         this.view = LayoutInflater.from(mContext).inflate(R.layout.layout_wheel_view, null);
         this.mContext = mContext;
         initView(view);

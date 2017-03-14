@@ -143,6 +143,7 @@ public class HorizontalListView extends AdapterView<ListAdapter> {
 	@Override
 	public void setSelection(int position) {
 		//TODO: implement
+		setSelection(position);
 	}
 	
 	private void addAndMeasureChild(final View child, int viewPos) {

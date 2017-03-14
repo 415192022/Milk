@@ -81,7 +81,6 @@ public class SystemMsgActivity extends BaseActivity
 
     @Override
     public void messageInfo(MessageInfoBean messageInfoBean) {
-        ToastUtil.showLongToast(messageInfoBean.getData()+"");
 //        mAdapter.getMessageInfoBeen().add(messageInfoBean.getData());
 //        mAdapter.notifyDataSetChanged();
 //        srl_message_center.setRefreshing(false);

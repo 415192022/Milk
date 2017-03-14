@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
+import android.widget.RadioGroup;
 
 import com.yundong.milk.R;
 import com.yundong.milk.adapter.comment.GoodsCommentListAdapter;
@@ -28,10 +29,11 @@ import rx.schedulers.Schedulers;
  * Created by lx on 2017/2/16.
  */
 
-public class ActivityCommentList extends BaseActivity implements IGoodsCommentListView {
+public class ActivityCommentList extends BaseActivity implements IGoodsCommentListView, RadioGroup.OnCheckedChangeListener {
     private RecyclerView rv_comment_list;
     private GoodsCommentListAdapter goodsCommentListAdapter;
     private ActivityCommentListPresenter activityCommentListPresenter;
+    private RadioGroup rg_comment_type;
 
     public ActivityCommentList() {
     }
@@ -53,8 +55,7 @@ public class ActivityCommentList extends BaseActivity implements IGoodsCommentLi
     @Subscribe(threadMode = ThreadMode.MAIN, sticky = true)
     public void receiveGoodsInfo(GoodsDetailsBean goodsDetailsBean) {
         this.goodsDetailsBean = goodsDetailsBean;
-        ToastUtil.showShortToast("===="+goodsDetailsBean.getData().getGoods_id());
-        activityCommentListPresenter.goodsCommentList(goodsDetailsBean.getData().getGoods_id(),"1");
+        activityCommentListPresenter.goodsCommentList(goodsDetailsBean.getData().getGoods_id(), "1");
     }
 
     @Override
@@ -62,6 +63,8 @@ public class ActivityCommentList extends BaseActivity implements IGoodsCommentLi
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_comment_list);
 
+        rg_comment_type = (RadioGroup) findViewById(R.id.rg_comment_type);
+        rg_comment_type.setOnCheckedChangeListener(this);
         rv_comment_list = (RecyclerView) findViewById(R.id.rv_comment_list);
         rv_comment_list.setHasFixedSize(true);
         rv_comment_list.setLayoutManager(new LinearLayoutManager(this));
@@ -98,7 +101,25 @@ public class ActivityCommentList extends BaseActivity implements IGoodsCommentLi
 
     @Override
     public void goodsCommentListOnError(String e) {
-        Log.i("LMW",e);
+        Log.i("LMW", e);
         ToastUtil.showShortToast(e);
+    }
+
+    @Override
+    public void onCheckedChanged(RadioGroup radioGroup, int i) {
+        switch (radioGroup.getCheckedRadioButtonId()) {
+            case R.id.rb_all:
+                ToastUtil.showShortToast("全部");
+                break;
+            case R.id.rb_good:
+                ToastUtil.showShortToast("好评");
+                break;
+            case R.id.rb_middle:
+                ToastUtil.showShortToast("中评");
+                break;
+            case R.id.rb_pool:
+                ToastUtil.showShortToast("差评");
+                break;
+        }
     }
 }

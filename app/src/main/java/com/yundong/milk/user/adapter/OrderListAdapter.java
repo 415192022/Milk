@@ -12,6 +12,7 @@ import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.yundong.milk.R;
+import com.yundong.milk.cart.activity.GoodsDetailActivity;
 import com.yundong.milk.model.BaseReceiveBean;
 import com.yundong.milk.model.OrderListBean;
 import com.yundong.milk.present.MineOrderFragmentPresenter;
@@ -147,6 +148,15 @@ public class OrderListAdapter extends RecyclerView.Adapter<OrderListAdapter.Good
             holder.btnCommonRight.setTag(position);
             holder.btnCommonCenter.setTag(position);
             holder.itemView.setTag(position);
+
+            holder.itemView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    Intent intent=new Intent(mContext, GoodsDetailActivity.class);
+                    intent.putExtra("GOODS_ID",mList.get(position).getGoods_id());
+                    mContext.startActivity(intent);
+                }
+            });
         }
     }
 

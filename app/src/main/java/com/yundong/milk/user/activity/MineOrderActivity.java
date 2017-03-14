@@ -8,22 +8,14 @@ import android.widget.RadioGroup;
 
 import com.yundong.milk.R;
 import com.yundong.milk.base.BaseActivity;
-import com.yundong.milk.model.OrderListBean;
-import com.yundong.milk.present.MineOrderFragmentPresenter;
 import com.yundong.milk.user.adapter.OrderFragmentAdapter;
 import com.yundong.milk.user.fragment.MineOrderFragment;
 import com.yundong.milk.user.fragment.WatingCommentFragment;
 import com.yundong.milk.user.fragment.WatingPayFragment;
 import com.yundong.milk.user.fragment.WatingReceiveGoodsFragment;
-import com.yundong.milk.view.IOrderListView;
 
 import java.util.ArrayList;
 import java.util.List;
-
-import rx.Observable;
-import rx.Subscriber;
-import rx.android.schedulers.AndroidSchedulers;
-import rx.schedulers.Schedulers;
 
 /**
  * Created by lj on 2016/11/14.
@@ -46,7 +38,7 @@ public class MineOrderActivity extends BaseActivity {
         List<Fragment> list = new ArrayList<>();
         //全部
         list.add(MineOrderFragment.newInstance(0));
-        //代付款
+        //待付款
         list.add(WatingPayFragment.newInstance(1));
         //待收货
         list.add(WatingReceiveGoodsFragment.newInstance(2));

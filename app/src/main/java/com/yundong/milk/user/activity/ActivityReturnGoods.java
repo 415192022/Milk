@@ -14,7 +14,6 @@ import android.widget.TextView;
 import com.google.gson.Gson;
 import com.yundong.milk.R;
 import com.yundong.milk.base.BaseActivity;
-import com.yundong.milk.cache.CacheActivity;
 import com.yundong.milk.imagechoose.ChooseImage;
 import com.yundong.milk.imagechoose.MultiImageSelectorActivity;
 import com.yundong.milk.imagechoose.crop.HDApp;
@@ -23,13 +22,11 @@ import com.yundong.milk.model.BaseReceiveBean;
 import com.yundong.milk.model.OrderListBean;
 import com.yundong.milk.model.send.CommentImageBean;
 import com.yundong.milk.present.ActivityReturnGoodsPresenter;
-import com.yundong.milk.present.FeedBackActivityPresenter;
 import com.yundong.milk.util.Base64Utils;
 import com.yundong.milk.util.ToastUtil;
 import com.yundong.milk.util.rxbus.RxBus;
 import com.yundong.milk.util.rxbus.Subscribe;
 import com.yundong.milk.util.rxbus.ThreadMode;
-import com.yundong.milk.view.IFeedBackView;
 import com.yundong.milk.view.IReturnGoodsView;
 
 import java.util.ArrayList;
@@ -157,7 +154,6 @@ public class ActivityReturnGoods extends BaseActivity
 
     @Override
     public void returnGoods(BaseReceiveBean baseReceiveBean) {
-        ToastUtil.showLongToast(baseReceiveBean+"");
         if(baseReceiveBean.getCode().equals("2000")){
             finish();
         }

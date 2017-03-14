@@ -1,10 +1,12 @@
 package com.yundong.milk.present;
 
 import com.yundong.milk.interaptor.ICommitPlateformAudit;
+import com.yundong.milk.interaptor.impl.ApplyForCompanyImpl;
 import com.yundong.milk.interaptor.impl.CommitPlateformAuditImpl;
 import com.yundong.milk.interaptor.impl.PlateformAuditImpl;
 import com.yundong.milk.model.BaseReceiveBean;
 import com.yundong.milk.model.PlatformAuditBean;
+import com.yundong.milk.view.IApplyForChangeCompanyView;
 import com.yundong.milk.view.ICommitPlateformAuditView;
 import com.yundong.milk.view.IPlateformAuditView;
 
@@ -27,10 +29,15 @@ public class PlatformAuditActivityPresenter {
     private CommitPlateformAuditImpl commitPlateformAudit;
     private ICommitPlateformAuditView iCommitPlateformAuditView;
 
+    //申请修改公司
+    private ApplyForCompanyImpl applyForCompany;
+    private IApplyForChangeCompanyView iApplyForChangeCompanyView;
+
 
     private PlatformAuditActivityPresenter() {
         plateformAudit = new PlateformAuditImpl();
         commitPlateformAudit = new CommitPlateformAuditImpl();
+        applyForCompany=new ApplyForCompanyImpl();
     }
 
     public static PlatformAuditActivityPresenter getinstance() {
@@ -38,9 +45,14 @@ public class PlatformAuditActivityPresenter {
         return platformAuditActivityPresenter;
     }
 
-    public PlatformAuditActivityPresenter with(IPlateformAuditView iPlateformAuditView, ICommitPlateformAuditView iCommitPlateformAuditView) {
+    public PlatformAuditActivityPresenter with(
+            IPlateformAuditView iPlateformAuditView
+            , ICommitPlateformAuditView iCommitPlateformAuditView
+            ,IApplyForChangeCompanyView iApplyForChangeCompanyView
+    ) {
         this.iCommitPlateformAuditView = iCommitPlateformAuditView;
         this.iPlateformAuditView = iPlateformAuditView;
+        this.iApplyForChangeCompanyView = iApplyForChangeCompanyView;
         return platformAuditActivityPresenter;
     }
 
@@ -66,14 +78,20 @@ public class PlatformAuditActivityPresenter {
                 });
     }
 
-    public void commitPlateformAudit(String user_id
+    public void commitPlateformAudit(
+            String user_id
             , String company_name
-            , String area
-            , String area_id
             , String charge_people
             , String charge_phone
-            , String license) {
-        commitPlateformAudit.commitPlateformAudit(user_id, company_name, area, area_id, charge_people, charge_phone, license)
+            , String license
+            , String province_name
+            , String province_id
+            , String city_name
+            , String city_id
+            , String area_name
+            , String area_id
+            , String area_info) {
+        commitPlateformAudit.commitPlateformAudit(user_id, company_name, charge_people, charge_phone, license, province_name, province_id, city_name, city_id, area_name, area_id, area_info)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new Subscriber<BaseReceiveBean>() {
@@ -93,6 +111,27 @@ public class PlatformAuditActivityPresenter {
                     }
                 })
         ;
+    }
 
+    public void applyForCompany(String company_id){
+        applyForCompany.applyForChangeCommany(company_id)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new Subscriber<BaseReceiveBean>() {
+                    @Override
+                    public void onCompleted() {
+
+                    }
+
+                    @Override
+                    public void onError(Throwable e) {
+                        iApplyForChangeCompanyView.applyForChangeCompanyOnError(e.getMessage());
+                    }
+
+                    @Override
+                    public void onNext(BaseReceiveBean baseReceiveBean) {
+                        iApplyForChangeCompanyView.applyForChangeCompany(baseReceiveBean);
+                    }
+                });
     }
 }

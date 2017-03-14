@@ -22,9 +22,9 @@ import java.util.ArrayList;
  * Created by lj on 2016/11/17.
  * 我的收藏
  */
-public class GoodsSortListTwoAdapter extends RecyclerView.Adapter<GoodsSortListTwoAdapter.GoodsHolder> implements View.OnClickListener {
+public class GoodsSortListTwoAdapter extends RecyclerView.Adapter<GoodsSortListTwoAdapter.GoodsHolder>  {
 
-    private ArrayList<TypeGoodsBean.TypeGoodsBeanDataO.TypeGoodsBeanDataA> mList=new ArrayList<TypeGoodsBean.TypeGoodsBeanDataO.TypeGoodsBeanDataA>();
+    private ArrayList<TypeGoodsBean.TypeGoodsBeanDataO.TypeGoodsBeanDataA> mList = new ArrayList<TypeGoodsBean.TypeGoodsBeanDataO.TypeGoodsBeanDataA>();
     private Activity mContext;
 
     public GoodsSortListTwoAdapter(Activity context, ArrayList<TypeGoodsBean.TypeGoodsBeanDataO.TypeGoodsBeanDataA> mList) {
@@ -62,23 +62,21 @@ public class GoodsSortListTwoAdapter extends RecyclerView.Adapter<GoodsSortListT
         holder.txtGoodsContent.setText(mList.get(position).getGoods_name());
         holder.txtPrice.setText("￥" + mList.get(position).getGoods_price());
         holder.txtSellNum.setText(mList.get(position).getGoods_marketprice());
-        holder.itemView.setOnClickListener(this);
         holder.itemView.setTag(position);
 
+        holder.itemView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(mContext, GoodsDetailActivity.class);
+                intent.putExtra("GOODS_ID", mList.get(position).getGoods_id());
+                mContext.startActivity(intent);
+            }
+        });
     }
 
     @Override
     public int getItemCount() {
         return mList.size();
-    }
-
-    @Override
-    public void onClick(View view) {
-        switch (view.getId()) {
-            default:
-                mContext.startActivity(new Intent(mContext, GoodsDetailActivity.class));
-                break;
-        }
     }
 
     public static class GoodsHolder extends RecyclerView.ViewHolder {

@@ -2,6 +2,8 @@ package com.yundong.milk.cart.fragment;
 
 import android.os.Handler;
 import android.support.v7.widget.GridLayoutManager;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.view.View;
 
 import com.yundong.milk.R;
@@ -39,7 +41,7 @@ public class CartFragment extends BaseFragment
 {
     private SwipyRefreshLayout srl_car_list;
 
-    private XRecyclerView mRecyclerView;
+    private RecyclerView mRecyclerView;
     private CartListAdapter mAdapter;
     private XRecyclerView mFooterRecyclerView;
     private CartFooterListAdapter mFooterAdapter;
@@ -62,17 +64,16 @@ public class CartFragment extends BaseFragment
 
     @Override
     public void initView(View view) {
-        mRecyclerView = (XRecyclerView) view.findViewById(R.id.recyclerView);
-        mRecyclerView.initParams();
-        mRecyclerView.setLoadingMoreEnabled(false);
-        mRecyclerView.setPullRefreshEnabled(false);
+        mRecyclerView = (RecyclerView) view.findViewById(R.id.recyclerView);
+        mRecyclerView.setHasFixedSize(true);
+        mRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
         View footerView = View.inflate(getActivity(), R.layout.cart_footer, null);
         mFooterRecyclerView = (XRecyclerView) footerView.findViewById(R.id.recyclerViewFooter);
         mFooterRecyclerView.initParams();
         mFooterRecyclerView.setLayoutManager(new GridLayoutManager(getActivity(), 2));
         mFooterAdapter = new CartFooterListAdapter(getActivity());
         mFooterRecyclerView.setAdapter(mFooterAdapter);
-        mRecyclerView.addFootView(footerView);
+//        mRecyclerView.addFootView(footerView);
 //        mFooterRecyclerView.setPullRefreshEnabled(false);
 //        mFooterRecyclerView.setLoadingMoreEnabled(false);
         srl_car_list= (SwipyRefreshLayout) view.findViewById(R.id.srl_car_list);
@@ -151,7 +152,6 @@ public class CartFragment extends BaseFragment
             mAdapter.getmList().clear();
             carFragmentPresenter.getCarList(YunDongApplication.getLoginBean().getData().getUserinfo().getId());
         } else if (direction == SwipyRefreshLayoutDirection.BOTTOM) {
-            ToastUtil.showShortToast("上拉加载");
             srl_car_list.setRefreshing(false);
         }
 

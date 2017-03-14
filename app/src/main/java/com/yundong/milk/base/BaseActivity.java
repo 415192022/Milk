@@ -12,6 +12,7 @@ import android.widget.TextView;
 
 import com.yundong.milk.R;
 import com.yundong.milk.manager.ActivityManager;
+import com.yundong.milk.manager.YunDongApplication;
 import com.yundong.milk.util.SystemBarTintManager;
 import com.yundong.milk.util.ToastUtil;
 
@@ -25,8 +26,11 @@ public class BaseActivity extends FragmentActivity implements View.OnClickListen
         super.onCreate(savedInstanceState);
         changeStatusBar(true);
         ActivityManager.getInstance().onCreate(this);
+
+        YunDongApplication.getApplication().addActivity(this);
     }
 
+    
     @TargetApi(19)
     private void setTranslucentStatus(boolean on) {
         Window win = getWindow();

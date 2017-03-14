@@ -12,9 +12,11 @@ import com.bumptech.glide.Glide;
 import com.yundong.milk.R;
 import com.yundong.milk.base.BaseActivity;
 import com.yundong.milk.manager.YunDongApplication;
+import com.yundong.milk.model.CarListBean;
 import com.yundong.milk.model.GoodsAndAddressBean;
 import com.yundong.milk.model.GoodsAndCountBean;
 import com.yundong.milk.model.GoodsDetailsBean;
+import com.yundong.milk.model.OrderListBean;
 import com.yundong.milk.model.ReceiveGoodsAddressBean;
 import com.yundong.milk.present.ConfirmOrderActivityPresenter;
 import com.yundong.milk.util.ToastUtil;
@@ -64,8 +66,7 @@ public class ConfirmOrderActivity extends BaseActivity
         tv_receiver = (TextView) findViewById(R.id.tv_receiver);
         et_msg = (EditText) findViewById(R.id.et_msg);
         confirmOrderActivityPresenter = ConfirmOrderActivityPresenter.getInstance().with(this);
-        confirmOrderActivityPresenter.receiveGoodsAddress("8");
-//        confirmOrderActivityPresenter.receiveGoodsAddress(YunDongApplication.getLoginBean().getData().getUserinfo().getId());
+        confirmOrderActivityPresenter.receiveGoodsAddress(YunDongApplication.getLoginBean().getData().getUserinfo().getId());
 
     }
 
@@ -94,9 +95,42 @@ public class ConfirmOrderActivity extends BaseActivity
         txtGoodsName.setText(goodsAndCountBean.getGoodsDetailsBean().getData().getGoods_name());
         txtShopPrice.setText(goodsAndCountBean.getGoodsDetailsBean().getData().getGoods_price());
         txtMarketPrice.setText(goodsAndCountBean.getGoodsDetailsBean().getData().getGoods_marketprice());
-        tv_totle_price.setText("¥ "+goodsAndCountBean.getTotlePrice());
-        goodsCount=goodsAndCountBean.getCount();
-        totlePrice=goodsAndCountBean.getTotlePrice();
+        tv_totle_price.setText("¥ " + goodsAndCountBean.getTotlePrice());
+        ((TextView)findViewById(R.id.txtTotal)).setText("¥ " + totlePrice);
+        goodsCount = goodsAndCountBean.getCount();
+        totlePrice = goodsAndCountBean.getTotlePrice();
+    }
+
+    private OrderListBean.OrderListData.OrderListDataArray orderListDataArray;
+
+    //接受订单货物信息
+    @Subscribe(threadMode = ThreadMode.MAIN, sticky = true)
+    public void receiveGoodsInfo(OrderListBean.OrderListData.OrderListDataArray orderListDataArray) {
+        this.orderListDataArray = orderListDataArray;
+        Glide.with(this).load(orderListDataArray.getGoods_main_image()).into(imgGoodsPic);
+        txtGoodsName.setText(orderListDataArray.getGoods_name());
+        txtShopPrice.setText(orderListDataArray.getGoods_price());
+        txtMarketPrice.setText(orderListDataArray.getGoods_marketprice());
+        totlePrice = String.valueOf(Float.parseFloat(orderListDataArray.getGoods_price()) * Float.parseFloat(orderListDataArray.getGoods_sum()));
+        tv_totle_price.setText("¥ " + totlePrice);
+        ((TextView)findViewById(R.id.txtTotal)).setText("¥ " + totlePrice);
+        goodsCount = orderListDataArray.getGoods_sum();
+    }
+
+    private CarListBean.CarListDataA carListDataA;
+
+    //接受购物车货物信息
+    @Subscribe(threadMode = ThreadMode.MAIN, sticky = true)
+    public void receiveGoodsInfo(CarListBean.CarListDataA carListDataA) {
+        this.carListDataA = carListDataA;
+        Glide.with(this).load(carListDataA.getGoods_main_image()).into(imgGoodsPic);
+        txtGoodsName.setText(carListDataA.getGoods_name());
+        txtShopPrice.setText(carListDataA.getGoods_price());
+        txtMarketPrice.setText(carListDataA.getGoods_marketprice());
+        totlePrice = String.valueOf(Float.parseFloat(carListDataA.getNumber()) * Float.parseFloat(carListDataA.getGoods_price()));
+        tv_totle_price.setText("¥ " + totlePrice);
+        ((TextView)findViewById(R.id.txtTotal)).setText("¥ " + totlePrice);
+        goodsCount = carListDataA.getNumber();
     }
 
     @Override
@@ -104,14 +138,35 @@ public class ConfirmOrderActivity extends BaseActivity
         super.onClick(view);
         switch (view.getId()) {
             case R.id.txtBuyIm:
-                GoodsAndAddressBean goodsAndAddressBean = new GoodsAndAddressBean();
-                goodsAndAddressBean.setGoodsDetailsBean(goodsDetailsBean);
-                goodsAndAddressBean.setReceiveGoodsAddressBean(receiveGoodsAddressBean);
-                goodsAndAddressBean.setMsg(et_msg.getText() + "");
-                goodsAndAddressBean.setCount(goodsCount);
-                goodsAndAddressBean.setTotlePrice(totlePrice);
-                RxBus.getDefault().post(goodsAndAddressBean);
+                if (null != goodsDetailsBean) {
+                    GoodsAndAddressBean goodsAndAddressBean = new GoodsAndAddressBean();
+                    goodsAndAddressBean.setGoodsDetailsBean(goodsDetailsBean);
+                    goodsAndAddressBean.setReceiveGoodsAddressBean(receiveGoodsAddressBean);
+                    goodsAndAddressBean.setMsg(et_msg.getText() + "");
+                    goodsAndAddressBean.setCount(goodsCount);
+                    goodsAndAddressBean.setTotlePrice(totlePrice);
+                    RxBus.getDefault().post(goodsAndAddressBean);
+
+                } else if (null != carListDataA) {
+                    GoodsAndAddressBean goodsAndAddressBean = new GoodsAndAddressBean();
+                    goodsAndAddressBean.setCarListDataA(carListDataA);
+                    goodsAndAddressBean.setReceiveGoodsAddressBean(receiveGoodsAddressBean);
+                    goodsAndAddressBean.setMsg(et_msg.getText() + "");
+                    goodsAndAddressBean.setCount(goodsCount);
+                    goodsAndAddressBean.setTotlePrice(totlePrice);
+                    RxBus.getDefault().post(goodsAndAddressBean);
+                } else if (null != orderListDataArray) {
+                    GoodsAndAddressBean goodsAndAddressBean = new GoodsAndAddressBean();
+                    goodsAndAddressBean.setOrderListDataArray(orderListDataArray);
+                    goodsAndAddressBean.setReceiveGoodsAddressBean(receiveGoodsAddressBean);
+                    goodsAndAddressBean.setMsg(et_msg.getText() + "");
+                    goodsAndAddressBean.setCount(goodsCount);
+                    goodsAndAddressBean.setTotlePrice(totlePrice);
+                    RxBus.getDefault().post(goodsAndAddressBean);
+
+                }
                 startActivity(new Intent(this, PaymentActivity.class));
+                finish();
                 break;
         }
     }
@@ -122,8 +177,8 @@ public class ConfirmOrderActivity extends BaseActivity
     public void receiveGoodsAddress(ReceiveGoodsAddressBean receiveGoodsAddressBean) {
         this.receiveGoodsAddressBean = receiveGoodsAddressBean;
         tv_address.setText(receiveGoodsAddressBean.getData().getProvince_name()
-                + " 省 " + receiveGoodsAddressBean.getData().getCity_name()
-                + " 市 " + receiveGoodsAddressBean.getData().getArea_info());
+                + " " + receiveGoodsAddressBean.getData().getCity_name()
+                + " " + receiveGoodsAddressBean.getData().getArea_info());
         tv_phone.setText(receiveGoodsAddressBean.getData().getPhone());
         tv_receiver.setText(receiveGoodsAddressBean.getData().getUname());
     }

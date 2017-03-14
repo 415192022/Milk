@@ -29,6 +29,10 @@ public class HomeGoodsListAdapter extends BaseAdapter{
     private ArrayList<GoodsCommentBean.GoodsCommentDataO.GoodsCommentDataA> mList=new ArrayList<>();
     private Context mContext;
 
+    public ArrayList<GoodsCommentBean.GoodsCommentDataO.GoodsCommentDataA> getmList() {
+        return mList;
+    }
+
     public HomeGoodsListAdapter(Context context) {
         this.mContext = context;
     }
@@ -81,6 +85,14 @@ public class HomeGoodsListAdapter extends BaseAdapter{
             viewHolder.btnBuyHome.setTag(position);
         }
         view.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent=new Intent(mContext, GoodsDetailActivity.class);
+                intent.putExtra("GOODS_ID",mList.get(position).getGoods_id());
+                mContext.startActivity(intent);
+            }
+        });
+        viewHolder.btnBuyHome.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Intent intent=new Intent(mContext, GoodsDetailActivity.class);

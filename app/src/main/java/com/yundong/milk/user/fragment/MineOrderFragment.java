@@ -10,6 +10,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.yundong.milk.R;
+import com.yundong.milk.adapter.order.OrderAllListAdapter;
 import com.yundong.milk.manager.YunDongApplication;
 import com.yundong.milk.model.OrderListBean;
 import com.yundong.milk.present.MineOrderFragmentPresenter;
@@ -34,7 +35,7 @@ import rx.schedulers.Schedulers;
 public class MineOrderFragment extends Fragment implements SwipyRefreshLayout.OnRefreshListener, IOrderListView {
 
     private RecyclerView mRecyclerView;
-    private OrderListAdapter mAdapter;
+    private OrderAllListAdapter allListAdapter;
     private SwipyRefreshLayout srl_order_list;
 
     public MineOrderFragmentPresenter maineOrderActivityPresenter;
@@ -78,8 +79,8 @@ public class MineOrderFragment extends Fragment implements SwipyRefreshLayout.On
             case 3:
                 break;
         }
-        mAdapter = new OrderListAdapter(getActivity());
-        mRecyclerView.setAdapter(mAdapter);
+        allListAdapter = new OrderAllListAdapter(getActivity());
+        mRecyclerView.setAdapter(allListAdapter);
     }
 
 
@@ -93,7 +94,7 @@ public class MineOrderFragment extends Fragment implements SwipyRefreshLayout.On
                 .subscribe(new Subscriber<OrderListBean.OrderListData.OrderListDataArray>() {
                     @Override
                     public void onCompleted() {
-                        mAdapter.addData(orderListDataArrays);
+                        allListAdapter.addData(orderListDataArrays);
                         srl_order_list.setRefreshing(false);
                     }
 
@@ -117,11 +118,10 @@ public class MineOrderFragment extends Fragment implements SwipyRefreshLayout.On
     @Override
     public void onRefresh(SwipyRefreshLayoutDirection direction) {
         if (direction == SwipyRefreshLayoutDirection.TOP) {
-            mAdapter.getmList().clear();
+            allListAdapter.getmList().clear();
             orderListDataArrays.clear();
             maineOrderActivityPresenter.orderList(YunDongApplication.getLoginBean().getData().getUserinfo().getId(), "", "", "1", "20");
         } else if (direction == SwipyRefreshLayoutDirection.BOTTOM) {
-            ToastUtil.showShortToast("上拉加载");
             srl_order_list.setRefreshing(false);
         }
     }

@@ -23,7 +23,6 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:padding="@dimen/dip_15"
-                android:text="粉红色的尽快发货是发的啥空间粉红色的"
                 android:textColor="@color/black"
                 android:textSize="@dimen/text_size_21"
                 android:textStyle="bold" />
@@ -33,7 +32,6 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:paddingLeft="@dimen/dip_15"
-                android:text="2017-01-05 14:34"
                 android:textColor="@color/lineColor"
                 android:textSize="@dimen/text_size_13" />
 
@@ -43,7 +41,6 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:padding="@dimen/dip_15"
-                android:text="法规的健身粉红色丢分his的丰盛的发生的法规的伙食费会计房间是独立开发发生的发货房是发货单上发表的说法房间的首付款讲的是"
                 android:textColor="@color/titleColor"
                 android:textSize="@dimen/text_size_16" />
 

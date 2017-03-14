@@ -3,7 +3,9 @@ package com.yundong.milk.user.activity;
 import android.app.Dialog;
 import android.content.Intent;
 import android.graphics.Bitmap;
+import android.os.Build;
 import android.os.Bundle;
+import android.support.annotation.RequiresApi;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ImageView;
@@ -57,7 +59,7 @@ public class RefundAfterSaleActivity extends BaseActivity{
             case R.id.txtRefundReason:
                 final Dialog dialog = new Dialog(this);
                 View dialogView = View.inflate(this, R.layout.dialog_refund_reason, null);
-                ListView refundListView = (ListView) dialogView.findViewById(R.id.refundListView);
+                ListView refundListView = (ListView) dialogView.findViewById(R.id.rv_platform_pca);
                 final RefundAfterSaleAdapter adapter = new RefundAfterSaleAdapter(this);
                 refundListView.setAdapter(adapter);
                 refundListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -84,6 +86,7 @@ public class RefundAfterSaleActivity extends BaseActivity{
         }
     }
 
+    @RequiresApi(api = Build.VERSION_CODES.JELLY_BEAN)
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);

@@ -12,6 +12,7 @@ import com.bumptech.glide.Glide;
 import com.yundong.milk.R;
 import com.yundong.milk.model.GoodsCommentListBean;
 import com.yundong.milk.user.adapter.AdapterCommentPhoto;
+import com.yundong.milk.util.TimeUtils;
 import com.yundong.milk.widget.CircleImageView;
 
 import java.util.ArrayList;
@@ -51,7 +52,7 @@ public class GoodsCommentListAdapter extends RecyclerView.Adapter<GoodsCommentLi
     public void onBindViewHolder(final GoodsCommentListAdapter.GoodsCommentListHolder holder, final int position) {
         holder.tv_comment_list_content.setText(goodsCommentListDataArrays.get(position).getComment_content());
         holder.tv_comment_list_uname.setText(goodsCommentListDataArrays.get(position).getComment_frommembername());
-        holder.tv_comment_list_time.setText(goodsCommentListDataArrays.get(position).getComment_addtime());
+        holder.tv_comment_list_time.setText(TimeUtils.getTimeString(Long.decode(goodsCommentListDataArrays.get(position).getComment_addtime())));
 
 
         holder.rv_comment_images.setHasFixedSize(true);

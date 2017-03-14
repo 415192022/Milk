@@ -20,6 +20,10 @@ public class GoodsSecondSortAdapter extends BaseAdapter{
 	private LayoutInflater mInflater;
 	private int selectIndex = -1;
 
+	public ArrayList<TypeBrandBean> getmListTitles() {
+		return mListTitles;
+	}
+
 	public GoodsSecondSortAdapter(Context context, ArrayList<TypeBrandBean> titles){
 		this.mContext = context;
 		this.mListTitles = titles;
