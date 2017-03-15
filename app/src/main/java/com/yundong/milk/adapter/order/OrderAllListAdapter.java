@@ -12,7 +12,9 @@ import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.yundong.milk.R;
+import com.yundong.milk.cart.activity.ConfirmOrderActivity;
 import com.yundong.milk.cart.activity.GoodsDetailActivity;
+import com.yundong.milk.manager.YunDongApplication;
 import com.yundong.milk.model.BaseReceiveBean;
 import com.yundong.milk.model.OrderListBean;
 import com.yundong.milk.present.MineOrderFragmentPresenter;
@@ -30,7 +32,7 @@ import java.util.ArrayList;
  * Created by LMW on 2016/11/17.
  * 我的收藏
  */
-public class OrderAllListAdapter extends RecyclerView.Adapter<OrderAllListAdapter.GoodsHolder> {
+public class OrderAllListAdapter extends RecyclerView.Adapter<OrderAllListAdapter.GoodsHolder> implements  ICancleOrderView{
     private ArrayList<OrderListBean.OrderListData.OrderListDataArray> mList = new ArrayList<>();
     private Context mContext;
     private MineOrderFragment mineOrderFragment;
@@ -63,28 +65,33 @@ public class OrderAllListAdapter extends RecyclerView.Adapter<OrderAllListAdapte
     public void onBindViewHolder(final OrderAllListAdapter.GoodsHolder holder, final int position) {
         holder.tv_comment.setVisibility(View.INVISIBLE);
         if (mList.size() > 0 && null != mList) {
-            holder.btnCommonCenter.setVisibility(View.VISIBLE);
-            holder.btnCommonRight.setVisibility(View.VISIBLE);
             Glide.with(mContext).load(mList.get(position).getGoods_main_image()).into(holder.imgShopPic);
             holder.txtShopName.setText(mList.get(position).getGoods_name());
             String orderState = "";
             if (mList.get(position).getOrder_state().equals("0")) {
                 orderState = "已取消";
+                holder.btnCommonCenter.setVisibility(View.GONE);
             } else if (mList.get(position).getOrder_state().equals("1")) {
-                orderState = "未付款";
+                orderState = "待付款";
+                holder.btnCommonCenter.setText("付款");
             } else if (mList.get(position).getOrder_state().equals("2")) {
                 orderState = "已付款";
+                holder.btnCommonCenter.setVisibility(View.GONE);
             } else if (mList.get(position).getOrder_state().equals("3")) {
                 orderState = "已发货";
+                holder.btnCommonCenter.setVisibility(View.GONE);
             } else if (mList.get(position).getOrder_state().equals("4")) {
                 orderState = "已收货";
+                holder.btnCommonCenter.setVisibility(View.GONE);
             }
             holder.txtRefundStatus.setText(orderState);
-            holder.btnCommonCenter.setText("退款退货");
             holder.btnCommonCenter.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    mContext.startActivity(new Intent(mContext, ActivityReturnGoods.class));
+                    //付款.
+                    RxBus.getDefault().post(mList.get(position));
+                    Intent intent = new Intent(mContext, ConfirmOrderActivity.class);
+                    mContext.startActivity(intent);
                 }
             });
 
@@ -97,12 +104,24 @@ public class OrderAllListAdapter extends RecyclerView.Adapter<OrderAllListAdapte
             holder.txtExpress.setText("包邮");
             holder.txtTotalPrice.setText("￥" + mList.get(position).getOrder_amount());
 //            holder.txtTime.setText("0天11小时59分钟");
-            holder.btnCommonRight.setText("评价");
+            holder.btnCommonRight.setText(R.string.cancel);
             holder.btnCommonRight.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    RxBus.getDefault().post(mList.get(position));
-                    mContext.startActivity(new Intent(mContext, ActivityComment.class));
+                    final SweetAlertDialog dialog = new SweetAlertDialog(mContext);
+                    dialog.showCancelButton(true);
+                    dialog.setTitleText(mContext.getString(R.string.whether_delete));
+                    dialog.setCancelText(mContext.getString(R.string.cancel));
+                    dialog.setConfirmText(mContext.getString(R.string.confirm));
+                    dialog.show();
+                    dialog.setConfirmClickListener(new SweetAlertDialog.OnSweetClickListener() {
+                        @Override
+                        public void onClick(SweetAlertDialog sweetAlertDialog) {
+                            dialog.dismiss();
+                            //取消订单
+                            MineOrderFragmentPresenter.getInstance().with(OrderAllListAdapter.this).cancleOrder(mList.get(position).getOrder_id());
+                        }
+                    });
                 }
             });
 
@@ -126,6 +145,16 @@ public class OrderAllListAdapter extends RecyclerView.Adapter<OrderAllListAdapte
     @Override
     public int getItemCount() {
         return mList.size();
+    }
+    @Override
+    public void cancleOrder(BaseReceiveBean baseReceiveBean) {
+        ToastUtil.showShortToast(baseReceiveBean.getMsg());
+        mineOrderFragment.maineOrderActivityPresenter.orderList(YunDongApplication.getLoginBean().getData().getUserinfo().getId(), "1", "", "1", "20");
+    }
+
+    @Override
+    public void cancleOrderOnError(String e) {
+
     }
 
 

@@ -1,5 +1,7 @@
 package com.yundong.milk.util;
 
+import com.google.gson.Gson;
+
 import okhttp3.OkHttpClient;
 import retrofit2.GsonConverterFactory;
 import retrofit2.Retrofit;
@@ -57,7 +59,7 @@ public class RetrofitUtils {
                     //构建Retrofit
                     retrofit = new Retrofit.Builder().
                             //增加返回值为Gson的支持(以实体类返回)
-                                    addConverterFactory(GsonConverterFactory.create()).
+                                    addConverterFactory(GsonConverterFactory.create(new Gson())).
                             //增加返回值为Oservable<T>的支持
                                     addCallAdapterFactory(RxJavaCallAdapterFactory.create()).
                             //增加返回值为String的支持
@@ -96,6 +98,17 @@ public class RetrofitUtils {
      */
     public <T> T retrofitCtreate(String baseURL, Class<T> clzz) {
         return getRetrofit(baseURL).create(clzz);
+    }
+    /**
+     * 3
+     * 得到service对象
+     *
+     * @param baseURL
+     * @param <T>
+     * @return
+     */
+    public <T> T retrofitCtreateString(String baseURL, Class<T> clzz) {
+        return getStringRetrofit(baseURL).create(clzz);
     }
 
 }

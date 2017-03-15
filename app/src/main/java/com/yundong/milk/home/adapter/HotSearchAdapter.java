@@ -9,6 +9,7 @@ import android.widget.TextView;
 import com.yundong.milk.R;
 import com.yundong.milk.model.HotSearchBean;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -23,7 +24,12 @@ public class HotSearchAdapter extends BaseAdapter{
         this.hotSearchBeens=hotSearchBeens;
         this.mContext = context;
     }
-    private List<HotSearchBean> hotSearchBeens;
+    private List<HotSearchBean> hotSearchBeens=new ArrayList<>();
+
+    public List<HotSearchBean> getHotSearchBeens() {
+        return hotSearchBeens;
+    }
+
     @Override
     public int getCount() {
         return hotSearchBeens.size();

@@ -22,9 +22,11 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="2"
+            android:layout_gravity="center"
             android:gravity="center">
 
             <TextView
+                android:layout_centerInParent="true"
                 android:id="@+id/txtTotal"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"

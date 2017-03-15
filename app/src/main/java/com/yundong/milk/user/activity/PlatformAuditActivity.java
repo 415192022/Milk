@@ -133,12 +133,17 @@ public class PlatformAuditActivity extends BaseActivity implements
                 ChooseImage.jumpSelectImage(this, REQUEST_IMAGE);
                 break;
             case R.id.tv_Complete:
-                if(null == platformAuditBean){
+                if(null == platformAuditBean.getData()){
                     //完成
                     String companyName = et_CompanyName.getText() + "".trim();
                     String array = tv_CompanyArea.getText() + "".trim();
                     String chargeMan = et_ChargeMan.getText() + "".trim();
                     String phone = et_Phone.getText() + "".trim();
+
+                    if(null==companyName || "".equals(companyName)){
+                        ToastUtil.showShortToast("公司名称不能为空");
+                        return;
+                    }
                     if (null == province) {
                         ToastUtil.showShortToast("请选择省");
                         return;
@@ -151,21 +156,17 @@ public class PlatformAuditActivity extends BaseActivity implements
                         ToastUtil.showShortToast("请选择区");
                         return;
                     }
+                    if(null==chargeMan || "".equals(chargeMan)) {
+                        ToastUtil.showShortToast("负责人不能为空");
+                        return;
+                    }
+                    if(null==phone || "".equals(phone)){
+                        ToastUtil.showShortToast("联系方式不能为空");
+                        return;
+                    }
                     if (null == bitmap) {
-                        platformAuditActivityPresenter.commitPlateformAudit(
-                                YunDongApplication.getLoginBean().getData().getUserinfo().getId(),
-                                companyName,
-                                chargeMan,
-                                phone,
-                                "",
-                                province.getArea_name(),
-                                province.getArea_id(),
-                                city.getArea_name(),
-                                city.getArea_id(),
-                                area.getArea_name(),
-                                area.getArea_id(),
-                                ""
-                        );
+                        ToastUtil.showShortToast("营业执照不能为空");
+                        return;
                     } else {
                         platformAuditActivityPresenter.commitPlateformAudit(
                                 YunDongApplication.getLoginBean().getData().getUserinfo().getId(),
@@ -229,7 +230,7 @@ public class PlatformAuditActivity extends BaseActivity implements
     @Override
     public void plateformAudit(PlatformAuditBean platformAuditBean) {
         if(null!=platformAuditBean.getData()){
-            ((TextView)findViewById(R.id.tv_Complete)).setText("修 改");
+            ((TextView)findViewById(R.id.tv_Complete)).setText("申请修改");
         }else{
             ((TextView)findViewById(R.id.tv_Complete)).setText("完 成");
         }

@@ -269,7 +269,7 @@
                 <RelativeLayout
                     android:id="@+id/reCommentInfo"
                     android:layout_width="match_parent"
-                    android:layout_height="@dimen/dip_50"
+                    android:layout_height="match_parent"
                     android:layout_marginTop="@dimen/dip_1"
                     android:background="@color/white"
                     android:paddingLeft="@dimen/dip_15">
@@ -402,7 +402,7 @@
                         android:id="@+id/txtGoodsAttrs"
                         style="@style/goodsSortTitleTextView"
                         android:text="@string/goodsAttr"
-                        android:layout_height="match_parent" />
+                        android:layout_height="wrap_content" />
 
                     <View style="@style/goodsSortVerticalLine" />
 

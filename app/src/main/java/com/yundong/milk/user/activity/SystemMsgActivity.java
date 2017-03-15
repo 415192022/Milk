@@ -83,7 +83,7 @@ public class SystemMsgActivity extends BaseActivity
     public void messageInfo(MessageInfoBean messageInfoBean) {
 //        mAdapter.getMessageInfoBeen().add(messageInfoBean.getData());
 //        mAdapter.notifyDataSetChanged();
-//        srl_message_center.setRefreshing(false);
+        srl_message_center.setRefreshing(false);
     }
 
     @Override

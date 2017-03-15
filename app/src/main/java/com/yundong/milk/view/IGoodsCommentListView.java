@@ -8,6 +8,6 @@ import com.yundong.milk.model.GoodsCommentListBean;
  */
 
 public interface IGoodsCommentListView {
-    void goodsCommentList(GoodsCommentListBean goodsCommentListBean);
+    void goodsCommentList(String goodsCommentListBean);
     void goodsCommentListOnError(String e);
 }

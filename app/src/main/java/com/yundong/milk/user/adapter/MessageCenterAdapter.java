@@ -14,6 +14,7 @@ import com.bumptech.glide.Glide;
 import com.yundong.milk.R;
 import com.yundong.milk.model.MessageListBean;
 import com.yundong.milk.user.activity.SystemMsgActivity;
+import com.yundong.milk.util.TimeUtils;
 import com.yundong.milk.util.rxbus.RxBus;
 
 import java.util.ArrayList;
@@ -51,7 +52,7 @@ public class MessageCenterAdapter extends RecyclerView.Adapter<MessageCenterAdap
         }
         holder.txtMsgType.setText(messageListDataArrays.get(position).getMessage_title());
         Glide.with(mContext).load(R.mipmap.img_red_point).into(holder.imgRedPoint);
-        holder.txtTime.setText(messageListDataArrays.get(position).getSend_time());
+        holder.txtTime.setText(TimeUtils.getTimeString(Long.decode(messageListDataArrays.get(position).getSend_time())));
         holder.txtMsgBrief.setText(messageListDataArrays.get(position).getMessage_content());
 
         holder.itemView.setOnClickListener(new View.OnClickListener() {

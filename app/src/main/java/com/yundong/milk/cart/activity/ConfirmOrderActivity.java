@@ -91,7 +91,7 @@ public class ConfirmOrderActivity extends BaseActivity
         tv_totle_price.setText("¥ " + goodsAndCountBean.getTotlePrice());
         totlePrice = goodsAndCountBean.getTotlePrice();
         goodsCount = goodsAndCountBean.getCount();
-        ((TextView)findViewById(R.id.txtTotal)).setText("¥ " + totlePrice);
+        ((TextView)findViewById(R.id.txtTotal)).setText("合计: ¥ " + totlePrice);
     }
 
     private OrderListBean.OrderListData.OrderListDataArray orderListDataArray;

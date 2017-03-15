@@ -2,6 +2,7 @@ package com.yundong.milk.interaptor;
 
 import com.yundong.milk.model.GoodsCommentListBean;
 
+import retrofit2.Call;
 import rx.Observable;
 
 /**
@@ -9,5 +10,5 @@ import rx.Observable;
  */
 
 public interface IGoodsCommentList {
-    Observable<GoodsCommentListBean> goodsCommentList(String goods_id, String page,String scores);
+    Call<String> goodsCommentList(String goods_id, String page, String scores);
 }

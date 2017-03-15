@@ -6,6 +6,7 @@ import com.yundong.milk.interaptor.IGoodsCommentList;
 import com.yundong.milk.model.GoodsCommentListBean;
 import com.yundong.milk.util.RetrofitUtils;
 
+import retrofit2.Call;
 import rx.Observable;
 
 /**
@@ -15,9 +16,9 @@ import rx.Observable;
 public class GoodsCommentListImpl implements IGoodsCommentList {
 
     @Override
-    public Observable<GoodsCommentListBean> goodsCommentList(String goods_id, String page,String scores) {
+    public Call<String> goodsCommentList(String goods_id, String page, String scores) {
         return RetrofitUtils.getInstance()
-                .retrofitCtreate(URLConst.URL_MILK_BASE, IGoodsCommentListService.class)
+                .retrofitCtreateString(URLConst.URL_MILK_BASE, IGoodsCommentListService.class)
                 .goodsCommentList(goods_id, page,scores);
     }
 }

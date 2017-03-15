@@ -35,6 +35,7 @@ public class MineOrderActivity extends BaseActivity {
         initTitle(R.string.mine_order, true);
         mRadGroup = (RadioGroup) findViewById(R.id.radGroup);
         mViewPager = (ViewPager) findViewById(R.id.viewPager);
+        mViewPager.setOffscreenPageLimit(4);
         List<Fragment> list = new ArrayList<>();
         //全部
         list.add(MineOrderFragment.newInstance(0));

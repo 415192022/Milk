@@ -4,6 +4,9 @@ import com.yundong.milk.interaptor.impl.GoodsCommentListImpl;
 import com.yundong.milk.model.GoodsCommentListBean;
 import com.yundong.milk.view.IGoodsCommentListView;
 
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 import rx.Subscriber;
 import rx.android.schedulers.AndroidSchedulers;
 import rx.schedulers.Schedulers;
@@ -34,27 +37,18 @@ public class ActivityCommentListPresenter {
         return activityCommentListPresenter;
     }
 
+    public void goodsCommentList(String goods_id, String page, String scores) {
+        goodsCommentList.goodsCommentList(goods_id, page, scores).enqueue(new Callback<String>() {
+            @Override
+            public void onResponse(Call<String> call, Response<String> response) {
+                iGoodsCommentListView.goodsCommentList(response.body());
+            }
 
-    public void goodsCommentList(String goods_id, String page ,String scores) {
-        goodsCommentList.goodsCommentList(goods_id, page,scores)
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(new Subscriber<GoodsCommentListBean>() {
-                    @Override
-                    public void onCompleted() {
-
-                    }
-
-                    @Override
-                    public void onError(Throwable e) {
-                        iGoodsCommentListView.goodsCommentListOnError(e.getMessage());
-                    }
-
-                    @Override
-                    public void onNext(GoodsCommentListBean goodsCommentListBean) {
-                        iGoodsCommentListView.goodsCommentList(goodsCommentListBean);
-                    }
-                });
+            @Override
+            public void onFailure(Call<String> call, Throwable t) {
+                iGoodsCommentListView.goodsCommentListOnError(t.getMessage());
+            }
+        });
     }
 
 }

@@ -88,6 +88,14 @@ public class GoodsDetailActivity extends BaseActivity
     private CircleImageView imgCriticHead;
     private TextView txtCommentTime;
     private TextView txtCommentContent;
+
+
+    private TextView tv_goods_detail_yieldly;
+    private TextView tv_goods_detail_features;
+    private TextView tv_goods_detail_ingredients;
+    private TextView tv_goods_detail_net_content;
+    private TextView tv_goods_detail_shelf_life;
+
     private BGABanner guide_pager;
 
     private EditText mEditGoodsNum;
@@ -133,6 +141,13 @@ public class GoodsDetailActivity extends BaseActivity
         imgCriticHead = (CircleImageView) findViewById(R.id.imgCriticHead);
         txtCommentTime = (TextView) findViewById(R.id.txtCommentTime);
         txtCommentContent = (TextView) findViewById(R.id.txtCommentContent);
+
+
+        tv_goods_detail_yieldly = (TextView) findViewById(R.id.tv_goods_detail_yieldly);
+        tv_goods_detail_features = (TextView) findViewById(R.id.tv_goods_detail_features);
+        tv_goods_detail_ingredients = (TextView) findViewById(R.id.tv_goods_detail_ingredients);
+        tv_goods_detail_net_content = (TextView) findViewById(R.id.tv_goods_detail_net_content);
+        tv_goods_detail_shelf_life = (TextView) findViewById(R.id.tv_goods_detail_shelf_life);
 
 
         guide_pager = (BGABanner) findViewById(R.id.guide_pager);
@@ -359,6 +374,22 @@ public class GoodsDetailActivity extends BaseActivity
                     .clickable(true)
                     .into(tv_goods_detail_content);
         }
+
+        //产地
+        tv_goods_detail_yieldly.setText(goodsDetailsBean.getData().getPlace_of_origin());
+        //特性
+        tv_goods_detail_yieldly.setText(goodsDetailsBean.getData().getFeatures());
+
+        //配料
+        tv_goods_detail_yieldly.setText(goodsDetailsBean.getData().getBatching());
+
+        //净含量
+        tv_goods_detail_yieldly.setText(goodsDetailsBean.getData().getNet_content());
+
+        //保质期
+        tv_goods_detail_yieldly.setText(goodsDetailsBean.getData().getShelf_life());
+
+
         //banner
         Observable.from(goodsDetailsBean.getData().getGoods_image())
                 .subscribeOn(Schedulers.io())

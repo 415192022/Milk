@@ -13,6 +13,7 @@ import com.yundong.milk.R;
 import com.yundong.milk.model.GoodsCommentListBean;
 import com.yundong.milk.user.adapter.AdapterCommentPhoto;
 import com.yundong.milk.util.TimeUtils;
+import com.yundong.milk.util.ToastUtil;
 import com.yundong.milk.widget.CircleImageView;
 
 import java.util.ArrayList;
@@ -23,19 +24,18 @@ import java.util.ArrayList;
 
 public class GoodsCommentListAdapter extends RecyclerView.Adapter<GoodsCommentListAdapter.GoodsCommentListHolder> {
 
-    private ArrayList<GoodsCommentListBean.GoodsCommentListData.GoodsCommentListArray> goodsCommentListDataArrays = new ArrayList<>();
+    private ArrayList<GoodsCommentListBean.DataBeanX._$0Bean.DataBean> goodsCommentListDataArrays = new ArrayList<>();
     private Context mContext;
 
-    public ArrayList<GoodsCommentListBean.GoodsCommentListData.GoodsCommentListArray> getGoodsCommentListDataArrays() {
+    public ArrayList<GoodsCommentListBean.DataBeanX._$0Bean.DataBean> getGoodsCommentListDataArrays() {
         return goodsCommentListDataArrays;
     }
 
     public GoodsCommentListAdapter(Context context) {
         this.mContext = context;
-        adapterCommentPhoto = new AdapterCommentPhoto(mContext);
     }
 
-    public void addData(ArrayList<GoodsCommentListBean.GoodsCommentListData.GoodsCommentListArray> list) {
+    public void addData(ArrayList<GoodsCommentListBean.DataBeanX._$0Bean.DataBean> list) {
         goodsCommentListDataArrays.addAll(list);
         notifyDataSetChanged();
     }
@@ -46,18 +46,20 @@ public class GoodsCommentListAdapter extends RecyclerView.Adapter<GoodsCommentLi
         return new GoodsCommentListAdapter.GoodsCommentListHolder(view);
     }
 
-    private AdapterCommentPhoto adapterCommentPhoto;
 
     @Override
     public void onBindViewHolder(final GoodsCommentListAdapter.GoodsCommentListHolder holder, final int position) {
         holder.tv_comment_list_content.setText(goodsCommentListDataArrays.get(position).getComment_content());
         holder.tv_comment_list_uname.setText(goodsCommentListDataArrays.get(position).getComment_frommembername());
         holder.tv_comment_list_time.setText(TimeUtils.getTimeString(Long.decode(goodsCommentListDataArrays.get(position).getComment_addtime())));
-
-
         holder.rv_comment_images.setHasFixedSize(true);
         holder.rv_comment_images.setLayoutManager(new GridLayoutManager(mContext, 4));
-        holder.rv_comment_images.setAdapter(adapterCommentPhoto);
+        AdapterCommentListImages adapterCommentListImages = new AdapterCommentListImages(mContext);
+        holder.rv_comment_images.setAdapter(adapterCommentListImages);
+        for (String s : goodsCommentListDataArrays.get(position).getComment_image()) {
+            adapterCommentListImages.getImages().add(s);
+            adapterCommentListImages.notifyDataSetChanged();
+        }
         Glide.with(mContext).load(goodsCommentListDataArrays.get(position).getAvatar()).into(holder.civ_comment_list_head);
     }
 

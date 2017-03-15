@@ -82,12 +82,15 @@ public class SettingActivity extends BaseActivity
                 startActivityForResult(new Intent(this, MineNickNameActivity.class), 100);
                 break;
             case R.id.txtRight://保存
-                if ("".equals(imageBase64) || "".equals(name)) {
-                    ToastUtil.showShortToast("用户头像或昵称为空");
-                } else {
+                if (!"".equals(imageBase64) &&  !imageBase64.equals("null")) {
                     setingActivityPresenter.upLoadHead(imageBase64, YunDongApplication.getLoginBean().getData().getUserinfo().getId());
+                } else if (!"".equals(name)) {
                     setingActivityPresenter.modifyNickName(name, YunDongApplication.getLoginBean().getData().getUserinfo().getId());
+                } else if ("".equals(name) && "".equals(imageBase64)) {
+                    finish();
                 }
+
+
                 break;
             case R.id.tv_modify://退出登录
                 final SweetAlertDialog dialog = new SweetAlertDialog(this);
@@ -104,7 +107,7 @@ public class SettingActivity extends BaseActivity
                         finish();
                         YunDongApplication.getApplication().finishActivity(MainActivity.class);
                         Intent intent = new Intent();
-                        intent.putExtra("IS_AUTO_LOGIN",false);
+                        intent.putExtra("IS_AUTO_LOGIN", false);
                         intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);//它可以关掉所要到的界面中间的activity
                         intent.setClass(SettingActivity.this, LoginActivity.class);
                         startActivity(intent);
@@ -114,8 +117,8 @@ public class SettingActivity extends BaseActivity
         }
     }
 
-    String imageBase64;
-    String name;
+    String imageBase64="";
+    String name="";
 
     @RequiresApi(api = Build.VERSION_CODES.JELLY_BEAN)
     @Override
@@ -161,6 +164,8 @@ public class SettingActivity extends BaseActivity
     @Override
     public void upLoadHead(BaseReceiveBean baseReceiveBean) {
         ToastUtil.showShortToast(baseReceiveBean.getMsg());
+        finish();
+
     }
 
     @Override
@@ -172,6 +177,7 @@ public class SettingActivity extends BaseActivity
     @Override
     public void modifyNickName(BaseReceiveBean baseReceiveBean) {
         ToastUtil.showShortToast(baseReceiveBean.getMsg());
+        finish();
     }
 
     @Override
@@ -179,13 +185,15 @@ public class SettingActivity extends BaseActivity
         ToastUtil.showShortToast("修改昵称失败" + e);
     }
 
+    private LoginBean loginBean;
 
     @Override
     public void login(LoginBean baseReceiveBean) {
+        this.loginBean = baseReceiveBean;
         Glide.with(this).load(baseReceiveBean.getData().getUserinfo().getAvatar()).into(mImgUserHead);
         tv_nick_name.setText(baseReceiveBean.getData().getUserinfo().getUname());
-        PreferencesUtils.putString(this,Const.LOGIN_AVATAR,baseReceiveBean.getData().getUserinfo().getAvatar());
-        PreferencesUtils.putString(this,Const.LOGIN_NAME,baseReceiveBean.getData().getUserinfo().getUname());
+        PreferencesUtils.putString(this, Const.LOGIN_AVATAR, baseReceiveBean.getData().getUserinfo().getAvatar());
+        PreferencesUtils.putString(this, Const.LOGIN_NAME, baseReceiveBean.getData().getUserinfo().getUname());
     }
 
     @Override

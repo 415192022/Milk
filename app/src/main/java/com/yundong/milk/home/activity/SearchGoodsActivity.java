@@ -73,7 +73,9 @@ public class SearchGoodsActivity extends BaseActivity
         mGridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                startActivity(new Intent(SearchGoodsActivity.this, GoodsListTwoSortActivity.class));
+                rv_search_result.setVisibility(View.VISIBLE);
+                srl_search_result.setVisibility(View.VISIBLE);
+                searchGoodsActivityPresenter.searchResult(mAdapter.getHotSearchBeens().get(i).getName(), "1");
             }
         });
         searchGoodsActivityPresenter = SearchGoodsActivityPresenter.getInstance().with(this, this);

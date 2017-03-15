@@ -1,54 +1,50 @@
 package com.yundong.milk.model;
 
 import java.io.Serializable;
-import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by MingweiLi on 2017/3/2.
  */
 
 public class GoodsDetailsBean implements Serializable {
+
+    /**
+     * code : 2000
+     * msg : 请求成功
+     * data : {"goods_id":1,"goods_type":1,"goods_type_name":"常温牛奶","brand_id":2,"brand_name":"伊利","goods_spec":43543,"goods_name":"别的非官方","goods_describe":null,"goods_text":"<p>体育活动如果法国恢复国家规划局官方公会激光焊接国际新城女不女冰女吧<\/p>","goods_sum":14,"goods_price":"453534.00","goods_marketprice":"65465.00","Recommend":1,"goods_salenum":0,"goods_collect":28,"goods_main_image":"http://ogqd71wd5.bkt.clouddn.com/2f8f5d5293fb42037e06c2228d65e076.jpg","goods_image":["http://ogqd71wd5.bkt.clouddn.com/2f8f5d5293fb42037e06c2228d65e076.jpg","http://ogqd71wd5.bkt.clouddn.com/2b868d00b0968a699d32409c91274efa.jpg","http://ogqd71wd5.bkt.clouddn.com/0f3c0802dd2143411ba2051a8b720dc5.jpg"],"province_id":null,"area_id":98,"place_of_origin":null,"features":null,"batching":null,"net_content":null,"shelf_life":null,"is_check":0,"goods_state":1,"goods_stateremark":null,"send_city":null,"add_time":"2017-03-14 13:35:33","update_time":"2017-02-07 04:17:43","comment":{"comment_frommemberid":12,"comment_frommembername":"Ggg","comment_addtime":1489397920,"comment_content":"民工","avatar":"http://ogqd71wd5.bkt.clouddn.com/FgLldADla5nZpD-_YQtkpjuPIBk_"},"comment_sum":6}
+     */
+
     private String code;
     private String msg;
-    private GoodsDetailsDataO data;
+    private GoodsDetailsData data;
 
-    @Override
-    public String toString() {
-        return "GoodsDetailsBean{" +
-                "code='" + code + '\'' +
-                ", msg='" + msg + '\'' +
-                ", data='" + data + '\'' +
-                '}';
-    }
-
-    public void setData(GoodsDetailsDataO data) {
-        this.data = data;
-    }
-
-    public GoodsDetailsDataO getData() {
-        return data;
+    public String getCode() {
+        return code;
     }
 
     public void setCode(String code) {
         this.code = code;
     }
 
-    public void setMsg(String msg) {
-        this.msg = msg;
-    }
-
-
-    public String getCode() {
-        return code;
-    }
-
     public String getMsg() {
         return msg;
     }
 
+    public void setMsg(String msg) {
+        this.msg = msg;
+    }
 
-    public class GoodsDetailsDataO {
-        private String goods_describe;
+    public GoodsDetailsData getData() {
+        return data;
+    }
+
+    public void setData(GoodsDetailsData data) {
+        this.data = data;
+    }
+
+    public static class GoodsDetailsData {
+
         private String goods_id;
         private String goods_type;
         private String goods_type_name;
@@ -56,6 +52,7 @@ public class GoodsDetailsBean implements Serializable {
         private String brand_name;
         private String goods_spec;
         private String goods_name;
+        private String goods_describe;
         private String goods_text;
         private String goods_sum;
         private String goods_price;
@@ -64,7 +61,6 @@ public class GoodsDetailsBean implements Serializable {
         private String goods_salenum;
         private String goods_collect;
         private String goods_main_image;
-        private ArrayList<String> goods_image;
         private String province_id;
         private String area_id;
         private String place_of_origin;
@@ -78,15 +74,54 @@ public class GoodsDetailsBean implements Serializable {
         private String send_city;
         private String add_time;
         private String update_time;
-        private Comment comment;
+        private CommentBean comment;
         private String comment_sum;
+        private List<String> goods_image;
 
-        public void setGoods_describe(String goods_describe) {
-            this.goods_describe = goods_describe;
+        @Override
+        public String toString() {
+            return "GoodsDetailsData{" +
+                    "goods_id='" + goods_id + '\'' +
+                    ", goods_type='" + goods_type + '\'' +
+                    ", goods_type_name='" + goods_type_name + '\'' +
+                    ", brand_id='" + brand_id + '\'' +
+                    ", brand_name='" + brand_name + '\'' +
+                    ", goods_spec='" + goods_spec + '\'' +
+                    ", goods_name='" + goods_name + '\'' +
+                    ", goods_describe='" + goods_describe + '\'' +
+                    ", goods_text='" + goods_text + '\'' +
+                    ", goods_sum='" + goods_sum + '\'' +
+                    ", goods_price='" + goods_price + '\'' +
+                    ", goods_marketprice='" + goods_marketprice + '\'' +
+                    ", Recommend='" + Recommend + '\'' +
+                    ", goods_salenum='" + goods_salenum + '\'' +
+                    ", goods_collect='" + goods_collect + '\'' +
+                    ", goods_main_image='" + goods_main_image + '\'' +
+                    ", province_id='" + province_id + '\'' +
+                    ", area_id='" + area_id + '\'' +
+                    ", place_of_origin='" + place_of_origin + '\'' +
+                    ", features='" + features + '\'' +
+                    ", batching='" + batching + '\'' +
+                    ", net_content='" + net_content + '\'' +
+                    ", shelf_life='" + shelf_life + '\'' +
+                    ", is_check='" + is_check + '\'' +
+                    ", goods_state='" + goods_state + '\'' +
+                    ", goods_stateremark='" + goods_stateremark + '\'' +
+                    ", send_city='" + send_city + '\'' +
+                    ", add_time='" + add_time + '\'' +
+                    ", update_time='" + update_time + '\'' +
+                    ", comment=" + comment +
+                    ", comment_sum='" + comment_sum + '\'' +
+                    ", goods_image=" + goods_image +
+                    '}';
         }
 
-        public String getGoods_describe() {
-            return goods_describe;
+        public void setGoods_image(List<String> goods_image) {
+            this.goods_image = goods_image;
+        }
+
+        public List<String> getGoods_image() {
+            return goods_image;
         }
 
         public void setGoods_id(String goods_id) {
@@ -115,6 +150,10 @@ public class GoodsDetailsBean implements Serializable {
 
         public void setGoods_name(String goods_name) {
             this.goods_name = goods_name;
+        }
+
+        public void setGoods_describe(String goods_describe) {
+            this.goods_describe = goods_describe;
         }
 
         public void setGoods_text(String goods_text) {
@@ -147,10 +186,6 @@ public class GoodsDetailsBean implements Serializable {
 
         public void setGoods_main_image(String goods_main_image) {
             this.goods_main_image = goods_main_image;
-        }
-
-        public void setGoods_image(ArrayList<String> goods_image) {
-            this.goods_image = goods_image;
         }
 
         public void setProvince_id(String province_id) {
@@ -205,7 +240,7 @@ public class GoodsDetailsBean implements Serializable {
             this.update_time = update_time;
         }
 
-        public void setComment(Comment comment) {
+        public void setComment(CommentBean comment) {
             this.comment = comment;
         }
 
@@ -241,6 +276,10 @@ public class GoodsDetailsBean implements Serializable {
             return goods_name;
         }
 
+        public String getGoods_describe() {
+            return goods_describe;
+        }
+
         public String getGoods_text() {
             return goods_text;
         }
@@ -271,10 +310,6 @@ public class GoodsDetailsBean implements Serializable {
 
         public String getGoods_main_image() {
             return goods_main_image;
-        }
-
-        public ArrayList<String> getGoods_image() {
-            return goods_image;
         }
 
         public String getProvince_id() {
@@ -329,7 +364,7 @@ public class GoodsDetailsBean implements Serializable {
             return update_time;
         }
 
-        public Comment getComment() {
+        public CommentBean getComment() {
             return comment;
         }
 
@@ -337,7 +372,15 @@ public class GoodsDetailsBean implements Serializable {
             return comment_sum;
         }
 
-        public class Comment {
+        public static class CommentBean {
+            /**
+             * comment_frommemberid : 12
+             * comment_frommembername : Ggg
+             * comment_addtime : 1489397920
+             * comment_content : 民工
+             * avatar : http://ogqd71wd5.bkt.clouddn.com/FgLldADla5nZpD-_YQtkpjuPIBk_
+             */
+
             private String comment_frommemberid;
             private String comment_frommembername;
             private String comment_addtime;
@@ -346,21 +389,13 @@ public class GoodsDetailsBean implements Serializable {
 
             @Override
             public String toString() {
-                return "Comment{" +
+                return "CommentBean{" +
                         "comment_frommemberid='" + comment_frommemberid + '\'' +
                         ", comment_frommembername='" + comment_frommembername + '\'' +
                         ", comment_addtime='" + comment_addtime + '\'' +
                         ", comment_content='" + comment_content + '\'' +
                         ", avatar='" + avatar + '\'' +
                         '}';
-            }
-
-            public void setAvatar(String avatar) {
-                this.avatar = avatar;
-            }
-
-            public String getAvatar() {
-                return avatar;
             }
 
             public void setComment_frommemberid(String comment_frommemberid) {
@@ -379,6 +414,10 @@ public class GoodsDetailsBean implements Serializable {
                 this.comment_content = comment_content;
             }
 
+            public void setAvatar(String avatar) {
+                this.avatar = avatar;
+            }
+
             public String getComment_frommemberid() {
                 return comment_frommemberid;
             }
@@ -394,7 +433,10 @@ public class GoodsDetailsBean implements Serializable {
             public String getComment_content() {
                 return comment_content;
             }
-        }
 
+            public String getAvatar() {
+                return avatar;
+            }
+        }
     }
 }

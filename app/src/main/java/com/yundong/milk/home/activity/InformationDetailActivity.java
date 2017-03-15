@@ -10,6 +10,7 @@ import com.yundong.milk.model.LetterDetailBean;
 import com.yundong.milk.model.LettersBean;
 import com.yundong.milk.present.InformationDetailActivityPresenter;
 import com.yundong.milk.util.TimeUtils;
+import com.yundong.milk.util.ToastUtil;
 import com.yundong.milk.util.rxbus.RxBus;
 import com.yundong.milk.util.rxbus.Subscribe;
 import com.yundong.milk.util.rxbus.ThreadMode;
@@ -21,12 +22,12 @@ import com.zzhoujay.richtext.callback.OnUrlClickListener;
  * Created by lj on 2017/1/5.
  * 资讯详情
  */
-public class InformationDetailActivity extends BaseActivity implements ILetterDetailView{
+public class InformationDetailActivity extends BaseActivity implements ILetterDetailView {
     private InformationDetailActivityPresenter informationDetailActivityPresenter;
 
     private TextView txtTitle;
     private TextView txtContent;
-    private TextView txtTime;
+    private TextView tv_letter_time;
 
     @Override
     protected void onStart() {
@@ -42,10 +43,10 @@ public class InformationDetailActivity extends BaseActivity implements ILetterDe
 
     private LettersBean.LettersDataO.LettersDataA lettersDataA;
 
-    @Subscribe(threadMode = ThreadMode.MAIN,sticky = true)
-    public void receiveLetterDetail(LettersBean.LettersDataO.LettersDataA lettersDataA){
-        this.lettersDataA=lettersDataA;
-        informationDetailActivityPresenter=InformationDetailActivityPresenter.getInstance().with(this);
+    @Subscribe(threadMode = ThreadMode.MAIN, sticky = true)
+    public void receiveLetterDetail(LettersBean.LettersDataO.LettersDataA lettersDataA) {
+        this.lettersDataA = lettersDataA;
+        informationDetailActivityPresenter = InformationDetailActivityPresenter.getInstance().with(this);
         informationDetailActivityPresenter.getLetterDetail(lettersDataA.getArticle_id());
     }
 
@@ -53,9 +54,9 @@ public class InformationDetailActivity extends BaseActivity implements ILetterDe
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_information_detail);
-        txtTitle= (TextView) findViewById(R.id.txtTitle);
-        txtContent= (TextView) findViewById(R.id.txtContent);
-        txtTime= (TextView) findViewById(R.id.txtTime);
+        txtTitle = (TextView) findViewById(R.id.txtTitle);
+        txtContent = (TextView) findViewById(R.id.txtContent);
+        tv_letter_time = (TextView) findViewById(R.id.tv_letter_time);
         initTitle(R.string.milkInformation, true);
     }
 
@@ -68,8 +69,7 @@ public class InformationDetailActivity extends BaseActivity implements ILetterDe
                 return false;
             }
         }).into(txtContent);
-//        txtContent.setText(letterDetailBean.getData().getArticle_content());
-        txtTime.setText(TimeUtils.getTimeString_(letterDetailBean.getData().getArticle_time()));
+        tv_letter_time.setText("发表时间: "+TimeUtils.getTimeString(Long.decode(letterDetailBean.getData().getArticle_time())));
     }
 
     @Override

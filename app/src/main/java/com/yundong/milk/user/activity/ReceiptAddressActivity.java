@@ -114,11 +114,13 @@ public class ReceiptAddressActivity extends BaseActivity implements IReceiveGood
     //申请修改收货地址
     @Override
     public void applyForModify(BaseReceiveBean baseReceiveBean) {
+        finish();
         if(null != receiveGoodsAddressBean && receiveGoodsAddressBean.getData().getIs_apply().equals("2")){
             ToastUtil.showLongToast("已提交修改收获地址,请勿重复提交！");
             return;
         }
         ToastUtil.showShortToast(baseReceiveBean.getMsg());
+
     }
 
     @Override

@@ -132,7 +132,6 @@ public class PaymentActivity extends BaseActivity implements IBuyNowView {
 
     @Subscribe(threadMode = ThreadMode.MAIN, sticky = true)
     public void receive(GoodsAndAddressBean goodsAndAddressBean) {
-        ToastUtil.showShortToast("-----" + goodsAndAddressBean);
         receiveGoodsAddressBean = goodsAndAddressBean.getReceiveGoodsAddressBean();
         carListDataA = goodsAndAddressBean.getCarListDataA();
         orderListDataArray = goodsAndAddressBean.getOrderListDataArray();
@@ -140,6 +139,7 @@ public class PaymentActivity extends BaseActivity implements IBuyNowView {
         msg = goodsAndAddressBean.getMsg();
         totlePrice = goodsAndAddressBean.getTotlePrice();
         goodsCount = goodsAndAddressBean.getCount();
+        ((TextView)findViewById(R.id.txtAllPrice)).setText(goodsAndAddressBean.getTotlePrice());
     }
 
 

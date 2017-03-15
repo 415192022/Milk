@@ -33,7 +33,7 @@ import rx.schedulers.Schedulers;
  * 待收货
  */
 
-public class WatingReceiveGoodsFragment extends Fragment implements SwipyRefreshLayout.OnRefreshListener,IOrderListView {
+public class WatingReceiveGoodsFragment extends Fragment implements SwipyRefreshLayout.OnRefreshListener, IOrderListView {
     private RecyclerView mRecyclerView;
     private OrderWaitingReceiveListAdapter orderWaitingReceiveListAdapter;
     private SwipyRefreshLayout srl_order_list;
@@ -86,8 +86,11 @@ public class WatingReceiveGoodsFragment extends Fragment implements SwipyRefresh
 
     ArrayList<OrderListBean.OrderListData.OrderListDataArray> orderListDataArrays = new ArrayList<>();
 
+    private OrderListBean orderListBean;
+
     @Override
     public void orderList(OrderListBean orderListBean) {
+        this.orderListBean = orderListBean;
         Observable.from(orderListBean.getData().getData())
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
@@ -130,6 +133,14 @@ public class WatingReceiveGoodsFragment extends Fragment implements SwipyRefresh
             maineOrderActivityPresenter.orderList(YunDongApplication.getLoginBean().getData().getUserinfo().getId(), "3", "", "1", "20");
         } else if (direction == SwipyRefreshLayoutDirection.BOTTOM) {
             srl_order_list.setRefreshing(false);
+
+            if (null != orderListBean) {
+                if (!orderListBean.getData().getLast_page().equals(orderListBean.getData().getCurrent_page())) {
+                    maineOrderActivityPresenter.orderList(YunDongApplication.getLoginBean().getData().getUserinfo().getId(), "3", "", String.valueOf(Integer.parseInt(orderListBean.getData().getCurrent_page()) + 1), "20");
+                } else {
+                    ToastUtil.showLongToast("没有更多订单信息。");
+                }
+            }
         }
     }
 }

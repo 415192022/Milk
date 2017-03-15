@@ -32,7 +32,7 @@ import rx.schedulers.Schedulers;
  * 待付款
  */
 
-public class WatingCommentFragment extends Fragment implements SwipyRefreshLayout.OnRefreshListener,IOrderListView {
+public class WatingCommentFragment extends Fragment implements SwipyRefreshLayout.OnRefreshListener, IOrderListView {
     private RecyclerView mRecyclerView;
     private OrderWaitingCommentListAdapter orderWaitingCommentListAdapter;
     private SwipyRefreshLayout srl_order_list;
@@ -85,8 +85,11 @@ public class WatingCommentFragment extends Fragment implements SwipyRefreshLayou
 
     ArrayList<OrderListBean.OrderListData.OrderListDataArray> orderListDataArrays = new ArrayList<>();
 
+    private OrderListBean orderListBean;
+
     @Override
     public void orderList(OrderListBean orderListBean) {
+        this.orderListBean = orderListBean;
         Observable.from(orderListBean.getData().getData())
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
@@ -104,7 +107,7 @@ public class WatingCommentFragment extends Fragment implements SwipyRefreshLayou
 
                     @Override
                     public void onNext(OrderListBean.OrderListData.OrderListDataArray orderListDataArray) {
-                        if(orderListDataArray.getIs_comment().equals("0")){
+                        if (orderListDataArray.getIs_comment().equals("0")) {
                             orderListDataArrays.add(orderListDataArray);
                         }
 
@@ -125,6 +128,13 @@ public class WatingCommentFragment extends Fragment implements SwipyRefreshLayou
             maineOrderActivityPresenter.orderList(YunDongApplication.getLoginBean().getData().getUserinfo().getId(), "4", "", "1", "20");
         } else if (direction == SwipyRefreshLayoutDirection.BOTTOM) {
             srl_order_list.setRefreshing(false);
+            if (null != orderListBean) {
+                if (!orderListBean.getData().getLast_page().equals(orderListBean.getData().getCurrent_page())) {
+                    maineOrderActivityPresenter.orderList(YunDongApplication.getLoginBean().getData().getUserinfo().getId(), "4", "", String.valueOf(Integer.parseInt(orderListBean.getData().getCurrent_page()) + 1), "20");
+                } else {
+                    ToastUtil.showLongToast("没有更多订单信息。");
+                }
+            }
         }
     }
 }
