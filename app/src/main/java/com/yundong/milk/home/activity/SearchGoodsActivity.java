@@ -97,6 +97,8 @@ public class SearchGoodsActivity extends BaseActivity
                 rv_search_result.setVisibility(View.VISIBLE);
                 srl_search_result.setVisibility(View.VISIBLE);
                 searchGoodsActivityPresenter.searchResult(et_search_content.getText().toString().trim(), "1");
+                searchResultAdapter.getSearchResultArrays().clear();
+                searchResultAdapter.notifyDataSetChanged();
                 break;
         }
     }
@@ -141,8 +143,15 @@ public class SearchGoodsActivity extends BaseActivity
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new Subscriber<SearchResultBean.SearchResultData.SearchResultArray>() {
                     @Override
-                    public void onCompleted() {
+                    public void onStart() {
+                        super.onStart();
+                    }
 
+                    @Override
+                    public void onCompleted() {
+                        if(searchResultAdapter.getSearchResultArrays().size()<=0){
+                            ToastUtil.showLongToast("没有搜索到商品,换个名字试试吧？");
+                        }
                     }
 
                     @Override

@@ -47,6 +47,18 @@ public class WatingReceiveGoodsFragment extends Fragment implements SwipyRefresh
         fragment.setArguments(bundle);
         return fragment;
     }
+    @Override
+    public void setUserVisibleHint(boolean isVisibleToUser) {
+        // TODO Auto-generated method stub
+        if (!isVisibleToUser) {
+            //不可见
+        } else {
+            //可见
+            maineOrderActivityPresenter = MineOrderFragmentPresenter.getInstance().with(this);
+            maineOrderActivityPresenter.orderList(YunDongApplication.getLoginBean().getData().getUserinfo().getId(), "3", "", "1", "20");
+        }
+        super.setUserVisibleHint(isVisibleToUser);
+    }
 
     @Nullable
     @Override
@@ -61,8 +73,6 @@ public class WatingReceiveGoodsFragment extends Fragment implements SwipyRefresh
         srl_order_list.setRefreshing(true);
 
 
-        maineOrderActivityPresenter = MineOrderFragmentPresenter.getInstance().with(this);
-        maineOrderActivityPresenter.orderList(YunDongApplication.getLoginBean().getData().getUserinfo().getId(), "3", "", "1", "20");
         return view;
     }
 

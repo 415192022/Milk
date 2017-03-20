@@ -47,6 +47,19 @@ public class WatingCommentFragment extends Fragment implements SwipyRefreshLayou
         return fragment;
     }
 
+    @Override
+    public void setUserVisibleHint(boolean isVisibleToUser) {
+        // TODO Auto-generated method stub
+        if (!isVisibleToUser) {
+            //不可见
+        } else {
+            //可见
+            maineOrderActivityPresenter = MineOrderFragmentPresenter.getInstance().with(this);
+            maineOrderActivityPresenter.orderList(YunDongApplication.getLoginBean().getData().getUserinfo().getId(), "4", "0", "1", "20");
+        }
+        super.setUserVisibleHint(isVisibleToUser);
+    }
+
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -60,8 +73,6 @@ public class WatingCommentFragment extends Fragment implements SwipyRefreshLayou
         srl_order_list.setRefreshing(true);
 
 
-        maineOrderActivityPresenter = MineOrderFragmentPresenter.getInstance().with(this);
-        maineOrderActivityPresenter.orderList(YunDongApplication.getLoginBean().getData().getUserinfo().getId(), "4", "0", "1", "20");
         return view;
     }
 

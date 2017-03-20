@@ -14,6 +14,7 @@ import com.bumptech.glide.Glide;
 import com.yundong.milk.R;
 import com.yundong.milk.cart.activity.ConfirmOrderActivity;
 import com.yundong.milk.cart.activity.GoodsDetailActivity;
+import com.yundong.milk.cart.activity.PaymentActivity;
 import com.yundong.milk.manager.YunDongApplication;
 import com.yundong.milk.model.BaseReceiveBean;
 import com.yundong.milk.model.GoodsAndCountBean;
@@ -31,7 +32,7 @@ import java.util.ArrayList;
 
 /**
  * Created by LMW on 2016/11/17.
- * 我的收藏
+ * 待付款
  */
 public class OrderWaitingPayListAdapter extends RecyclerView.Adapter<OrderWaitingPayListAdapter.GoodsHolder> implements  ICancleOrderView {
 
@@ -92,7 +93,7 @@ public class OrderWaitingPayListAdapter extends RecyclerView.Adapter<OrderWaitin
                 public void onClick(View view) {
                     //付款.
                     RxBus.getDefault().post(mList.get(position));
-                    Intent intent = new Intent(mContext, ConfirmOrderActivity.class);
+                    Intent intent = new Intent(mContext, PaymentActivity.class);
                     mContext.startActivity(intent);
                 }
             });

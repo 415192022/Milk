@@ -246,7 +246,6 @@ public class GoodsDetailActivity extends BaseActivity
                     goodsDetailActivityPresenter.addCar(YunDongApplication.getLoginBean().getData().getUserinfo().getId(), currentGoodsId, String.valueOf(mGoodsNum));
                 } else if (mType == 1) { //立即购买
                     mPopupWindow.dismiss();
-
                     //ConfirmOrderActivity -> receiveGoodsInfo
                     String count = mEditGoodsNum.getText() + "";
                     GoodsAndCountBean goodsAndCountBean = new GoodsAndCountBean();
@@ -282,7 +281,7 @@ public class GoodsDetailActivity extends BaseActivity
         contentView.findViewById(R.id.txtComplete).setOnClickListener(this);
         ImageView imgGoodsPic = (ImageView) contentView.findViewById(R.id.imgGoodsPic);
         TextView tv_goods_type = (TextView) contentView.findViewById(R.id.tv_goods_type);
-        tv_goods_type.setText("商品类别:" + goodsDetailsBean.getData().getGoods_type_name());
+        tv_goods_type.setText(goodsDetailsBean.getData().getGoods_type_name());
         Glide.with(this).load(goodsDetailsBean.getData().getGoods_main_image()).into(imgGoodsPic);
         txtGoodsAttrPrice = (TextView) contentView.findViewById(R.id.txtGoodsAttrPrice);
         txtGoodsAttrPrice.setText(goodsDetailsBean.getData().getGoods_price());
@@ -315,21 +314,23 @@ public class GoodsDetailActivity extends BaseActivity
         contentView.findViewById(R.id.btnReduceNumber).setOnClickListener(new View.OnClickListener() { //减少数量
             @Override
             public void onClick(View view) {
+                //减数量
                 mGoodsNum = Integer.parseInt(mEditGoodsNum.getText().toString().trim());
                 mGoodsNum--;
                 if (mGoodsNum <= 1) {
                     mGoodsNum = 1;
                 }
-                txtAttrPrice.setText("¥ " + String.valueOf(mGoodsNum * Float.parseFloat(goodsDetailsBean.getData().getGoods_price())));
+                txtAttrPrice.setText("合计: ¥ " + String.valueOf(mGoodsNum * Float.parseFloat(goodsDetailsBean.getData().getGoods_price())));
                 mEditGoodsNum.setText(String.valueOf(mGoodsNum));
             }
         });
         contentView.findViewById(R.id.btnAddNumber).setOnClickListener(new View.OnClickListener() { //增加数量
             @Override
             public void onClick(View view) {
+                //加数量
                 mGoodsNum = Integer.parseInt(mEditGoodsNum.getText().toString().trim());
                 mGoodsNum++;
-                txtAttrPrice.setText("¥ " + String.valueOf(mGoodsNum * Float.parseFloat(goodsDetailsBean.getData().getGoods_price())));
+                txtAttrPrice.setText("合计: ¥ " + String.valueOf(mGoodsNum * Float.parseFloat(goodsDetailsBean.getData().getGoods_price())));
                 mEditGoodsNum.setText(String.valueOf(mGoodsNum));
 
             }
@@ -343,6 +344,7 @@ public class GoodsDetailActivity extends BaseActivity
     //商品详情
     @Override
     public void getGoodsDetails(GoodsDetailsBean goodsDetailsBean) {
+        this.goodsDetailsBean = null;
         this.goodsDetailsBean = goodsDetailsBean;
         //现价
         txtNowPrice.setText(goodsDetailsBean.getData().getGoods_price());

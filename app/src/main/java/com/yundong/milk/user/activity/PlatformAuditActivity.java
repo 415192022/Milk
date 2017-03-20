@@ -61,8 +61,7 @@ public class PlatformAuditActivity extends BaseActivity implements
         , ICommitPlateformAuditView
         , IPCAView
         , PCAPopupWindow.OnCompleteListenner
-        , IApplyForChangeCompanyView
-{
+        , IApplyForChangeCompanyView {
 
     private static final int REQUEST_IMAGE = 2;
     private ArrayList<String> mSelectPath;
@@ -74,6 +73,7 @@ public class PlatformAuditActivity extends BaseActivity implements
     private EditText et_CompanyName;
     private ImageView iv_License;
     private TextView tv_CompanyArea;
+    private TextView tv_Complete;
     private EditText et_ChargeMan;
     private EditText et_Phone;
 
@@ -92,7 +92,9 @@ public class PlatformAuditActivity extends BaseActivity implements
         initTitle(R.string.fill_in_the_audit_information, true);
         iv_License = (ImageView) findViewById(R.id.iv_License);
         iv_License.setOnClickListener(this);
-        findViewById(R.id.tv_Complete).setOnClickListener(this);
+        tv_Complete= (TextView) findViewById(R.id.tv_Complete);
+        tv_Complete.setClickable(false);
+        tv_Complete.setOnClickListener(this);
         tv_CompanyArea = (TextView) findViewById(R.id.tv_CompanyArea);
         tv_CompanyArea.setOnClickListener(this);
 
@@ -111,7 +113,7 @@ public class PlatformAuditActivity extends BaseActivity implements
         dialog.setTitle(R.string.please_select_refund_reason);
         dialog.setContentView(dialogView);
 
-        platformAuditActivityPresenter = PlatformAuditActivityPresenter.getinstance().with(this,this, this);
+        platformAuditActivityPresenter = PlatformAuditActivityPresenter.getinstance().with(this, this, this);
         platformAuditActivityPresenter.platformAudit(YunDongApplication.getLoginBean().getData().getUserinfo().getId());
 
 
@@ -133,59 +135,62 @@ public class PlatformAuditActivity extends BaseActivity implements
                 ChooseImage.jumpSelectImage(this, REQUEST_IMAGE);
                 break;
             case R.id.tv_Complete:
-                if(null == platformAuditBean.getData()){
-                    //完成
-                    String companyName = et_CompanyName.getText() + "".trim();
-                    String array = tv_CompanyArea.getText() + "".trim();
-                    String chargeMan = et_ChargeMan.getText() + "".trim();
-                    String phone = et_Phone.getText() + "".trim();
 
-                    if(null==companyName || "".equals(companyName)){
-                        ToastUtil.showShortToast("公司名称不能为空");
-                        return;
+                if (null != platformAuditBean) {
+                    if (null == platformAuditBean.getData()) {
+//完成
+                        String companyName = et_CompanyName.getText() + "".trim();
+                        String array = tv_CompanyArea.getText() + "".trim();
+                        String chargeMan = et_ChargeMan.getText() + "".trim();
+                        String phone = et_Phone.getText() + "".trim();
+
+                        if (null == companyName || "".equals(companyName)) {
+                            ToastUtil.showShortToast("公司名称不能为空");
+                            return;
+                        }
+                        if (null == province) {
+                            ToastUtil.showShortToast("请选择省");
+                            return;
+                        }
+                        if (null == city) {
+                            ToastUtil.showShortToast("请选择市");
+                            return;
+                        }
+                        if (null == area) {
+                            ToastUtil.showShortToast("请选择区");
+                            return;
+                        }
+                        if (null == chargeMan || "".equals(chargeMan)) {
+                            ToastUtil.showShortToast("负责人不能为空");
+                            return;
+                        }
+                        if (null == phone || "".equals(phone)) {
+                            ToastUtil.showShortToast("联系方式不能为空");
+                            return;
+                        }
+                        if (null == bitmap) {
+                            ToastUtil.showShortToast("营业执照不能为空");
+                            return;
+                        } else {
+                            platformAuditActivityPresenter.commitPlateformAudit(
+                                    YunDongApplication.getLoginBean().getData().getUserinfo().getId(),
+                                    companyName,
+                                    chargeMan,
+                                    phone,
+                                    Base64Utils.bitmapToBase64(bitmap),
+                                    province.getArea_name(),
+                                    province.getArea_id(),
+                                    city.getArea_name(),
+                                    city.getArea_id(),
+                                    area.getArea_name(),
+                                    area.getArea_id(),
+                                    ""
+                            );
+                        }
+                    }else {
+                        //修改
+                        platformAuditActivityPresenter.applyForCompany(platformAuditBean.getData().getCompany_id());
                     }
-                    if (null == province) {
-                        ToastUtil.showShortToast("请选择省");
-                        return;
-                    }
-                    if (null == city) {
-                        ToastUtil.showShortToast("请选择市");
-                        return;
-                    }
-                    if (null == area) {
-                        ToastUtil.showShortToast("请选择区");
-                        return;
-                    }
-                    if(null==chargeMan || "".equals(chargeMan)) {
-                        ToastUtil.showShortToast("负责人不能为空");
-                        return;
-                    }
-                    if(null==phone || "".equals(phone)){
-                        ToastUtil.showShortToast("联系方式不能为空");
-                        return;
-                    }
-                    if (null == bitmap) {
-                        ToastUtil.showShortToast("营业执照不能为空");
-                        return;
-                    } else {
-                        platformAuditActivityPresenter.commitPlateformAudit(
-                                YunDongApplication.getLoginBean().getData().getUserinfo().getId(),
-                                companyName,
-                                chargeMan,
-                                phone,
-                                Base64Utils.bitmapToBase64(bitmap),
-                                province.getArea_name(),
-                                province.getArea_id(),
-                                city.getArea_name(),
-                                city.getArea_id(),
-                                area.getArea_name(),
-                                area.getArea_id(),
-                                ""
-                        );
-                    }
-                }else{
-                    //修改
-                    platformAuditActivityPresenter.applyForCompany(platformAuditBean.getData().getCompany_id());
                 }
 
                 break;
@@ -225,16 +230,18 @@ public class PlatformAuditActivity extends BaseActivity implements
             }
         }
     }
+
     private PlatformAuditBean platformAuditBean;
+
     //获取审核资料
     @Override
     public void plateformAudit(PlatformAuditBean platformAuditBean) {
-        if(null!=platformAuditBean.getData()){
-            ((TextView)findViewById(R.id.tv_Complete)).setText("申请修改");
-        }else{
-            ((TextView)findViewById(R.id.tv_Complete)).setText("完 成");
+        if (null != platformAuditBean.getData()) {
+            ((TextView) findViewById(R.id.tv_Complete)).setText("申请修改");
+        } else {
+            ((TextView) findViewById(R.id.tv_Complete)).setText("完 成");
         }
-        this.platformAuditBean=platformAuditBean;
+        this.platformAuditBean = platformAuditBean;
         et_CompanyName.setText(platformAuditBean.getData().getCompany_name());
         Glide.with(this).load(platformAuditBean.getData().getLicense()).into(new SimpleTarget<GlideDrawable>() {
             @Override
@@ -248,6 +255,7 @@ public class PlatformAuditActivity extends BaseActivity implements
         et_ChargeMan.setText(platformAuditBean.getData().getCharge_people());
         et_Phone.setText(platformAuditBean.getData().getCharge_phone());
         ((TextView) findViewById(R.id.tv_CompanyArea)).setText(platformAuditBean.getData().getProvince_name() + " " + platformAuditBean.getData().getCity_name() + " " + platformAuditBean.getData().getArea_name());
+        tv_Complete.setClickable(true);
     }
 
     @Override

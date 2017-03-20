@@ -9,6 +9,7 @@
     android:fitsSystemWindows="true">
 
     <include layout="@layout/head_view" />
+
     <TextView
         android:id="@+id/tv_comment_count"
         android:layout_width="66dp"
@@ -29,57 +30,66 @@
         android:orientation="horizontal">
 
         <RadioButton
-            android:checked="true"
             android:id="@+id/rb_all"
-            android:textColor="@drawable/selector_comment_list_textcolor"
-            android:gravity="center"
-            android:text="全部"
             android:layout_width="61dp"
             android:layout_height="24dp"
             android:background="@drawable/selector_comment_list"
-            android:button="@null" />
+            android:button="@null"
+            android:checked="true"
+            android:gravity="center"
+            android:text="全部"
+            android:textColor="@drawable/selector_comment_list_textcolor" />
 
         <RadioButton
             android:id="@+id/rb_good"
-            android:textColor="@drawable/selector_comment_list_textcolor"
-            android:background="@drawable/selector_comment_list"
-            android:gravity="center"
-            android:text="好评"
             android:layout_width="61dp"
             android:layout_height="24dp"
             android:layout_marginLeft="@dimen/dip_10"
-            android:button="@null" />
+            android:background="@drawable/selector_comment_list"
+            android:button="@null"
+            android:gravity="center"
+            android:text="好评"
+            android:textColor="@drawable/selector_comment_list_textcolor" />
 
         <RadioButton
             android:id="@+id/rb_middle"
-            android:textColor="@drawable/selector_comment_list_textcolor"
-            android:background="@drawable/selector_comment_list"
-            android:gravity="center"
-            android:text="中评"
             android:layout_width="61dp"
             android:layout_height="24dp"
             android:layout_marginLeft="@dimen/dip_10"
-            android:button="@null" />
+            android:background="@drawable/selector_comment_list"
+            android:button="@null"
+            android:gravity="center"
+            android:text="中评"
+            android:textColor="@drawable/selector_comment_list_textcolor" />
 
         <RadioButton
             android:id="@+id/rb_pool"
-            android:textColor="@drawable/selector_comment_list_textcolor"
-            android:background="@drawable/selector_comment_list"
-            android:gravity="center"
-            android:text="差评"
             android:layout_width="61dp"
             android:layout_height="24dp"
             android:layout_marginLeft="@dimen/dip_10"
-            android:button="@null" />
+            android:background="@drawable/selector_comment_list"
+            android:button="@null"
+            android:gravity="center"
+            android:text="差评"
+            android:textColor="@drawable/selector_comment_list_textcolor" />
     </RadioGroup>
 
-    <android.support.v7.widget.RecyclerView
-        android:id="@+id/rv_comment_list"
-        android:layout_marginLeft="@dimen/dip_15"
-        android:layout_marginRight="@dimen/dip_15"
-        android:layout_marginTop="21dp"
-        android:layout_below="@+id/rg_comment_type"
+    <com.yundong.milk.widget.swiprefreshlayout.SwipyRefreshLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        android:id="@+id/srl_comment_list_root"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"></android.support.v7.widget.RecyclerView>
+        android:layout_height="match_parent"
+        android:layout_below="@+id/rg_comment_type"
+        >
 
+        <android.support.v7.widget.RecyclerView
+
+            android:id="@+id/rv_comment_list"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+
+            android:layout_marginLeft="@dimen/dip_15"
+            android:layout_marginRight="@dimen/dip_15"
+            android:layout_marginTop="21dp"></android.support.v7.widget.RecyclerView>
+
+    </com.yundong.milk.widget.swiprefreshlayout.SwipyRefreshLayout>
 </RelativeLayout>

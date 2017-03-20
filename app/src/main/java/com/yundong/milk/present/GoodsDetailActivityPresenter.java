@@ -4,6 +4,7 @@ import com.yundong.milk.interaptor.impl.AddCarImpl;
 import com.yundong.milk.interaptor.impl.GoodsClassCommentImpl;
 import com.yundong.milk.interaptor.impl.GoodsCollectionImpl;
 import com.yundong.milk.interaptor.impl.GoodsDetailsImpl;
+import com.yundong.milk.interaptor.impl.GoodsSubtractImpl;
 import com.yundong.milk.interaptor.impl.IsCollectionGoodsImpl;
 import com.yundong.milk.model.BaseReceiveBean;
 import com.yundong.milk.model.GoodsClassCommentBean;
@@ -12,6 +13,7 @@ import com.yundong.milk.view.IAddCarView;
 import com.yundong.milk.view.IGoodsClassCommentView;
 import com.yundong.milk.view.IGoodsCollectonView;
 import com.yundong.milk.view.IGoodsDetailsView;
+import com.yundong.milk.view.IGoodsSubtractView;
 import com.yundong.milk.view.IIsCollectionGoodsView;
 
 import rx.Subscriber;
@@ -58,7 +60,8 @@ public class GoodsDetailActivityPresenter {
             , IGoodsCollectonView iGoodsCollectonView
             , IIsCollectionGoodsView iIsCollectionGoodsView
             , IAddCarView iAddCarView
-            , IGoodsClassCommentView iGoodsClassCommentView) {
+            , IGoodsClassCommentView iGoodsClassCommentView
+    ) {
         this.iGoodsDetailsView = iGoodsDetailsView;
         this.iGoodsCollectonView = iGoodsCollectonView;
         this.iIsCollectionGoodsView = iIsCollectionGoodsView;
@@ -182,4 +185,5 @@ public class GoodsDetailActivityPresenter {
                     }
                 });
     }
+
 }

@@ -69,10 +69,13 @@ public class FeedBackActivity extends BaseActivity implements View.OnClickListen
                 String phoneNum = ((EditText) findViewById(R.id.editPhoneNum)).getText().toString().trim();
                 if (TextUtils.isEmpty(content)) {
                     ToastUtil.showShortToast(getString(R.string.please_input_feed_back_content));
+                    btnCommitFeedBack.setClickable(true);
                 } else if (TextUtils.isEmpty(phoneNum)) {
                     ToastUtil.showShortToast(getString(R.string.please_input_phone_number));
+                    btnCommitFeedBack.setClickable(true);
                 } else if (phoneNum.length() != 11) {
                     ToastUtil.showShortToast(getString(R.string.phone_number_not_correct));
+                    btnCommitFeedBack.setClickable(true);
                 } else {
                     findViewById(R.id.btnCommitFeedBack).setClickable(false);
                     if (images.size() > 0) {
@@ -134,12 +137,8 @@ public class FeedBackActivity extends BaseActivity implements View.OnClickListen
 
     @Override
     public void feedBack(BaseReceiveBean baseReceiveBean) {
-        if (baseReceiveBean.getCode().equals("2000")) {
-            startActivity(new Intent(this, FeedBackComActivity.class));
-            finish();
-        } else {
-            ToastUtil.showShortToast(baseReceiveBean.getMsg());
-        }
+        ToastUtil.showShortToast(baseReceiveBean.getMsg());
+        finish();
         btnCommitFeedBack.setClickable(true);
     }
 

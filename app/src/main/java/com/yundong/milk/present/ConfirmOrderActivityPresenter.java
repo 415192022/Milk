@@ -2,10 +2,13 @@ package com.yundong.milk.present;
 
 import com.yundong.milk.interaptor.IApplyForModify;
 import com.yundong.milk.interaptor.impl.ApplyForModifyImpl;
+import com.yundong.milk.interaptor.impl.BuyNowImpl;
 import com.yundong.milk.interaptor.impl.ReceiveGoodsAddressImpl;
 import com.yundong.milk.model.BaseReceiveBean;
+import com.yundong.milk.model.BuyNowBean;
 import com.yundong.milk.model.ReceiveGoodsAddressBean;
 import com.yundong.milk.view.IApplyForModifyView;
+import com.yundong.milk.view.IBuyNowView;
 import com.yundong.milk.view.IReceiveGoodsAddressView;
 
 import rx.Subscriber;
@@ -26,13 +29,19 @@ public class ConfirmOrderActivityPresenter {
     private ApplyForModifyImpl applyFroModify;
     private IApplyForModifyView iApplyForModifyView;
 
+    //立即购买
+    private BuyNowImpl buyNow;
+    private IBuyNowView iBuyNowView;
+
     private ConfirmOrderActivityPresenter() {
         receiveGoodsAddress = new ReceiveGoodsAddressImpl();
         applyFroModify=new ApplyForModifyImpl();
+        buyNow=new BuyNowImpl();
     }
 
-    public ConfirmOrderActivityPresenter with(IReceiveGoodsAddressView iReceiveGoodsAddressView) {
+    public ConfirmOrderActivityPresenter with(IReceiveGoodsAddressView iReceiveGoodsAddressView,IBuyNowView iBuyNowView) {
         this.iReceiveGoodsAddressView = iReceiveGoodsAddressView;
+        this.iBuyNowView=iBuyNowView;
         return confirmOrderActivityPresenter;
     }
     public ConfirmOrderActivityPresenter with(IReceiveGoodsAddressView iReceiveGoodsAddressView,IApplyForModifyView iApplyForModifyView) {
@@ -86,6 +95,28 @@ public class ConfirmOrderActivityPresenter {
                     @Override
                     public void onNext(BaseReceiveBean baseReceiveBean) {
                         iApplyForModifyView.applyForModify(baseReceiveBean);
+                    }
+                });
+    }
+
+    public void buyNow(String user_id, String goods_id, String number, String message) {
+        buyNow.buyNow(user_id, goods_id, number, message)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new Subscriber<BuyNowBean>() {
+                    @Override
+                    public void onCompleted() {
+
+                    }
+
+                    @Override
+                    public void onError(Throwable e) {
+                        iBuyNowView.buyNowOnError(e.getMessage());
+                    }
+
+                    @Override
+                    public void onNext(BuyNowBean buyNowBean) {
+                        iBuyNowView.buyNow(buyNowBean);
                     }
                 });
     }

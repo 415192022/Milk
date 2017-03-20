@@ -3,6 +3,7 @@ package com.yundong.milk.adapter.comment;
 import android.content.Context;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -10,6 +11,7 @@ import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.yundong.milk.R;
+import com.yundong.milk.manager.YunDongApplication;
 import com.yundong.milk.model.GoodsCommentListBean;
 import com.yundong.milk.user.adapter.AdapterCommentPhoto;
 import com.yundong.milk.util.TimeUtils;
@@ -46,15 +48,20 @@ public class GoodsCommentListAdapter extends RecyclerView.Adapter<GoodsCommentLi
         return new GoodsCommentListAdapter.GoodsCommentListHolder(view);
     }
 
+    private AdapterCommentListImages adapterCommentListImages;
 
     @Override
     public void onBindViewHolder(final GoodsCommentListAdapter.GoodsCommentListHolder holder, final int position) {
         holder.tv_comment_list_content.setText(goodsCommentListDataArrays.get(position).getComment_content());
         holder.tv_comment_list_uname.setText(goodsCommentListDataArrays.get(position).getComment_frommembername());
         holder.tv_comment_list_time.setText(TimeUtils.getTimeString(Long.decode(goodsCommentListDataArrays.get(position).getComment_addtime())));
+        if (goodsCommentListDataArrays.get(position).getComment_image().size() <= 0) {
+            holder.rv_comment_images.setVisibility(View.GONE);
+        }
+        Log.i("LMW", goodsCommentListDataArrays.get(position).getComment_image() + "");
         holder.rv_comment_images.setHasFixedSize(true);
         holder.rv_comment_images.setLayoutManager(new GridLayoutManager(mContext, 4));
-        AdapterCommentListImages adapterCommentListImages = new AdapterCommentListImages(mContext);
+        adapterCommentListImages = new AdapterCommentListImages(YunDongApplication.getApplication());
         holder.rv_comment_images.setAdapter(adapterCommentListImages);
         for (String s : goodsCommentListDataArrays.get(position).getComment_image()) {
             adapterCommentListImages.getImages().add(s);
@@ -84,6 +91,7 @@ public class GoodsCommentListAdapter extends RecyclerView.Adapter<GoodsCommentLi
             tv_comment_list_time = (TextView) itemView.findViewById(R.id.tv_comment_list_time);
             tv_comment_list_content = (TextView) itemView.findViewById(R.id.tv_comment_list_content);
             rv_comment_images = (RecyclerView) itemView.findViewById(R.id.rv_comment_images);
+
         }
     }
 }

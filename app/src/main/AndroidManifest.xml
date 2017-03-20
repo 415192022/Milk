@@ -5,22 +5,28 @@
     <!-- 网络权限 -->
     <uses-permission android:name="android.permission.INTERNET" />
     <!-- 百度地图权限 -->
-    <uses-permission android:name="android.permission.WRITE_SETTINGS"/>
-    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
-    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION"/>
-    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
-    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE"/>
-    <uses-permission android:name="android.permission.CHANGE_WIFI_STATE"/>
-    <uses-permission android:name="android.permission.READ_PHONE_STATE"/>
+    <uses-permission android:name="android.permission.WRITE_SETTINGS" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
+    <uses-permission android:name="android.permission.CHANGE_WIFI_STATE" />
+    <uses-permission android:name="android.permission.READ_PHONE_STATE" />
     <!-- 拨打电话 -->
     <uses-permission android:name="android.permission.CALL_PHONE" />
     <!-- 分享 -->
     <uses-permission android:name="android.permission.GET_TASKS" />
-    <uses-permission android:name="android.permission.MANAGE_ACCOUNTS"/>
-    <uses-permission android:name="android.permission.GET_ACCOUNTS"/>
+    <uses-permission android:name="android.permission.MANAGE_ACCOUNTS" />
+    <uses-permission android:name="android.permission.GET_ACCOUNTS" />
     <!-- 蓝牙分享所需的权限 -->
     <uses-permission android:name="android.permission.BLUETOOTH" />
     <uses-permission android:name="android.permission.BLUETOOTH_ADMIN" />
+    <uses-permission android:name="android.permission.NFC" />
+
+
+    <!--Ping++-->
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+    <uses-permission android:name="android.permission.READ_SMS" />
 
     <application
         android:name=".manager.YunDongApplication"
@@ -42,6 +48,7 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
 
         <activity
             android:name=".main.activity.MainActivity"
@@ -75,108 +82,139 @@
             android:name=".main.activity.ForgetPwdSecondActivity"
             android:screenOrientation="portrait" />
 
-        <activity android:name=".user.activity.FeedBackActivity"
-            android:screenOrientation="portrait"/>
+        <activity
+            android:name=".user.activity.FeedBackActivity"
+            android:screenOrientation="portrait" />
 
-        <activity android:name=".user.activity.FeedBackComActivity"
-            android:screenOrientation="portrait"/>
+        <activity
+            android:name=".user.activity.FeedBackComActivity"
+            android:screenOrientation="portrait" />
 
-        <activity android:name=".user.activity.ReceiptAddressActivity"
-            android:screenOrientation="portrait"/>
+        <activity
+            android:name=".user.activity.ReceiptAddressActivity"
+            android:screenOrientation="portrait" />
 
-        <activity android:name=".user.activity.MineCollectionActivity"
-            android:screenOrientation="portrait"/>
+        <activity
+            android:name=".user.activity.MineCollectionActivity"
+            android:screenOrientation="portrait" />
 
-        <activity android:name=".user.activity.MineOrderActivity"
-            android:screenOrientation="portrait"/>
+        <activity
+            android:name=".user.activity.MineOrderActivity"
+            android:screenOrientation="portrait" />
 
-        <activity android:name=".user.activity.RefundActivity"
-            android:screenOrientation="portrait"/>
+        <activity
+            android:name=".user.activity.RefundActivity"
+            android:screenOrientation="portrait" />
 
-        <activity android:name=".user.activity.SettingActivity"
-            android:screenOrientation="portrait"/>
+        <activity
+            android:name=".user.activity.SettingActivity"
+            android:screenOrientation="portrait" />
 
-        <activity android:name=".user.activity.MineNickNameActivity"
-            android:screenOrientation="portrait"/>
+        <activity
+            android:name=".user.activity.MineNickNameActivity"
+            android:screenOrientation="portrait" />
 
-        <activity android:name=".user.activity.SelectCityActivity"
-            android:screenOrientation="portrait"/>
+        <activity
+            android:name=".user.activity.SelectCityActivity"
+            android:screenOrientation="portrait" />
 
-        <activity android:name=".user.activity.MessageCenterActivity"
-            android:screenOrientation="portrait"/>
+        <activity
+            android:name=".user.activity.MessageCenterActivity"
+            android:screenOrientation="portrait" />
 
-        <activity android:name=".user.activity.SystemMsgActivity"
-            android:screenOrientation="portrait"/>
+        <activity
+            android:name=".user.activity.SystemMsgActivity"
+            android:screenOrientation="portrait" />
 
-        <activity android:name=".user.activity.MoneyToWhereActivity"
-            android:screenOrientation="portrait"/>
+        <activity
+            android:name=".user.activity.MoneyToWhereActivity"
+            android:screenOrientation="portrait" />
 
-        <activity android:name=".user.activity.OrderDetailActivity"
-            android:screenOrientation="portrait"/>
+        <activity
+            android:name=".user.activity.OrderDetailActivity"
+            android:screenOrientation="portrait" />
 
-        <activity android:name=".user.activity.RefundDetailActivity"
-            android:screenOrientation="portrait"/>
+        <activity
+            android:name=".user.activity.RefundDetailActivity"
+            android:screenOrientation="portrait" />
 
-        <activity android:name=".user.activity.TradeSuccessActivity"
-            android:screenOrientation="portrait"/>
+        <activity
+            android:name=".user.activity.TradeSuccessActivity"
+            android:screenOrientation="portrait" />
 
-        <activity android:name=".user.activity.ApplyForMoney"
-            android:screenOrientation="portrait"/>
+        <activity
+            android:name=".user.activity.ApplyForMoney"
+            android:screenOrientation="portrait" />
 
-        <activity android:name=".user.activity.RefundAfterSaleActivity"
-            android:screenOrientation="portrait"/>
+        <activity
+            android:name=".user.activity.RefundAfterSaleActivity"
+            android:screenOrientation="portrait" />
 
-        <activity android:name=".user.activity.PlatformAuditActivity"
-            android:screenOrientation="portrait"/>
+        <activity
+            android:name=".user.activity.PlatformAuditActivity"
+            android:screenOrientation="portrait" />
 
-        <activity android:name=".cart.activity.PaymentActivity"
-            android:screenOrientation="portrait"/>
+        <activity
+            android:name=".cart.activity.PaymentActivity"
+            android:screenOrientation="portrait" />
 
-        <activity android:name=".cart.activity.PaySuccessActivity"
-            android:screenOrientation="portrait"/>
+        <activity
+            android:name=".cart.activity.PaySuccessActivity"
+            android:screenOrientation="portrait" />
 
-        <activity android:name=".cart.activity.ConfirmOrderActivity"
-            android:screenOrientation="portrait"/>
+        <activity
+            android:name=".cart.activity.ConfirmOrderActivity"
+            android:screenOrientation="portrait" />
 
-        <activity android:name=".cart.activity.GoodsDetailActivity"
-            android:windowSoftInputMode="adjustResize"
-            android:screenOrientation="portrait"/>
+        <activity
+            android:name=".cart.activity.GoodsDetailActivity"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustResize" />
 
-        <activity android:name=".home.activity.InformationActivity"
-            android:screenOrientation="portrait"/>
+        <activity
+            android:name=".home.activity.InformationActivity"
+            android:screenOrientation="portrait" />
 
-        <activity android:name=".home.activity.InformationDetailActivity"
-            android:screenOrientation="portrait"/>
+        <activity
+            android:name=".home.activity.InformationDetailActivity"
+            android:screenOrientation="portrait" />
 
-        <activity android:name=".home.activity.SearchGoodsActivity"
-            android:screenOrientation="portrait"/>
+        <activity
+            android:name=".home.activity.SearchGoodsActivity"
+            android:screenOrientation="portrait" />
 
-        <activity android:name=".home.activity.GoodsListActivity"
-            android:screenOrientation="portrait"/>
+        <activity
+            android:name=".home.activity.GoodsListActivity"
+            android:screenOrientation="portrait" />
 
-        <activity android:name=".home.activity.GoodsListTwoSortActivity"
-            android:screenOrientation="portrait"/>
+        <activity
+            android:name=".home.activity.GoodsListTwoSortActivity"
+            android:screenOrientation="portrait" />
 
-        <activity android:name=".cart.activity.SeeAllCommentActivity"
-            android:screenOrientation="portrait"/>
+        <activity
+            android:name=".cart.activity.SeeAllCommentActivity"
+            android:screenOrientation="portrait" />
 
-        <activity android:name=".user.activity.ActivityComment"
-            android:screenOrientation="portrait"/>
+        <activity
+            android:name=".user.activity.ActivityComment"
+            android:screenOrientation="portrait" />
 
-        <activity android:name=".user.activity.ActivityCommentList"
-            android:screenOrientation="portrait"/>
+        <activity
+            android:name=".user.activity.ActivityCommentList"
+            android:screenOrientation="portrait" />
 
         <!-- 分享 -->
         <activity
             android:name="com.mob.tools.MobUIShell"
-            android:theme="@android:style/Theme.Translucent.NoTitleBar"
             android:configChanges="keyboardHidden|orientation|screenSize"
             android:screenOrientation="portrait"
-            android:windowSoftInputMode="stateHidden|adjustResize" >
+            android:theme="@android:style/Theme.Translucent.NoTitleBar"
+            android:windowSoftInputMode="stateHidden|adjustResize">
 
             <intent-filter>
                 <data android:scheme="tencent1105875736" />
                 <action android:name="android.intent.action.VIEW" />
+
                 <category android:name="android.intent.category.BROWSABLE" />
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
@@ -191,10 +229,43 @@
         <!--微信分享回调 -->
         <activity
             android:name=".wxapi.WXEntryActivity"
-            android:theme="@android:style/Theme.Translucent.NoTitleBar"
             android:configChanges="keyboardHidden|orientation|screenSize"
             android:exported="true"
-            android:screenOrientation="portrait" />
+            android:screenOrientation="portrait"
+            android:theme="@android:style/Theme.Translucent.NoTitleBar" />
+
+
+        <!-- Ping++ SDK -->
+        <activity
+            android:name="com.pingplusplus.android.PaymentActivity"
+            android:configChanges="orientation|keyboardHidden|navigation|screenSize"
+            android:launchMode="singleTop"
+            android:theme="@android:style/Theme.Translucent.NoTitleBar" />
+
+        <!-- 微信支付 -->
+        <activity-alias
+            android:name=".wxapi.WXPayEntryActivity"
+            android:exported="true"
+            android:targetActivity="com.pingplusplus.android.PaymentActivity" />
+
+
+        <!-- 银联支付 sdk -->
+        <activity
+            android:name="com.unionpay.uppay.PayActivity"
+            android:configChanges="orientation|keyboardHidden|navigation|screenSize" />
+
+        <!--支付宝-->
+        <activity
+            android:name="com.alipay.sdk.app.H5PayActivity"
+            android:configChanges="orientation|keyboardHidden|navigation"
+            android:exported="false"
+            android:screenOrientation="behind"></activity>
+        <activity
+            android:name="com.alipay.sdk.auth.AuthActivity"
+            android:configChanges="orientation|keyboardHidden|navigation"
+            android:exported="false"
+            android:screenOrientation="behind"></activity>
+        <!--/支付宝-->
 
     </application>
 

@@ -30,19 +30,18 @@ import java.util.ArrayList;
 
 /**
  * Created by LMW on 2016/11/17.
- * 我的收藏
+ * 全部订单
  */
 public class OrderAllListAdapter extends RecyclerView.Adapter<OrderAllListAdapter.GoodsHolder> implements  ICancleOrderView{
     private ArrayList<OrderListBean.OrderListData.OrderListDataArray> mList = new ArrayList<>();
     private Context mContext;
     private MineOrderFragment mineOrderFragment;
-
     public OrderAllListAdapter(Context context) {
         this.mContext = context;
     }
 
-    public OrderAllListAdapter(Context context, MineOrderFragment mineOrderFragment) {
-        this.mineOrderFragment = mineOrderFragment;
+    public OrderAllListAdapter(Context context,  MineOrderFragment mineOrderFragment) {
+        this.mineOrderFragment=mineOrderFragment;
         this.mContext = context;
     }
 
@@ -149,7 +148,7 @@ public class OrderAllListAdapter extends RecyclerView.Adapter<OrderAllListAdapte
     @Override
     public void cancleOrder(BaseReceiveBean baseReceiveBean) {
         ToastUtil.showShortToast(baseReceiveBean.getMsg());
-        mineOrderFragment.maineOrderActivityPresenter.orderList(YunDongApplication.getLoginBean().getData().getUserinfo().getId(), "1", "", "1", "20");
+        mineOrderFragment.refresh();
     }
 
     @Override

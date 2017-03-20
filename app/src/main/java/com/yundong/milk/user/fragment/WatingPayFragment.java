@@ -32,7 +32,7 @@ import rx.schedulers.Schedulers;
  * 待付款
  */
 
-public class WatingPayFragment extends Fragment implements SwipyRefreshLayout.OnRefreshListener,IOrderListView {
+public class WatingPayFragment extends Fragment implements SwipyRefreshLayout.OnRefreshListener, IOrderListView {
     private RecyclerView mRecyclerView;
     private OrderWaitingPayListAdapter orderWaitingPayListAdapter;
     private SwipyRefreshLayout srl_order_list;
@@ -45,6 +45,25 @@ public class WatingPayFragment extends Fragment implements SwipyRefreshLayout.On
         bundle.putInt("page", page);
         fragment.setArguments(bundle);
         return fragment;
+    }
+
+    @Override
+    public void setUserVisibleHint(boolean isVisibleToUser) {
+        // TODO Auto-generated method stub
+        if (!isVisibleToUser) {
+            //不可见
+        } else {
+            //可见
+
+            maineOrderActivityPresenter = MineOrderFragmentPresenter.getInstance().with(this);
+            if (null == orderWaitingPayListAdapter) {
+                orderListDataArrays.clear();
+                maineOrderActivityPresenter.orderList(YunDongApplication.getLoginBean().getData().getUserinfo().getId(), "1", "", "1", "20");
+            } else {
+                refresh();
+            }
+        }
+        super.setUserVisibleHint(isVisibleToUser);
     }
 
     @Nullable
@@ -60,8 +79,6 @@ public class WatingPayFragment extends Fragment implements SwipyRefreshLayout.On
         srl_order_list.setRefreshing(true);
 
 
-        maineOrderActivityPresenter = MineOrderFragmentPresenter.getInstance().with(this);
-        maineOrderActivityPresenter.orderList(YunDongApplication.getLoginBean().getData().getUserinfo().getId(), "1", "", "1", "20");
         return view;
     }
 
@@ -86,9 +103,10 @@ public class WatingPayFragment extends Fragment implements SwipyRefreshLayout.On
     ArrayList<OrderListBean.OrderListData.OrderListDataArray> orderListDataArrays = new ArrayList<>();
 
     private OrderListBean orderListBean;
+
     @Override
     public void orderList(OrderListBean orderListBean) {
-        this.orderListBean=orderListBean;
+        this.orderListBean = orderListBean;
         Observable.from(orderListBean.getData().getData())
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
@@ -123,12 +141,14 @@ public class WatingPayFragment extends Fragment implements SwipyRefreshLayout.On
 
     }
 
+    public void refresh() {
+        orderWaitingPayListAdapter.getmList().clear();
+        maineOrderActivityPresenter.orderList(YunDongApplication.getLoginBean().getData().getUserinfo().getId(), "1", "", "1", "20");
+    }
     @Override
     public void onRefresh(SwipyRefreshLayoutDirection direction) {
         if (direction == SwipyRefreshLayoutDirection.TOP) {
-            orderWaitingPayListAdapter.getmList().clear();
-            orderListDataArrays.clear();
-            maineOrderActivityPresenter.orderList(YunDongApplication.getLoginBean().getData().getUserinfo().getId(), "1", "", "1", "20");
+            refresh();
         } else if (direction == SwipyRefreshLayoutDirection.BOTTOM) {
             srl_order_list.setRefreshing(false);
             if (null != orderListBean) {

@@ -1,8 +1,12 @@
 package com.yundong.milk.present;
 
 import com.yundong.milk.interaptor.impl.BuyNowImpl;
+import com.yundong.milk.interaptor.impl.PingPayImpl;
+import com.yundong.milk.model.BaseReceiveBean;
 import com.yundong.milk.model.BuyNowBean;
+import com.yundong.milk.model.PingPayBean;
 import com.yundong.milk.view.IBuyNowView;
+import com.yundong.milk.view.IPingPayView;
 
 import rx.Subscriber;
 import rx.android.schedulers.AndroidSchedulers;
@@ -15,12 +19,12 @@ import rx.schedulers.Schedulers;
 public class PaymentActivityPresenter {
     private static PaymentActivityPresenter paymentActivityPresenter;
 
-    //立即支付
-    private BuyNowImpl buyNow;
-    private IBuyNowView iBuyNowView;
+    //请求支付
+    private IPingPayView iPingPayView;
+    private PingPayImpl pingPay;
 
     private PaymentActivityPresenter() {
-        buyNow = new BuyNowImpl();
+        pingPay = new PingPayImpl();
     }
 
     public static PaymentActivityPresenter getInstance() {
@@ -28,16 +32,18 @@ public class PaymentActivityPresenter {
         return paymentActivityPresenter;
     }
 
-    public PaymentActivityPresenter with(IBuyNowView iBuyNowView) {
-        this.iBuyNowView = iBuyNowView;
+    public PaymentActivityPresenter with(IPingPayView iPingPayView) {
+        this.iPingPayView = iPingPayView;
         return paymentActivityPresenter;
     }
 
-    public void buyNow(String user_id, String goods_id, String number, String message) {
-        buyNow.buyNow(user_id, goods_id, number, message)
+    public void pingPay(String order_no
+            , String user_id
+            , String channel) {
+        pingPay.pingPay(order_no, user_id, channel)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(new Subscriber<BuyNowBean>() {
+                .subscribe(new Subscriber<PingPayBean>() {
                     @Override
                     public void onCompleted() {
 
@@ -45,13 +51,14 @@ public class PaymentActivityPresenter {
 
                     @Override
                     public void onError(Throwable e) {
-                        iBuyNowView.buyNowOnError(e.getMessage());
+                        iPingPayView.pingPayOnError(e.getLocalizedMessage());
                     }
 
                     @Override
-                    public void onNext(BuyNowBean buyNowBean) {
-                        iBuyNowView.buyNow(buyNowBean);
+                    public void onNext(PingPayBean pingPayBean) {
+                        iPingPayView.pingPay(pingPayBean);
                     }
                 });
     }
+
 }

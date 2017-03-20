@@ -14,5 +14,10 @@ import rx.Observable;
 public interface IFeedBackService {
     @FormUrlEncoded
     @POST("feedback")
-    Observable<BaseReceiveBean> feedBack(@Field("user_id") String user_id, @Field("comment") String comment, @Field("phone") String phone, @Field("feedback_img") String feedback_img);
+    Observable<BaseReceiveBean> feedBack(
+            @Field("user_id") String user_id
+            , @Field("comment") String comment
+            , @Field("phone") String phone
+            , @Field("feedback_img") String feedback_img
+    );
 }

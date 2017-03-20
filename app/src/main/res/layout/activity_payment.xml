@@ -47,6 +47,7 @@
         android:background="@color/bg" />
 
     <RelativeLayout
+        android:id="@+id/rl_wx_root"
         android:layout_width="match_parent"
         android:layout_height="@dimen/dip_60"
         android:layout_below="@+id/line"
@@ -66,6 +67,36 @@
 
         <CheckBox
             android:id="@+id/checkWeChat"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_alignParentRight="true"
+            android:button="@null"
+            android:drawableLeft="@drawable/check_goods"
+            android:paddingLeft="@dimen/dip_10"
+            android:paddingRight="@dimen/dip_10" />
+
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dip_60"
+        android:layout_below="@+id/rl_wx_root"
+        android:background="@color/white"
+        android:paddingLeft="@dimen/dip_15"
+        android:paddingRight="@dimen/dip_15">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:drawableLeft="@mipmap/img_wx_pay"
+            android:drawablePadding="@dimen/dip_10"
+            android:gravity="center_vertical"
+            android:text="银联支付"
+            android:textColor="@color/titleColor"
+            android:textSize="@dimen/text_size_15" />
+
+        <CheckBox
+            android:id="@+id/cb_upacp"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:layout_alignParentRight="true"

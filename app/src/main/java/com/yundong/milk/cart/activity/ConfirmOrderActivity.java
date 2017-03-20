@@ -12,6 +12,7 @@ import com.bumptech.glide.Glide;
 import com.yundong.milk.R;
 import com.yundong.milk.base.BaseActivity;
 import com.yundong.milk.manager.YunDongApplication;
+import com.yundong.milk.model.BuyNowBean;
 import com.yundong.milk.model.CarListBean;
 import com.yundong.milk.model.GoodsAndAddressBean;
 import com.yundong.milk.model.GoodsAndCountBean;
@@ -19,9 +20,11 @@ import com.yundong.milk.model.GoodsDetailsBean;
 import com.yundong.milk.model.OrderListBean;
 import com.yundong.milk.model.ReceiveGoodsAddressBean;
 import com.yundong.milk.present.ConfirmOrderActivityPresenter;
+import com.yundong.milk.util.ToastUtil;
 import com.yundong.milk.util.rxbus.RxBus;
 import com.yundong.milk.util.rxbus.Subscribe;
 import com.yundong.milk.util.rxbus.ThreadMode;
+import com.yundong.milk.view.IBuyNowView;
 import com.yundong.milk.view.IReceiveGoodsAddressView;
 
 /**
@@ -30,7 +33,8 @@ import com.yundong.milk.view.IReceiveGoodsAddressView;
  */
 public class ConfirmOrderActivity extends BaseActivity
         implements
-        IReceiveGoodsAddressView {
+        IReceiveGoodsAddressView
+        , IBuyNowView {
     private ImageView imgGoodsPic;
     private TextView txtGoodsName;
     private TextView txtShopPrice;
@@ -58,7 +62,7 @@ public class ConfirmOrderActivity extends BaseActivity
         tv_phone = (TextView) findViewById(R.id.tv_phone);
         tv_receiver = (TextView) findViewById(R.id.tv_receiver);
         et_msg = (EditText) findViewById(R.id.et_msg);
-        confirmOrderActivityPresenter = ConfirmOrderActivityPresenter.getInstance().with(this);
+        confirmOrderActivityPresenter = ConfirmOrderActivityPresenter.getInstance().with(this, this);
         confirmOrderActivityPresenter.receiveGoodsAddress(YunDongApplication.getLoginBean().getData().getUserinfo().getId());
 
     }
@@ -83,6 +87,7 @@ public class ConfirmOrderActivity extends BaseActivity
     //接受货物信息
     @Subscribe(threadMode = ThreadMode.MAIN, sticky = true)
     public void receiveGoodsInfo(GoodsAndCountBean goodsAndCountBean) {
+        ToastUtil.showLongToast(goodsAndCountBean.getGoodsDetailsBean().getData().getGoods_id());
         this.goodsDetailsBean = goodsAndCountBean.getGoodsDetailsBean();
         Glide.with(this).load(goodsAndCountBean.getGoodsDetailsBean().getData().getGoods_main_image()).into(imgGoodsPic);
         txtGoodsName.setText(goodsAndCountBean.getGoodsDetailsBean().getData().getGoods_name());
@@ -91,24 +96,24 @@ public class ConfirmOrderActivity extends BaseActivity
         tv_totle_price.setText("¥ " + goodsAndCountBean.getTotlePrice());
         totlePrice = goodsAndCountBean.getTotlePrice();
         goodsCount = goodsAndCountBean.getCount();
-        ((TextView)findViewById(R.id.txtTotal)).setText("合计: ¥ " + totlePrice);
+        ((TextView) findViewById(R.id.txtTotal)).setText("合计: ¥ " + totlePrice);
     }
 
     private OrderListBean.OrderListData.OrderListDataArray orderListDataArray;
 
-    //接受订单货物信息
-    @Subscribe(threadMode = ThreadMode.MAIN, sticky = true)
-    public void receiveGoodsInfo(OrderListBean.OrderListData.OrderListDataArray orderListDataArray) {
-        this.orderListDataArray = orderListDataArray;
-        Glide.with(this).load(orderListDataArray.getGoods_main_image()).into(imgGoodsPic);
-        txtGoodsName.setText(orderListDataArray.getGoods_name());
-        txtShopPrice.setText(orderListDataArray.getGoods_price());
-        txtMarketPrice.setText(orderListDataArray.getGoods_marketprice());
-        totlePrice = String.valueOf(Float.parseFloat(orderListDataArray.getGoods_price()) * Float.parseFloat(orderListDataArray.getGoods_sum()));
-        tv_totle_price.setText("¥ " + totlePrice);
-        ((TextView)findViewById(R.id.txtTotal)).setText("¥ " + totlePrice);
-        goodsCount = orderListDataArray.getGoods_sum();
-    }
+//    //接受订单货物信息
+//    @Subscribe(threadMode = ThreadMode.MAIN, sticky = true)
+//    public void receiveGoodsInfo(OrderListBean.OrderListData.OrderListDataArray orderListDataArray) {
+//        this.orderListDataArray = orderListDataArray;
+//        Glide.with(this).load(orderListDataArray.getGoods_main_image()).into(imgGoodsPic);
+//        txtGoodsName.setText(orderListDataArray.getGoods_name());
+//        txtShopPrice.setText(orderListDataArray.getGoods_price());
+//        txtMarketPrice.setText(orderListDataArray.getGoods_marketprice());
+//        totlePrice = String.valueOf(Float.parseFloat(orderListDataArray.getGoods_price()) * Float.parseFloat(orderListDataArray.getGoods_sum()));
+//        tv_totle_price.setText("¥ " + orderListDataArray.getOrder_amount());
+//        ((TextView) findViewById(R.id.txtTotal)).setText("¥ " + totlePrice);
+//        goodsCount = orderListDataArray.getGoods_sum();
+//    }
 
     private CarListBean.CarListDataA carListDataA;
 
@@ -122,7 +127,7 @@ public class ConfirmOrderActivity extends BaseActivity
         txtMarketPrice.setText(carListDataA.getGoods_marketprice());
         totlePrice = String.valueOf(Float.parseFloat(carListDataA.getNumber()) * Float.parseFloat(carListDataA.getGoods_price()));
         tv_totle_price.setText("¥ " + totlePrice);
-        ((TextView)findViewById(R.id.txtTotal)).setText("¥ " + totlePrice);
+        ((TextView) findViewById(R.id.txtTotal)).setText("¥ " + totlePrice);
         goodsCount = carListDataA.getNumber();
     }
 
@@ -131,35 +136,50 @@ public class ConfirmOrderActivity extends BaseActivity
         super.onClick(view);
         switch (view.getId()) {
             case R.id.txtBuyIm:
-                if (null != goodsDetailsBean) {
-                    GoodsAndAddressBean goodsAndAddressBean = new GoodsAndAddressBean();
-                    goodsAndAddressBean.setGoodsDetailsBean(goodsDetailsBean);
-                    goodsAndAddressBean.setReceiveGoodsAddressBean(receiveGoodsAddressBean);
-                    goodsAndAddressBean.setMsg(et_msg.getText() + "");
-                    goodsAndAddressBean.setCount(goodsCount);
-                    goodsAndAddressBean.setTotlePrice(totlePrice);
-                    RxBus.getDefault().post(goodsAndAddressBean);
+                if (null != goodsDetailsBean && null != goodsDetailsBean.getData()) {
+                    //调用立即购买接口
+                    confirmOrderActivityPresenter.buyNow(YunDongApplication.getLoginBean().getData().getUserinfo().getId()
+                            , goodsDetailsBean.getData().getGoods_id(), goodsCount, et_msg.getText() + "");
+                } else if (null != orderListDataArray) {
+                    confirmOrderActivityPresenter.buyNow(YunDongApplication.getLoginBean().getData().getUserinfo().getId()
+                            , orderListDataArray.getGoods_id(), goodsCount, et_msg.getText() + "");
 
                 } else if (null != carListDataA) {
-                    GoodsAndAddressBean goodsAndAddressBean = new GoodsAndAddressBean();
-                    goodsAndAddressBean.setCarListDataA(carListDataA);
-                    goodsAndAddressBean.setReceiveGoodsAddressBean(receiveGoodsAddressBean);
-                    goodsAndAddressBean.setMsg(et_msg.getText() + "");
-                    goodsAndAddressBean.setCount(goodsCount);
-                    goodsAndAddressBean.setTotlePrice(totlePrice);
-                    RxBus.getDefault().post(goodsAndAddressBean);
-                } else if (null != orderListDataArray) {
-                    GoodsAndAddressBean goodsAndAddressBean = new GoodsAndAddressBean();
-                    goodsAndAddressBean.setOrderListDataArray(orderListDataArray);
-                    goodsAndAddressBean.setReceiveGoodsAddressBean(receiveGoodsAddressBean);
-                    goodsAndAddressBean.setMsg(et_msg.getText() + "");
-                    goodsAndAddressBean.setCount(goodsCount);
-                    goodsAndAddressBean.setTotlePrice(totlePrice);
-                    RxBus.getDefault().post(goodsAndAddressBean);
+                    confirmOrderActivityPresenter.buyNow(YunDongApplication.getLoginBean().getData().getUserinfo().getId()
+                            , carListDataA.getGoods_id(), goodsCount, et_msg.getText() + "");
 
                 }
-                startActivity(new Intent(this, PaymentActivity.class));
-                finish();
+
+
+//                if (null != goodsDetailsBean) {
+//                    GoodsAndAddressBean goodsAndAddressBean = new GoodsAndAddressBean();
+//                    goodsAndAddressBean.setGoodsDetailsBean(goodsDetailsBean);
+//                    goodsAndAddressBean.setReceiveGoodsAddressBean(receiveGoodsAddressBean);
+//                    goodsAndAddressBean.setMsg(et_msg.getText() + "");
+//                    goodsAndAddressBean.setCount(goodsCount);
+//                    goodsAndAddressBean.setTotlePrice(totlePrice);
+//                    RxBus.getDefault().post(goodsAndAddressBean);
+//
+//                } else if (null != carListDataA) {
+//                    GoodsAndAddressBean goodsAndAddressBean = new GoodsAndAddressBean();
+//                    goodsAndAddressBean.setCarListDataA(carListDataA);
+//                    goodsAndAddressBean.setReceiveGoodsAddressBean(receiveGoodsAddressBean);
+//                    goodsAndAddressBean.setMsg(et_msg.getText() + "");
+//                    goodsAndAddressBean.setCount(goodsCount);
+//                    goodsAndAddressBean.setTotlePrice(totlePrice);
+//                    RxBus.getDefault().post(goodsAndAddressBean);
+//                } else if (null != orderListDataArray) {
+//                    GoodsAndAddressBean goodsAndAddressBean = new GoodsAndAddressBean();
+//                    goodsAndAddressBean.setOrderListDataArray(orderListDataArray);
+//                    goodsAndAddressBean.setReceiveGoodsAddressBean(receiveGoodsAddressBean);
+//                    goodsAndAddressBean.setMsg(et_msg.getText() + "");
+//                    goodsAndAddressBean.setCount(goodsCount);
+//                    goodsAndAddressBean.setTotlePrice(totlePrice);
+//                    RxBus.getDefault().post(goodsAndAddressBean);
+//
+//                }
+//                startActivity(new Intent(this, PaymentActivity.class));
+//                finish();
                 break;
         }
     }
@@ -178,6 +198,17 @@ public class ConfirmOrderActivity extends BaseActivity
 
     @Override
     public void receiveGoodsAddressOnError(String e) {
+
+    }
+
+    @Override
+    public void buyNow(BuyNowBean buyNowBean) {
+        ToastUtil.showShortToast(buyNowBean.getMsg());
+        finish();
+    }
+
+    @Override
+    public void buyNowOnError(String e) {
 
     }
 

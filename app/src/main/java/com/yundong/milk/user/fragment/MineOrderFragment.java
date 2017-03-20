@@ -48,6 +48,23 @@ public class MineOrderFragment extends Fragment implements SwipyRefreshLayout.On
         return fragment;
     }
 
+    @Override
+    public void setUserVisibleHint(boolean isVisibleToUser) {
+        // TODO Auto-generated method stub
+        if (!isVisibleToUser) {
+            //不可见
+        } else {
+            //可见
+            maineOrderActivityPresenter = MineOrderFragmentPresenter.getInstance().with(this);
+            if (null == allListAdapter) {
+                maineOrderActivityPresenter.orderList(YunDongApplication.getLoginBean().getData().getUserinfo().getId(), "", "", "1", "20");
+            } else {
+                refresh();
+            }
+        }
+        super.setUserVisibleHint(isVisibleToUser);
+    }
+
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -59,10 +76,8 @@ public class MineOrderFragment extends Fragment implements SwipyRefreshLayout.On
         srl_order_list.setDirection(SwipyRefreshLayoutDirection.BOTH);
         srl_order_list.setOnRefreshListener(this);
         srl_order_list.setRefreshing(true);
-
-
-        maineOrderActivityPresenter = MineOrderFragmentPresenter.getInstance().with(this);
-        maineOrderActivityPresenter.orderList(YunDongApplication.getLoginBean().getData().getUserinfo().getId(), "", "", "1", "20");
+        allListAdapter = new OrderAllListAdapter(getActivity(), this);
+        mRecyclerView.setAdapter(allListAdapter);
         return view;
     }
 
@@ -79,12 +94,10 @@ public class MineOrderFragment extends Fragment implements SwipyRefreshLayout.On
             case 3:
                 break;
         }
-        allListAdapter = new OrderAllListAdapter(getActivity());
-        mRecyclerView.setAdapter(allListAdapter);
+
     }
 
 
-    ArrayList<OrderListBean.OrderListData.OrderListDataArray> orderListDataArrays = new ArrayList<>();
 
     private OrderListBean orderListBean;
 
@@ -96,9 +109,15 @@ public class MineOrderFragment extends Fragment implements SwipyRefreshLayout.On
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new Subscriber<OrderListBean.OrderListData.OrderListDataArray>() {
                     @Override
+                    public void onStart() {
+                        super.onStart();
+                        allListAdapter.getmList().clear();
+                    }
+
+                    @Override
                     public void onCompleted() {
-                        allListAdapter.addData(orderListDataArrays);
                         srl_order_list.setRefreshing(false);
+                        allListAdapter.notifyDataSetChanged();
                     }
 
                     @Override
@@ -108,7 +127,8 @@ public class MineOrderFragment extends Fragment implements SwipyRefreshLayout.On
 
                     @Override
                     public void onNext(OrderListBean.OrderListData.OrderListDataArray orderListDataArray) {
-                        orderListDataArrays.add(orderListDataArray);
+                        allListAdapter.getmList().add(orderListDataArray);
+                        allListAdapter.notifyDataSetChanged();
                     }
                 });
     }
@@ -118,14 +138,16 @@ public class MineOrderFragment extends Fragment implements SwipyRefreshLayout.On
 
     }
 
+    public void refresh() {
+        allListAdapter.getmList().clear();
+        maineOrderActivityPresenter.orderList(YunDongApplication.getLoginBean().getData().getUserinfo().getId(), "", "", "1", "20");
+    }
+
     @Override
     public void onRefresh(SwipyRefreshLayoutDirection direction) {
         if (direction == SwipyRefreshLayoutDirection.TOP) {
-            allListAdapter.getmList().clear();
-            orderListDataArrays.clear();
-            maineOrderActivityPresenter.orderList(YunDongApplication.getLoginBean().getData().getUserinfo().getId(), "", "", "1", "20");
+            refresh();
         } else if (direction == SwipyRefreshLayoutDirection.BOTTOM) {
-            srl_order_list.setRefreshing(false);
             if (null != orderListBean) {
                 if (!orderListBean.getData().getLast_page().equals(orderListBean.getData().getCurrent_page())) {
                     maineOrderActivityPresenter.orderList(YunDongApplication.getLoginBean().getData().getUserinfo().getId(), "", "", String.valueOf(Integer.parseInt(orderListBean.getData().getCurrent_page()) + 1), "20");
