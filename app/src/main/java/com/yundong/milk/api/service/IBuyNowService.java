@@ -1,7 +1,6 @@
 package com.yundong.milk.api.service;
 
 import com.yundong.milk.model.BuyNowBean;
-import com.yundong.milk.model.GoodsClassCommentBean;
 
 import retrofit2.http.Field;
 import retrofit2.http.FormUrlEncoded;
